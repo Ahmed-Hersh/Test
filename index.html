@@ -30,14 +30,14 @@
             background-color: #f5f5f5;
             color: var(--dark-color);
             line-height: 1.6;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
         
         .container {
-            width: 95%;
+            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 10px;
+            padding: 0 15px;
         }
         
         header {
@@ -53,7 +53,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 10px;
         }
         
         .logo {
@@ -62,14 +61,14 @@
         
         .logo h1 {
             color: var(--primary-color);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 900;
             margin-bottom: 2px;
         }
         
         .logo p {
             color: var(--dark-color);
-            font-size: 0.8rem;
+            font-size: 0.7rem;
         }
         
         .dropdown {
@@ -83,14 +82,14 @@
             padding: 5px 10px;
             border: none;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
         
         .dropdown-content {
             display: none;
             position: absolute;
             background-color: white;
-            min-width: 140px;
+            min-width: 120px;
             box-shadow: var(--shadow);
             z-index: 1;
             right: 0;
@@ -102,7 +101,7 @@
             padding: 8px 12px;
             text-decoration: none;
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             transition: background-color 0.3s;
         }
         
@@ -121,18 +120,17 @@
             list-style: none;
             gap: 10px;
             flex-wrap: wrap;
-            padding: 8px 0;
+            padding: 5px 0;
             border-top: 1px solid #eee;
             border-bottom: 1px solid #eee;
-            font-size: 0.9rem;
-            margin: 0 10px;
+            font-size: 0.8rem;
         }
         
         nav a {
             text-decoration: none;
             color: var(--dark-color);
             font-weight: 700;
-            padding: 5px 10px;
+            padding: 3px 8px;
             border-radius: 5px;
             transition: all 0.3s ease;
         }
@@ -152,20 +150,19 @@
         
         .menu-section h2 {
             color: var(--section-color);
-            font-size: 1.2rem;
+            font-size: 1rem;
             margin-bottom: 15px;
-            padding-bottom: 8px;
+            padding-bottom: 5px;
             border-bottom: 2px dashed var(--section-color);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
         }
         
-        /* نظام الشبكة المعدل */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 10px;
         }
         
         .menu-card {
@@ -183,7 +180,7 @@
         }
         
         .card-image {
-            height: 120px;
+            height: 80px;
             overflow: hidden;
         }
         
@@ -199,7 +196,7 @@
         }
         
         .card-header {
-            padding: 10px;
+            padding: 8px;
             background-color: var(--section-color);
             color: white;
             display: flex;
@@ -208,48 +205,47 @@
         }
         
         .card-header h3 {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 700;
         }
         
         .price {
             background-color: white;
             color: var(--section-color);
-            padding: 3px 8px;
+            padding: 2px 6px;
             border-radius: 15px;
             font-weight: 700;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
         }
         
         .card-body {
-            padding: 10px;
+            padding: 8px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
         
         .card-body p {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: #555;
-            font-size: 0.8rem;
-            line-height: 1.5;
+            font-size: 0.7rem;
         }
         
         .card-actions {
             display: flex;
-            gap: 8px;
+            gap: 5px;
             margin-top: auto;
         }
         
         .add-to-cart {
             display: inline-block;
             border: none;
-            padding: 8px 10px;
+            padding: 5px 8px;
             border-radius: 5px;
             cursor: pointer;
             font-family: 'Tajawal', sans-serif;
             font-weight: 700;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             transition: all 0.3s ease;
             text-align: center;
             text-decoration: none;
@@ -276,9 +272,9 @@
             color: white;
             border: none;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 1.2rem;
+            width: 45px;
+            height: 45px;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -294,28 +290,28 @@
             background-color: var(--dark-color);
             color: white;
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
         }
         
         .cart-panel {
             position: fixed;
             bottom: 70px;
             left: 15px;
-            width: 300px;
+            width: 280px;
             max-height: 350px;
             background-color: white;
             border-radius: 8px;
             box-shadow: var(--shadow);
-            padding: 15px;
+            padding: 12px;
             overflow-y: auto;
             display: none;
             z-index: 999;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
         
         .cart-panel.show {
@@ -323,14 +319,14 @@
         }
         
         .cart-items {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 0;
+            padding: 6px 0;
             border-bottom: 1px solid #eee;
         }
         
@@ -349,28 +345,28 @@
         .cart-item-remove {
             color: #ff0000;
             cursor: pointer;
-            margin-right: 8px;
-            font-size: 0.9rem;
+            margin-right: 6px;
+            font-size: 0.8rem;
         }
         
         .cart-total {
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.9rem;
             text-align: left;
-            padding: 10px 0;
+            padding: 8px 0;
         }
         
         .checkout-btn {
             background-color: var(--accent-color);
             color: white;
             border: none;
-            padding: 10px;
+            padding: 8px 12px;
             border-radius: 5px;
             width: 100%;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
         
         .checkout-btn:hover {
@@ -380,32 +376,31 @@
         footer {
             background-color: var(--dark-color);
             color: white;
-            padding: 20px 0 10px;
+            padding: 15px 0 8px;
             margin-top: 20px;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
         }
         
         .contact-info {
             margin-bottom: 15px;
-            padding: 0 10px;
         }
         
         .contact-info h3 {
-            font-size: 1rem;
-            margin-bottom: 10px;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
             color: var(--primary-color);
         }
         
         .contact-info p {
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
         }
         
         .copyright {
             text-align: center;
-            padding-top: 10px;
+            padding-top: 8px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
@@ -441,7 +436,6 @@
             margin-bottom: 15px;
             color: var(--primary-color);
             text-align: center;
-            font-size: 1.2rem;
         }
         
         .form-group {
@@ -450,17 +444,16 @@
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: 700;
         }
         
         .form-group input {
             width: 100%;
-            padding: 10px;
+            padding: 8px;
             border: 1px solid #ddd;
             border-radius: 5px;
             font-family: 'Tajawal', sans-serif;
-            font-size: 0.9rem;
         }
         
         .form-actions {
@@ -471,13 +464,12 @@
         
         .form-actions button {
             flex: 1;
-            padding: 10px;
+            padding: 8px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-weight: 700;
             transition: all 0.3s;
-            font-size: 0.9rem;
         }
         
         .submit-btn {
@@ -490,35 +482,14 @@
             color: var(--dark-color);
         }
         
-        /* تحسينات للهواتف */
         @media (max-width: 768px) {
             .menu-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .menu-card {
-                max-width: 100%;
-            }
-            
-            .card-image {
-                height: 150px;
             }
             
             .dropdown-content {
                 right: auto;
                 left: 0;
-            }
-            
-            .cart-panel {
-                width: 90%;
-                max-height: 60vh;
-                left: 5%;
-                bottom: 80px;
-            }
-            
-            .form-container {
-                padding: 15px;
             }
         }
         
@@ -546,9 +517,310 @@
     </style>
 </head>
 <body>
-    <!-- باقي الكود يبقى كما هو بدون تغيير -->
-    <!-- ... -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Tasty Fast Food</h1>
+                    <p>ألذ وجبات سريعة في كركوك</p>
+                </div>
+                
+                <!-- زر القائمة العلوية -->
+                <div class="dropdown">
+                    <button class="dropbtn"><i class="fas fa-ellipsis-v"></i></button>
+                    <div class="dropdown-content">
+                        <a href="#"><i class="fas fa-home"></i> الرئيسية</a>
+                        <a href="#"><i class="fas fa-map-marker-alt"></i> موقع المطعم</a>
+                        <a href="#"><i class="fas fa-phone-alt"></i> تواصل معنا</a>
+                    </div>
+                </div>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#pizza"><i class="fas fa-pizza-slice"></i> البيتزا</a></li>
+                    <li><a href="#meals"><i class="fas fa-hamburger"></i> الوجبات</a></li>
+                    <li><a href="#special"><i class="fas fa-star"></i> السبيشل</a></li>
+                    <li><a href="#drinks"><i class="fas fa-glass-whiskey"></i> المشروبات</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
     
+    <main class="container">
+        <section id="pizza" class="menu-section" style="--section-color: #FF9F43;">
+            <h2><span>🍕</span> قسم البيتزا</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="بيتزا دجاج">
+                    </div>
+                    <div class="card-header">
+                        <h3>بيتزا دجاج</h3>
+                        <span class="price">5,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>بيتزا بالدجاج الطري مع الجبنة الذائبة وصلصة الطماطم والأعشاب الإيطالية</p>
+                        <div class="card-actions">
+                            <button class="add-to-cart" data-name="بيتزا دجاج" data-price="5000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1544982503-9f984c14501a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="بيتزا لحم">
+                    </div>
+                    <div class="card-header">
+                        <h3>بيتزا لحم</h3>
+                        <span class="price">6,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>بيتزا باللحم الطازج مع الفطر والجبنة الموزاريلا والفلفل الأخضر</p>
+                        <div class="card-actions">
+                            <button class="add-to-cart" data-name="بيتزا لحم" data-price="6000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="بيتزا تيستي">
+                    </div>
+                    <div class="card-header">
+                        <h3>بيتزا تيستي</h3>
+                        <span class="price">7,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>مزيج خاص من الدجاج واللحم مع الصلصة الخاصة والفطر والزيتون</p>
+                        <div class="card-actions">
+                            <button class="add-to-cart" data-name="بيتزا تيستي" data-price="7000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="meals" class="menu-section" style="--section-color: #FF6B6B;">
+            <h2><span>🍔</span> قسم الوجبات</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="برغر لحم">
+                    </div>
+                    <div class="card-header">
+                        <h3>برغر لحم</h3>
+                        <span class="price">4,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>برغر لحم طازج 150غ مع الخضار والصلصة الخاصة في خبز طري</p>
+                        <div class="card-actions">
+                            <button class="add-to-cart" data-name="برغر لحم" data-price="4000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="كص لحم">
+                    </div>
+                    <div class="card-header">
+                        <h3>كص لحم</h3>
+                        <span class="price">3,500 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>ساندويش لحم مشوي مع الخضار الطازجة والمايونيز والصلصة الخاصة</p>
+                        <div class="card-actions">
+                            <button class="add-to-cart" data-name="كص لحم" data-price="3500">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="كص دجاج">
+                    </div>
+                    <div class="card-header">
+                        <h3>كص دجاج</h3>
+                        <span class="price">3,500 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>ساندويش دجاج مشوي مع الخضار والثومية وصلصة الزبادي</p>
+                        <div class="card-actions">
+                            <button class="add-to-cart" data-name="كص دجاج" data-price="3500">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="صاج دجاج">
+                    </div>
+                    <div class="card-header">
+                        <h3>صاج دجاج</h3>
+                        <span class="price">4,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>دجاج صاج مع الخضار والصلصة الخاصة، يُقدم مع الخبز الطازج</p>
+                        <div class="card-actions">
+                            <button class="add-to-cart" data-name="صاج دجاج" data-price="4000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="special" class="menu-section" style="--section-color: #6BCB77;">
+            <h2><span>🌟</span> قسم سبيشل</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="3 قطع صدر دجاج مع فنگر">
+                    </div>
+                    <div class="card-header">
+                        <h3>3 قطع صدر دجاج مع فنگر</h3>
+                        <span class="price">4,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>قطع دجاج مشوية مع أصابع البطاطس المقرمشة، تُقدم مع الخبز والصلصة</p>
+                        <div class="card-actions">
+                            <button class="add-to-cart" data-name="3 قطع صدر دجاج مع فنگر" data-price="4000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="تاكو">
+                    </div>
+                    <div class="card-header">
+                        <h3>تاكو</h3>
+                        <span class="price">6,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>تاكو لحم أو دجاج مع الخضار والصلصة المكسيكية الحارة</p>
+                        <div class="card-actions">
+                            <button class="add-to-cart" data-name="تاكو" data-price="6000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="drinks" class="menu-section" style="--section-color: #4D96FF;">
+            <h2><span>🥤</span> قسم المشروبات والمقبلات</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1554866585-cd94860890b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="بيبسي">
+                    </div>
+                    <div class="card-header">
+                        <h3>بيبسي</h3>
+                        <span class="price">2,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>مشروب غازي منعش بحجم 330 مل</p>
+                        <div class="card-actions">
+                            <button class="add-to-cart" data-name="بيبسي" data-price="2000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1571805618149-3a772570ebcd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="مقبلات">
+                    </div>
+                    <div class="card-header">
+                        <h3>مقبلات</h3>
+                        <span class="price">3,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>تشكيلة من المقبلات الشهية (بطاطس، زيتون، مخللات)</p>
+                        <div class="card-actions">
+                            <button class="add-to-cart" data-name="مقبلات" data-price="3000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="فريش">
+                    </div>
+                    <div class="card-header">
+                        <h3>فريش</h3>
+                        <span class="price">4,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>عصير طازج حسب الموسم (برتقال، ليمون، فراولة)</p>
+                        <div class="card-actions">
+                            <button class="add-to-cart" data-name="فريش" data-price="4000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- سلة التسوق -->
+    <div class="cart-container">
+        <button class="cart-btn">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+        </button>
+        <div class="cart-panel">
+            <h3>سلة التسوق</h3>
+            <div class="cart-items">
+                <!-- سيتم إضافة العناصر هنا عبر الجافاسكريبت -->
+            </div>
+            <div class="cart-total">المجموع: 0 دينار</div>
+            <button class="checkout-btn">إتمام الطلب</button>
+        </div>
+    </div>
+    
+    <!-- نموذج معلومات الزبون -->
+    <div class="customer-form">
+        <div class="form-container">
+            <h3>معلومات الزبون</h3>
+            <form id="customer-info">
+                <div class="form-group">
+                    <label for="customer-name">الاسم الكامل:</label>
+                    <input type="text" id="customer-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-address">العنوان:</label>
+                    <input type="text" id="customer-address" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-phone">��قم الهاتف:</label>
+                    <input type="tel" id="customer-phone" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn">إلغاء</button>
+                    <button type="submit" class="submit-btn">إرسال الطلب</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="contact-info">
+                <h3>تواصل معنا</h3>
+                <p><span>📍</span> العنوان: كركوك - سوق الحصير</p>
+                <p><span>📞</span> الهاتف: 07701236363</p>
+                <p><span>⏰</span> أوقات العمل: 10 صباحاً - 12 منتصف الليل</p>
+                <div class="social-links" style="margin-top: 10px; display: flex; gap: 10px; justify-content: center;">
+                    <a href="#" style="color: white; font-size: 1rem;"><i class="fab fa-facebook"></i></a>
+                    <a href="#" style="color: white; font-size: 1rem;"><i class="fab fa-instagram"></i></a>
+                    <a href="#" style="color: white; font-size: 1rem;"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2023 Tasty Fast Food. جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
         // سلة التسوق
         let cart = [];
@@ -696,7 +968,7 @@
             message.style.left = '20px';
             message.style.backgroundColor = '#4CAF50';
             message.style.color = 'white';
-            message.style.padding = '10px 15px';
+            message.style.padding = '8px 15px';
             message.style.borderRadius = '5px';
             message.style.zIndex = '1000';
             message.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
@@ -752,3 +1024,5 @@
     </script>
 </body>
 </html>
+تحديث الكود
+تعديل حجم المواد لتظهر بشكل ثنائي مع ملائمتها لشاشات الهاتف
