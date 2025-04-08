@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة الطعام | Tasty Fast Food</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #FF6B6B;
+            --secondary-color: #FF9F43;
+            --accent-color: #6BCB77;
+            --drink-color: #4D96FF;
+            --dark-color: #333;
+            --light-color: #f9f9f9;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f5f5f5;
+            color: var(--dark-color);
+            line-height: 1.6;
+            font-size: 0.8rem; /* حجم الخط العام */
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background-color: #fff;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 5px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            text-align: center;
+        }
+        
+        .logo h1 {
+            color: var(--primary-color);
+            font-size: 1.4rem; /* تغيير حجم العنوان إلى 14px تقريباً */
+            font-weight: 900;
+            margin-bottom: 2px;
+        }
+        
+        .logo p {
+            color: var(--dark-color);
+            font-size: 0.7rem;
+        }
+        
+        /* قائمة الروابط العلوية */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropbtn {
+            background-color: transparent;
+            color: var(--dark-color);
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 120px;
+            box-shadow: var(--shadow);
+            z-index: 1;
+            right: 0;
+            border-radius: 5px;
+        }
+        
+        .dropdown-content a {
+            color: var(--dark-color);
+            padding: 8px 12px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.8rem;
+            transition: background-color 0.3s;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: rgba(255, 107, 107, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 5px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            font-size: 0.8rem; /* حجم خط القوائم */
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: var(--primary-color);
+            background-color: rgba(255, 107, 107, 0.1);
+        }
+        
+        .menu-section {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: var(--shadow);
+        }
+        
+        .menu-section h2 {
+            color: var(--section-color);
+            font-size: 1rem;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px dashed var(--section-color);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .menu-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .card-image {
+            height: 80px; /* تصغير ارتفاع الصور */
+            overflow: hidden;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .menu-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+        
+        .card-header {
+            padding: 8px;
+            background-color: var(--section-color);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-header h3 {
+            font-size: 0.8rem; /* حجم خط المواد */
+            font-weight: 700;
+        }
+        
+        .price {
+            background-color: white;
+            color: var(--section-color);
+            padding: 2px 6px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 0.7rem;
+        }
+        
+        .card-body {
+            padding: 8px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-body p {
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 0.7rem;
+        }
+        
+        .card-actions {
+            display: flex;
+            gap: 5px;
+            margin-top: auto;
+        }
+        
+        .order-btn, .add-to-cart {
+            display: inline-block;
+            border: none;
+            padding: 5px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            flex: 1;
+        }
+        
+        .order-btn {
+            background-color: var(--section-color);
+            color: white;
+        }
+        
+        .add-to-cart {
+            background-color: var(--dark-color);
+            color: white;
+        }
+        
+        .order-btn:hover, .add-to-cart:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+        
+        /* سلة التسوق */
+        .cart-container {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            z-index: 1000;
+        }
+        
+        .cart-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            background-color: var(--dark-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+        }
+        
+        .cart-panel {
+            position: fixed;
+            bottom: 70px;
+            left: 15px;
+            width: 280px;
+            max-height: 350px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 12px;
+            overflow-y: auto;
+            display: none;
+            z-index: 999;
+            font-size: 0.8rem;
+        }
+        
+        .cart-panel.show {
+            display: block;
+        }
+        
+        .cart-items {
+            margin-bottom: 12px;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-info {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: 700;
+        }
+        
+        .cart-item-price {
+            color: var(--primary-color);
+        }
+        
+        .cart-item-remove {
+            color: #ff0000;
+            cursor: pointer;
+            margin-right: 6px;
+            font-size: 0.8rem;
+        }
+        
+        .cart-total {
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: left;
+            padding: 8px 0;
+        }
+        
+        .checkout-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            width: 100%;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+        }
+        
+        .checkout-btn:hover {
+            background-color: #4CAF50;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 15px 0 8px;
+            margin-top: 20px;
+            font-size: 0.7rem;
+        }
+        
+        .contact-info {
+            margin-bottom: 15px;
+        }
+        
+        .contact-info h3 {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+        
+        .contact-info p {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dropdown-content {
+                right: auto;
+                left: 0;
+            }
+        }
+        
+        /* Animation for section when scrolled to */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .menu-section {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        .menu-section:nth-child(1) { animation-delay: 0.1s; }
+        .menu-section:nth-child(2) { animation-delay: 0.2s; }
+        .menu-section:nth-child(3) { animation-delay: 0.3s; }
+        .menu-section:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Tasty Fast Food</h1>
+                    <p>ألذ وجبات سريعة في كركوك</p>
+                </div>
+                
+                <!-- زر القائمة العلوية -->
+                <div class="dropdown">
+                    <button class="dropbtn"><i class="fas fa-ellipsis-v"></i></button>
+                    <div class="dropdown-content">
+                        <a href="#"><i class="fas fa-home"></i> الرئيسية</a>
+                        <a href="#"><i class="fas fa-map-marker-alt"></i> موقع المطعم</a>
+                        <a href="#"><i class="fas fa-phone-alt"></i> تواصل معنا</a>
+                    </div>
+                </div>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#pizza"><i class="fas fa-pizza-slice"></i> البيتزا</a></li>
+                    <li><a href="#meals"><i class="fas fa-hamburger"></i> الوجبات</a></li>
+                    <li><a href="#special"><i class="fas fa-star"></i> السبيشل</a></li>
+                    <li><a href="#drinks"><i class="fas fa-glass-whiskey"></i> المشروبات</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section id="pizza" class="menu-section" style="--section-color: #FF9F43;">
+            <h2><span>🍕</span> قسم البيتزا</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="بيتزا دجاج">
+                    </div>
+                    <div class="card-header">
+                        <h3>بيتزا دجاج</h3>
+                        <span class="price">5,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>بيتزا بالدجاج الطري مع الجبنة الذائبة وصلصة الطماطم والأعشاب الإيطالية</p>
+                        <div class="card-actions">
+                            <a href="tel:0770123636" class="order-btn">اطلب الآن</a>
+                            <button class="add-to-cart" data-name="بيتزا دجاج" data-price="5000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1544982503-9f984c14501a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="بيتزا لحم">
+                    </div>
+                    <div class="card-header">
+                        <h3>بيتزا لحم</h3>
+                        <span class="price">6,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>بيتزا باللحم الطازج مع الفطر والجبنة الموزاريلا والفلفل الأخضر</p>
+                        <div class="card-actions">
+                            <a href="tel:0770123636" class="order-btn">اطلب الآن</a>
+                            <button class="add-to-cart" data-name="بيتزا لحم" data-price="6000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="بيتزا تيستي">
+                    </div>
+                    <div class="card-header">
+                        <h3>بيتزا تيستي</h3>
+                        <span class="price">7,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>مزيج خاص من الدجاج واللحم مع الصلصة الخاصة والفطر والزيتون</p>
+                        <div class="card-actions">
+                            <a href="tel:0770123636" class="order-btn">اطلب الآن</a>
+                            <button class="add-to-cart" data-name="بيتزا تيستي" data-price="7000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="meals" class="menu-section" style="--section-color: #FF6B6B;">
+            <h2><span>🍔</span> قسم الوجبات</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="برغر لحم">
+                    </div>
+                    <div class="card-header">
+                        <h3>برغر لحم</h3>
+                        <span class="price">4,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>برغر لحم طازج 150غ مع الخضار والصلصة الخاصة في خبز طري</p>
+                        <div class="card-actions">
+                            <a href="tel:0770123636" class="order-btn">اطلب الآن</a>
+                            <button class="add-to-cart" data-name="برغر لحم" data-price="4000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="كص لحم">
+                    </div>
+                    <div class="card-header">
+                        <h3>كص لحم</h3>
+                        <span class="price">3,500 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>ساندويش لحم مشوي مع الخضار الطازجة والمايونيز والصلصة الخاصة</p>
+                        <div class="card-actions">
+                            <a href="tel:0770123636" class="order-btn">اطلب الآن</a>
+                            <button class="add-to-cart" data-name="كص لحم" data-price="3500">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="كص دجاج">
+                    </div>
+                    <div class="card-header">
+                        <h3>كص دجاج</h3>
+                        <span class="price">3,500 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>ساندويش دجاج مشوي مع الخضار والثومية وصلصة الزبادي</p>
+                        <div class="card-actions">
+                            <a href="tel:0770123636" class="order-btn">اطلب الآن</a>
+                            <button class="add-to-cart" data-name="كص دجاج" data-price="3500">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="صاج دجاج">
+                    </div>
+                    <div class="card-header">
+                        <h3>صاج دجاج</h3>
+                        <span class="price">4,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>دجاج صاج مع الخضار والصلصة الخاصة، يُقدم مع الخبز الطازج</p>
+                        <div class="card-actions">
+                            <a href="tel:0770123636" class="order-btn">اطلب الآن</a>
+                            <button class="add-to-cart" data-name="صاج دجاج" data-price="4000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="special" class="menu-section" style="--section-color: #6BCB77;">
+            <h2><span>🌟</span> قسم سبيشل</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="3 قطع صدر دجاج مع فنگر">
+                    </div>
+                    <div class="card-header">
+                        <h3>3 قطع صدر دجاج مع فنگر</h3>
+                        <span class="price">4,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>قطع دجاج مشوية مع أصابع البطاطس المقرمشة، تُقدم مع الخبز والصلصة</p>
+                        <div class="card-actions">
+                            <a href="tel:0770123636" class="order-btn">اطلب الآن</a>
+                            <button class="add-to-cart" data-name="3 قطع صدر دجاج مع فنگر" data-price="4000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="تاكو">
+                    </div>
+                    <div class="card-header">
+                        <h3>تاكو</h3>
+                        <span class="price">6,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>تاكو لحم أو دجاج مع الخضار والصلصة المكسيكية الحارة</p>
+                        <div class="card-actions">
+                            <a href="tel:0770123636" class="order-btn">اطلب الآن</a>
+                            <button class="add-to-cart" data-name="تاكو" data-price="6000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="drinks" class="menu-section" style="--section-color: #4D96FF;">
+            <h2><span>🥤</span> قسم المشروبات والمقبلات</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1554866585-cd94860890b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="بيبسي">
+                    </div>
+                    <div class="card-header">
+                        <h3>بيبسي</h3>
+                        <span class="price">2,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>مشروب غازي منعش بحجم 330 مل</p>
+                        <div class="card-actions">
+                            <a href="tel:0770123636" class="order-btn">اطلب الآن</a>
+                            <button class="add-to-cart" data-name="بيبسي" data-price="2000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1571805618149-3a772570ebcd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="مقبلات">
+                    </div>
+                    <div class="card-header">
+                        <h3>مقبلات</h3>
+                        <span class="price">3,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>تشكيلة من المقبلات الشهية (بطاطس، زيتون، مخللات)</p>
+                        <div class="card-actions">
+                            <a href="tel:0770123636" class="order-btn">اطلب الآن</a>
+                            <button class="add-to-cart" data-name="مقبلات" data-price="3000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="فريش">
+                    </div>
+                    <div class="card-header">
+                        <h3>فريش</h3>
+                        <span class="price">4,000 دينار</span>
+                    </div>
+                    <div class="card-body">
+                        <p>عصير طازج حسب الموسم (برتقال، ليمون، فراولة)</p>
+                        <div class="card-actions">
+                            <a href="tel:0770123636" class="order-btn">اطلب الآن</a>
+                            <button class="add-to-cart" data-name="فريش" data-price="4000">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- سلة التسوق -->
+    <div class="cart-container">
+        <button class="cart-btn">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+        </button>
+        <div class="cart-panel">
+            <h3>سلة التسوق</h3>
+            <div class="cart-items">
+                <!-- سيتم إضافة العناصر هنا عبر الجافاسكريبت -->
+            </div>
+            <div class="cart-total">المجموع: 0 دينار</div>
+            <button class="checkout-btn">إتمام الطلب</button>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="contact-info">
+                <h3>تواصل معنا</h3>
+                <p><span>📍</span> العنوان: كركوك - سوق الحصير</p>
+                <p><span>📞</span> الهاتف: 0770123636</p>
+                <p><span>⏰</span> أوقات العمل: 10 صباحاً - 12 منتصف الليل</p>
+                <div class="social-links" style="margin-top: 10px; display: flex; gap: 10px; justify-content: center;">
+                    <a href="#" style="color: white; font-size: 1rem;"><i class="fab fa-facebook"></i></a>
+                    <a href="#" style="color: white; font-size: 1rem;"><i class="fab fa-instagram"></i></a>
+                    <a href="#" style="color: white; font-size: 1rem;"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2023 Tasty Fast Food. جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // سلة التسوق
+        let cart = [];
+        const cartBtn = document.querySelector('.cart-btn');
+        const cartPanel = document.querySelector('.cart-panel');
+        const cartItemsContainer = document.querySelector('.cart-items');
+        const cartTotal = document.querySelector('.cart-total');
+        const cartCount = document.querySelector('.cart-count');
+        
+        // عرض/إخفاء سلة التسوق
+        cartBtn.addEventListener('click', () => {
+            cartPanel.classList.toggle('show');
+        });
+        
+        // إضافة عنصر إلى السلة
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const name = e.target.getAttribute('data-name');
+                const price = parseInt(e.target.getAttribute('data-price'));
+                
+                // التحقق مما إذا كان العنصر موجودًا بالفعل في السلة
+                const existingItem = cart.find(item => item.name === name);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        name,
+                        price,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+                showAddedToCartMessage(name);
+            });
+        });
+        
+        // تحديث سلة التسوق
+        function updateCart() {
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name} × ${item.quantity}</div>
+                        <div class="cart-item-price">${itemTotal.toLocaleString()} دينار</div>
+                    </div>
+                    <div class="cart-item-remove" data-name="${item.name}">
+                        <i class="fas fa-trash"></i>
+                    </div>
+                `;
+                
+                cartItemsContainer.appendChild(cartItemElement);
+            });
+            
+            cartTotal.textContent = `المجموع: ${total.toLocaleString()} دينار`;
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+        }
+        
+        // إزالة عنصر من السلة
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('cart-item-remove') || e.target.closest('.cart-item-remove')) {
+                const removeBtn = e.target.classList.contains('cart-item-remove') ? 
+                    e.target : e.target.closest('.cart-item-remove');
+                const itemName = removeBtn.getAttribute('data-name');
+                
+                cart = cart.filter(item => item.name !== itemName);
+                updateCart();
+            }
+        });
+        
+        // إتمام الطلب
+        document.querySelector('.checkout-btn').addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('السلة فارغة، يرجى إضافة بعض العناصر أولاً');
+                return;
+            }
+            
+            const orderItems = cart.map(item => 
+                `${item.name} (${item.quantity} × ${item.price.toLocaleString()})`
+            ).join('\n');
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            const message = `مرحباً، أريد طلب:\n${orderItems}\n\nالمجموع: ${total.toLocaleString()} دينار`;
+            
+            // يمكنك هنا إما فتح تطبيق الواتساب أو إرسال رسالة SMS
+            // هذا مثال لإرسال رسالة عبر واتساب
+            window.open(`https://wa.me/964770123636?text=${encodeURIComponent(message)}`, '_blank');
+        });
+        
+        // رسالة تأكيد الإضافة للسلة
+        function showAddedToCartMessage(itemName) {
+            const message = document.createElement('div');
+            message.textContent = `تمت إضافة ${itemName} إلى السلة`;
+            message.style.position = 'fixed';
+            message.style.bottom = '160px';
+            message.style.left = '20px';
+            message.style.backgroundColor = '#4CAF50';
+            message.style.color = 'white';
+            message.style.padding = '8px 15px';
+            message.style.borderRadius = '5px';
+            message.style.zIndex = '1000';
+            message.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+            message.style.animation = 'fadeInOut 3s ease-in-out';
+            
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                message.style.animation = 'fadeOut 0.5s ease-out';
+                setTimeout(() => message.remove(), 500);
+            }, 2500);
+        }
+        
+        // إضافة أنيميشن للرسالة
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInOut {
+                0% { opacity: 0; transform: translateY(20px); }
+                20% { opacity: 1; transform: translateY(0); }
+                80% { opacity: 1; transform: translateY(0); }
+                100% { opacity: 0; transform: translateY(20px); }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animation for menu sections when they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.menu-section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
