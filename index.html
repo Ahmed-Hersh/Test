@@ -20,6 +20,8 @@
             --gray: #95A5A6;
             --success-color: #27AE60;
             --danger-color: #E74C3C;
+            --warning-color: #F39C12;
+            --admin-color: #9C27B0;
         }
         
         * {
@@ -747,6 +749,176 @@
             color: var(--primary-dark);
         }
         
+        /* Admin Mode Styles */
+        .admin-mode {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--admin-color);
+            color: white;
+            padding: 0.8rem;
+            text-align: center;
+            font-weight: 700;
+            z-index: 1002;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-controls {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .admin-btn {
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .admin-btn:hover {
+            background-color: rgba(255,255,255,0.3);
+        }
+        
+        .admin-btn i {
+            font-size: 0.9rem;
+        }
+        
+        .save-changes-btn {
+            background-color: var(--success-color);
+        }
+        
+        .save-changes-btn:hover {
+            background-color: #2ecc71;
+        }
+        
+        .exit-admin-btn {
+            background-color: var(--danger-color);
+        }
+        
+        .exit-admin-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Admin Controls for Items */
+        .item-admin-controls {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            display: flex;
+            gap: 5px;
+            z-index: 10;
+        }
+        
+        .item-toggle-available,
+        .item-edit-price {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .item-toggle-available {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .item-toggle-available.unavailable {
+            background-color: var(--danger-color);
+        }
+        
+        .item-edit-price {
+            background-color: var(--warning-color);
+            color: white;
+        }
+        
+        .item-toggle-available:hover,
+        .item-edit-price:hover {
+            transform: scale(1.1);
+        }
+        
+        .price-input-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 20;
+            display: none;
+        }
+        
+        .price-input-container.show {
+            display: block;
+        }
+        
+        .price-input {
+            width: 100px;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .price-input-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .item-unavailable {
+            position: relative;
+        }
+        
+        .item-unavailable::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            border-radius: 12px;
+        }
+        
+        .unavailable-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--danger-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            z-index: 5;
+        }
+        
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             .header-content {
@@ -778,6 +950,22 @@
                 font-size: 1.3rem;
                 bottom: 1.2rem;
                 left: 1.2rem;
+            }
+            
+            .admin-mode {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 0.5rem;
+            }
+            
+            .admin-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .admin-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
             }
         }
         
@@ -845,11 +1033,36 @@
             .working-hours {
                 font-size: 0.8rem;
             }
+            
+            .item-admin-controls {
+                top: 3px;
+                left: 3px;
+            }
+            
+            .item-toggle-available,
+            .item-edit-price {
+                width: 25px;
+                height: 25px;
+                font-size: 0.7rem;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <!-- Admin Mode Banner (hidden by default) -->
+    <div class="admin-mode" id="admin-mode" style="display: none;">
+        <span><i class="fas fa-user-shield"></i> وضع المسؤول - تحرير القائمة</span>
+        <div class="admin-controls">
+            <button class="admin-btn save-changes-btn" id="save-changes-btn">
+                <i class="fas fa-save"></i> حفظ التغييرات
+            </button>
+            <button class="admin-btn exit-admin-btn" id="exit-admin-btn">
+                <i class="fas fa-sign-out-alt"></i> خروج
+            </button>
+        </div>
+    </div>
+    
     <!-- Closed Message (will be shown/hidden by JavaScript) -->
     <div class="closed-message" id="closed-message" style="display: none;">
         <i class="fas fa-store-slash"></i> المطعم مغلق حالياً. أوقات العمل: السبت-الخميس 10:00 صباحاً إلى 11:45 مساءً | الجمعة 3:00 مساءً إلى 12:00 منتصف الليل
@@ -981,70 +1194,85 @@
         </div>
     </div>
     
+    <!-- Price Edit Modal -->
+    <div class="price-input-container" id="price-input-container">
+        <input type="number" class="price-input" id="price-input" min="0" step="500">
+        <button class="price-input-btn" id="price-input-btn">تحديث السعر</button>
+    </div>
+    
     <script>
         // Menu Data with local images
         let menuData = {
             pizza: [
-                { name: "بيتزا دجاج", price: 5000, description: "بيتزا بالدجاج المشوي وجبنة موزاريلا", image: "images/pizza1.jpg" },
-                { name: "بيتزا لحم", price: 6000, description: "بيتزا باللحم المفروم الطازج", image: "images/pizza2.jpg" },
-                { name: "بيتزا مشكل", price: 6000, description: "بيتزا بالدجاج واللحم والفطر", image: "images/pizza3.jpg" },
-                { name: "بيتزا گص", price: 6000, description: "بيتزا بالصوص الخاص ولحم البقر", image: "images/pizza4.jpg" },
-                { name: "بيتزا خضروات", price: 4500, description: "بيتزا نباتية بالخضار الطازجة", image: "images/pizza5.jpg" },
-                { name: "بيتزا حار", price: 6000, description: "بيتزا بالصوص الحار والدجاج", image: "images/pizza6.jpg" },
-                { name: "بيتزا كالزون", price: 6500, description: "بيتزا محشوة بالجبنة واللحم", image: "images/pizza7.jpg" },
-                { name: "بيتزا محشي", price: 6000, description: "بيتزا محشوة بالخضار والجبنة", image: "images/pizza8.jpg" },
-                { name: "بيتزا مارگريتا", price: 4000, description: "بيتزا كلاسيكية بالجبنة والريحان", image: "images/pizza9.jpg" },
-                { name: "بيتزا تيستي", price: 7000, description: "بيتزا مميزة بالصوص الخاص", image: "images/pizza10.jpg" },
-                { name: "بيتزا ستيك چكن", price: 7000, description: "بيتزا بشرائح ستيك الدجاج", image: "images/pizza11.jpg" },
-                { name: "بيتزا فنگر", price: 4500, description: "بيتزا بأصابع الدجاج المقرمشة", image: "images/pizza12.jpg" },
-                { name: "بيتزا صوصج", price: 5000, description: "بيتزا بالصوص الخاص بالجبنة", image: "images/pizza1.jpg" }
+                { name: "بيتزا دجاج", price: 5000, description: "بيتزا بالدجاج المشوي وجبنة موزاريلا", image: "images/pizza1.jpg", available: true },
+                { name: "بيتزا لحم", price: 6000, description: "بيتزا باللحم المفروم الطازج", image: "images/pizza2.jpg", available: true },
+                { name: "بيتزا مشكل", price: 6000, description: "بيتزا بالدجاج واللحم والفطر", image: "images/pizza3.jpg", available: true },
+                { name: "بيتزا گص", price: 6000, description: "بيتزا بالصوص الخاص ولحم البقر", image: "images/pizza4.jpg", available: true },
+                { name: "بيتزا خضروات", price: 4500, description: "بيتزا نباتية بالخضار الطازجة", image: "images/pizza5.jpg", available: true },
+                { name: "بيتزا حار", price: 6000, description: "بيتزا بالصوص الحار والدجاج", image: "images/pizza6.jpg", available: true },
+                { name: "بيتزا كالزون", price: 6500, description: "بيتزا محشوة بالجبنة واللحم", image: "images/pizza7.jpg", available: true },
+                { name: "بيتزا محشي", price: 6000, description: "بيتزا محشوة بالخضار والجبنة", image: "images/pizza8.jpg", available: true },
+                { name: "بيتزا مارگريتا", price: 4000, description: "بيتزا كلاسيكية بالجبنة والريحان", image: "images/pizza9.jpg", available: true },
+                { name: "بيتزا تيستي", price: 7000, description: "بيتزا مميزة بالصوص الخاص", image: "images/pizza10.jpg", available: true },
+                { name: "بيتزا ستيك چكن", price: 7000, description: "بيتزا بشرائح ستيك الدجاج", image: "images/pizza11.jpg", available: true },
+                { name: "بيتزا فنگر", price: 4500, description: "بيتزا بأصابع الدجاج المقرمشة", image: "images/pizza12.jpg", available: true },
+                { name: "بيتزا صوصج", price: 5000, description: "بيتزا بالصوص الخاص بالجبنة", image: "images/pizza1.jpg", available: true }
             ],
             meals: [
-                { name: "برغر دجاج", price: 3500, description: "برغر دجاج مع الخضار والصوص", image: "images/burger1.jpg" },
-                { name: "برغر لحم", price: 4000, description: "برغر لحم بقري طازج", image: "images/burger2.jpg" },
-                { name: "دبل برغر", price: 6000, description: "برغر مزدوج باللحم والجبنة", image: "images/burger3.jpg" },
-                { name: "برغر مكسيكي", price: 5000, description: "برغر بالصوص المكسيكي الحار", image: "images/burger4.jpg" },
-                { name: "برغر زنجر", price: 5000, description: "برغر دجاج زنجر مقرمش", image: "images/burger5.jpg" },
-                { name: "كينغ برغر", price: 6000, description: "برغر كبير باللحم والخضار", image: "images/burger6.jpg" },
-                { name: "كص دجاج+فنكر", price: 3000, description: "وجبة دجاج مع أصابع الدجاج", image: "images/meal1.jpg" },
-                { name: "كص لحم +فنكر", price: 3500, description: "وجبة لحم مع أصابع الدجاج", image: "images/meal2.jpg" },
-                { name: "صاج لحم دبل", price: 5000, description: "وجبة لحم مزدوجة على الصاج", image: "images/meal3.jpg" },
-                { name: "صاج دجاج دبل", price: 4000, description: "وجبة دجاج مزدوجة على الصاج", image: "images/meal4.jpg" },
-                { name: "طبق كص لحم", price: 6500, description: "طبق لحم كامل مع الخضار", image: "images/meal5.jpg" },
-                { name: "طبق كص دجاج", price: 5500, description: "طبق دجاج كامل مع الخضار", image: "images/meal6.jpg" },
-                { name: "طبق كص مشكل", price: 6000, description: "طبق مشكل باللحم والدجاج", image: "images/meal7.jpg" },
-                { name: "سندويش راب", price: 5000, description: "سندويش راب بالخضار والصوص", image: "images/meal8.jpg" },
-                { name: "سندويش تيستي", price: 5000, description: "سندويش مميز بالصوص الخاص", image: "images/meal9.jpg" },
-                { name: "فيلادلفيا", price: 6000, description: "سندويش فيلادلفيا بالسلمون", image: "images/meal10.jpg" }
+                { name: "برغر دجاج", price: 3500, description: "برغر دجاج مع الخضار والصوص", image: "images/burger1.jpg", available: true },
+                { name: "برغر لحم", price: 4000, description: "برغر لحم بقري طازج", image: "images/burger2.jpg", available: true },
+                { name: "دبل برغر", price: 6000, description: "برغر مزدوج باللحم والجبنة", image: "images/burger3.jpg", available: true },
+                { name: "برغر مكسيكي", price: 5000, description: "برغر بالصوص المكسيكي الحار", image: "images/burger4.jpg", available: true },
+                { name: "برغر زنجر", price: 5000, description: "برغر دجاج زنجر مقرمش", image: "images/burger5.jpg", available: true },
+                { name: "كينغ برغر", price: 6000, description: "برغر كبير باللحم والخضار", image: "images/burger6.jpg", available: true },
+                { name: "كص دجاج+فنكر", price: 3000, description: "وجبة دجاج مع أصابع الدجاج", image: "images/meal1.jpg", available: true },
+                { name: "كص لحم +فنكر", price: 3500, description: "وجبة لحم مع أصابع الدجاج", image: "images/meal2.jpg", available: true },
+                { name: "صاج لحم دبل", price: 5000, description: "وجبة لحم مزدوجة على الصاج", image: "images/meal3.jpg", available: true },
+                { name: "صاج دجاج دبل", price: 4000, description: "وجبة دجاج مزدوجة على الصاج", image: "images/meal4.jpg", available: true },
+                { name: "طبق كص لحم", price: 6500, description: "طبق لحم كامل مع الخضار", image: "images/meal5.jpg", available: true },
+                { name: "طبق كص دجاج", price: 5500, description: "طبق دجاج كامل مع الخضار", image: "images/meal6.jpg", available: true },
+                { name: "طبق كص مشكل", price: 6000, description: "طبق مشكل باللحم والدجاج", image: "images/meal7.jpg", available: true },
+                { name: "سندويش راب", price: 5000, description: "سندويش راب بالخضار والصوص", image: "images/meal8.jpg", available: true },
+                { name: "سندويش تيستي", price: 5000, description: "سندويش مميز بالصوص الخاص", image: "images/meal9.jpg", available: true },
+                { name: "فيلادلفيا", price: 6000, description: "سندويش فيلادلفيا بالسلمون", image: "images/meal10.jpg", available: true }
             ],
             special: [
-                { name: "تاكو", price: 6000, description: "تاكو مكسيكي باللحم والخضار", image: "images/special1.jpg" },
-                { name: "طبق ستيك دجاج بالمشروم", price: 6000, description: "ستيك دجاج مع صلصة المشروم", image: "images/special2.jpg" },
-                { name: "طبق ستيك دجاج", price: 5000, description: "ستيك دجاج مشوي مع الخضار", image: "images/special3.jpg" },
-                { name: "3 قطع صدر دجاج مع فنگر", price: 4000, description: "3 قطع دجاج مع أصابع الدجاج", image: "images/special4.jpg" },
-                { name: "5 قطع صدر دجاج مع فنگر", price: 6000, description: "5 قطع دجاج مع أصابع الدجاج", image: "images/special5.jpg" },
-                { name: "ريزو كنتاكي", price: 5000, description: "أرز بالدجاج المقلي والخضار", image: "images/special6.jpg" },
-                { name: "ريزو گص دجاج", price: 5000, description: "أرز بالصوص الخاص والدجاج", image: "images/special7.jpg" },
-                { name: "ريزو گص لحم", price: 5000, description: "أرز بالصوص الخاص واللحم", image: "images/special8.jpg" },
-                { name: "پاستا دجاج", price: 5000, description: "معكرونة بالدجاج والصوص الأبيض", image: "images/special9.jpg" },
-                { name: "پاستا لحم", price: 5000, description: "معكرونة باللحم والصوص الأحمر", image: "images/special10.jpg" },
-                { name: "فنگر تيستي", price: 3500, description: "أصابع دجاج مميزة بالتوابل", image: "images/special11.jpg" },
-                { name: "طبق فنگر", price: 2500, description: "طبق أصابع الدجاج المقرمشة", image: "images/special12.jpg" },
-                { name: "طبق وجز", price: 3000, description: "طبق أجنحة دجاج مشوية", image: "images/special13.jpg" },
-                { name: "حلقات بصل", price: 2000, description: "حلقات بصل مقرمشة", image: "images/special14.jpg" },
-                { name: "گلاص فنگر", price: 1500, description: "أصابع دجاج صغيرة مقرمشة", image: "images/special15.jpg" }
+                { name: "تاكو", price: 6000, description: "تاكو مكسيكي باللحم والخضار", image: "images/special1.jpg", available: true },
+                { name: "طبق ستيك دجاج بالمشروم", price: 6000, description: "ستيك دجاج مع صلصة المشروم", image: "images/special2.jpg", available: true },
+                { name: "طبق ستيك دجاج", price: 5000, description: "ستيك دجاج مشوي مع الخضار", image: "images/special3.jpg", available: true },
+                { name: "3 قطع صدر دجاج مع فنگر", price: 4000, description: "3 قطع دجاج مع أصابع الدجاج", image: "images/special4.jpg", available: true },
+                { name: "5 قطع صدر دجاج مع فنگر", price: 6000, description: "5 قطع دجاج مع أصابع الدجاج", image: "images/special5.jpg", available: true },
+                { name: "ريزو كنتاكي", price: 5000, description: "أرز بالدجاج المقلي والخضار", image: "images/special6.jpg", available: true },
+                { name: "ريزو گص دجاج", price: 5000, description: "أرز بالصوص الخاص والدجاج", image: "images/special7.jpg", available: true },
+                { name: "ريزو گص لحم", price: 5000, description: "أرز بالصوص الخاص واللحم", image: "images/special8.jpg", available: true },
+                { name: "پاستا دجاج", price: 5000, description: "معكرون�� بالدجاج والصوص الأبيض", image: "images/special9.jpg", available: true },
+                { name: "پاستا لحم", price: 5000, description: "معكرونة باللحم والصوص الأحمر", image: "images/special10.jpg", available: true },
+                { name: "فنگر تيستي", price: 3500, description: "أصابع دجاج مميزة بالتوابل", image: "images/special11.jpg", available: true },
+                { name: "طبق فنگر", price: 2500, description: "طبق أصابع الدجاج المقرمشة", image: "images/special12.jpg", available: true },
+                { name: "طبق وجز", price: 3000, description: "طبق أجنحة دجاج مشوية", image: "images/special13.jpg", available: true },
+                { name: "حلقات بصل", price: 2000, description: "حلقات بصل مقرمشة", image: "images/special14.jpg", available: true },
+                { name: "گلاص فنگر", price: 1500, description: "أصابع دجاج صغيرة مقرمشة", image: "images/special15.jpg", available: true }
             ],
             drinks: [
-                { name: "بيبسي", price: 500, description: "مشروب غازي منعش", image: "images/drink1.jpg" },
-                { name: "ديو", price: 500, description: "مشروب غازي بنكهة الليمون", image: "images/drink2.jpg" },
-                { name: "سفن", price: 500, description: "مشروب غازي خفيف", image: "images/drink3.jpg" },
-                { name: "ميرندا", price: 500, description: "مشروب غازي بنكهة البرتقال", image: "images/drink4.jpg" },
-                { name: "ماء", price: 250, description: "ماء معدني", image: "images/drink5.jpg" },
-                { name: "مقبلات صغير", price: 2000, description: "طبق مقبلات صغير الحجم", image: "images/appetizer1.jpg" },
-                { name: "مقبلات وسط", price: 3000, description: "طبق مقبلات متوسط الحجم", image: "images/appetizer2.jpg" },
-                { name: "مقبلات كبير", price: 5000, description: "طبق مقبلات كبير الحجم", image: "images/appetizer3.jpg" }
+                { name: "بيبسي", price: 500, description: "مشروب غازي منعش", image: "images/drink1.jpg", available: true },
+                { name: "ديو", price: 500, description: "مشروب غازي بنكهة الليمون", image: "images/drink2.jpg", available: true },
+                { name: "سفن", price: 500, description: "مشروب غازي خفيف", image: "images/drink3.jpg", available: true },
+                { name: "ميرندا", price: 500, description: "مشروب غازي بنكهة البرتقال", image: "images/drink4.jpg", available: true },
+                { name: "ماء", price: 250, description: "ماء معدني", image: "images/drink5.jpg", available: true },
+                { name: "مقبلات صغير", price: 2000, description: "طبق مقبلات صغير الحجم", image: "images/appetizer1.jpg", available: true },
+                { name: "مقبلات وسط", price: 3000, description: "طبق مقبلات متوسط الحجم", image: "images/appetizer2.jpg", available: true },
+                { name: "مقبلات كبير", price: 5000, description: "طبق مقبلات كبير الحجم", image: "images/appetizer3.jpg", available: true }
             ]
         };
+
+        // Check if in admin mode
+        const urlParams = new URLSearchParams(window.location.search);
+        const isAdmin = urlParams.get('admin') === 'true';
+        
+        // Current item being edited
+        let currentEditingItem = null;
+        let currentEditingCategory = null;
+        let currentEditingIndex = null;
 
         // Generate Menu Items
         function generateMenuItems() {
@@ -1052,25 +1280,115 @@
                 const container = document.getElementById(`${category}-menu`).querySelector('.menu-items');
                 container.innerHTML = '';
                 
-                menuData[category].forEach(item => {
+                menuData[category].forEach((item, index) => {
                     const menuItem = document.createElement('div');
-                    menuItem.className = 'menu-item';
+                    menuItem.className = `menu-item ${!item.available ? 'item-unavailable' : ''}`;
                     
                     menuItem.innerHTML = `
                         <div class="item-image-container">
                             <img src="${item.image}" alt="${item.name}" class="item-image" loading="lazy">
+                            ${!item.available ? '<div class="unavailable-label">غير متوفر</div>' : ''}
                         </div>
                         <div class="item-details">
                             <div class="item-name">${item.name}</div>
                             <div class="item-description">${item.description}</div>
                             <div class="item-price">${item.price} دينار</div>
-                            <button class="add-to-cart" data-name="${item.name}" data-price="${item.price}">
+                            <button class="add-to-cart" data-name="${item.name}" data-price="${item.price}" ${!item.available ? 'disabled style="opacity: 0.6; cursor: not-allowed;"' : ''}>
                                 <i class="fas fa-cart-plus"></i> إضافة للسلة
                             </button>
                         </div>
                     `;
                     
+                    // Add admin controls if in admin mode
+                    if (isAdmin) {
+                        const adminControls = document.createElement('div');
+                        adminControls.className = 'item-admin-controls';
+                        adminControls.innerHTML = `
+                            <button class="item-toggle-available ${!item.available ? 'unavailable' : ''}" 
+                                    data-category="${category}" data-index="${index}">
+                                <i class="fas fa-${item.available ? 'check' : 'times'}"></i>
+                            </button>
+                            <button class="item-edit-price" 
+                                    data-category="${category}" data-index="${index}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        `;
+                        menuItem.prepend(adminControls);
+                    }
+                    
                     container.appendChild(menuItem);
+                });
+            }
+            
+            // Add event listeners for admin controls
+            if (isAdmin) {
+                document.querySelectorAll('.item-toggle-available').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const category = this.getAttribute('data-category');
+                        const index = parseInt(this.getAttribute('data-index'));
+                        
+                        // Toggle availability
+                        menuData[category][index].available = !menuData[category][index].available;
+                        
+                        // Update button appearance
+                        if (menuData[category][index].available) {
+                            this.classList.remove('unavailable');
+                            this.innerHTML = '<i class="fas fa-check"></i>';
+                        } else {
+                            this.classList.add('unavailable');
+                            this.innerHTML = '<i class="fas fa-times"></i>';
+                        }
+                        
+                        // Update menu item appearance
+                        const menuItem = this.closest('.menu-item');
+                        const addToCartBtn = menuItem.querySelector('.add-to-cart');
+                        
+                        if (menuData[category][index].available) {
+                            menuItem.classList.remove('item-unavailable');
+                            menuItem.querySelector('.unavailable-label')?.remove();
+                            addToCartBtn.disabled = false;
+                            addToCartBtn.style.opacity = '1';
+                            addToCartBtn.style.cursor = 'pointer';
+                        } else {
+                            menuItem.classList.add('item-unavailable');
+                            
+                            // Add unavailable label if not exists
+                            if (!menuItem.querySelector('.unavailable-label')) {
+                                const label = document.createElement('div');
+                                label.className = 'unavailable-label';
+                                label.textContent = 'غير متوفر';
+                                menuItem.querySelector('.item-image-container').appendChild(label);
+                            }
+                            
+                            addToCartBtn.disabled = true;
+                            addToCartBtn.style.opacity = '0.6';
+                            addToCartBtn.style.cursor = 'not-allowed';
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.item-edit-price').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const category = this.getAttribute('data-category');
+                        const index = parseInt(this.getAttribute('data-index'));
+                        
+                        currentEditingItem = menuData[category][index];
+                        currentEditingCategory = category;
+                        currentEditingIndex = index;
+                        
+                        // Show price input modal
+                        const priceInput = document.getElementById('price-input');
+                        priceInput.value = currentEditingItem.price;
+                        
+                        const priceContainer = document.getElementById('price-input-container');
+                        priceContainer.style.display = 'block';
+                        priceContainer.classList.add('show');
+                        
+                        // Position near the clicked button
+                        const rect = this.getBoundingClientRect();
+                        priceContainer.style.top = `${rect.top + window.scrollY}px`;
+                        priceContainer.style.left = `${rect.left + window.scrollX}px`;
+                    });
                 });
             }
         }
@@ -1100,6 +1418,14 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Show admin mode if in admin
+            if (isAdmin) {
+                document.getElementById('admin-mode').style.display = 'flex';
+                
+                // Disable cart button in admin mode
+                document.querySelector('.cart-btn').style.display = 'none';
+            }
+            
             generateMenuItems();
             
             // Check if restaurant is open and show message if closed
@@ -1115,9 +1441,11 @@
                 });
                 
                 // Disable checkout button
-                document.querySelector('.checkout-btn').disabled = true;
-                document.querySelector('.checkout-btn').style.opacity = '0.6';
-                document.querySelector('.checkout-btn').style.cursor = 'not-allowed';
+                if (document.querySelector('.checkout-btn')) {
+                    document.querySelector('.checkout-btn').disabled = true;
+                    document.querySelector('.checkout-btn').style.opacity = '0.6';
+                    document.querySelector('.checkout-btn').style.cursor = 'not-allowed';
+                }
             }
             
             // Category switching
@@ -1270,90 +1598,105 @@
                 cartContainer.classList.remove('open');
             }
             
-            cartBtn.addEventListener('click', showCart);
-            closeCartBtn.addEventListener('click', hideCart);
+            if (cartBtn) {
+                cartBtn.addEventListener('click', showCart);
+            }
+            
+            if (closeCartBtn) {
+                closeCartBtn.addEventListener('click', hideCart);
+            }
             
             // Close cart when clicking outside
-            cartContainer.addEventListener('click', function(e) {
-                if (e.target === cartContainer) {
-                    hideCart();
-                }
-            });
+            if (cartContainer) {
+                cartContainer.addEventListener('click', function(e) {
+                    if (e.target === cartContainer) {
+                        hideCart();
+                    }
+                });
+            }
             
             // Checkout
-            checkoutBtn.addEventListener('click', function() {
-                if (cart.length === 0) {
-                    showSuccessMessage('السلة فارغة', 'الرجاء إضافة عناصر أولاً');
-                    return;
-                }
-                
-                // Check if restaurant is closed
-                if (!checkRestaurantOpen()) {
-                    showSuccessMessage('المطعم مغلق حالياً', 'لا يمكن إتمام الطلب خارج أوقات العمل');
-                    return;
-                }
-                
-                checkoutModal.classList.add('open');
-            });
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', function() {
+                    if (cart.length === 0) {
+                        showSuccessMessage('السلة فارغة', 'الرجاء إضافة عناصر أولاً');
+                        return;
+                    }
+                    
+                    // Check if restaurant is closed
+                    if (!checkRestaurantOpen()) {
+                        showSuccessMessage('المطعم مغلق حالياً', 'لا يمكن إتمام الطلب خارج أوقات العمل');
+                        return;
+                    }
+                    
+                    checkoutModal.classList.add('open');
+                });
+            }
             
             // Close modal
-            closeModalBtn.addEventListener('click', function() {
-                checkoutModal.classList.remove('open');
-            });
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', function() {
+                    checkoutModal.classList.remove('open');
+                });
+            }
             
             // Close modal when clicking outside
-            checkoutModal.addEventListener('click', function(e) {
-                if (e.target === checkoutModal) {
-                    checkoutModal.classList.remove('open');
-                }
-            });
+            if (checkoutModal) {
+                checkoutModal.addEventListener('click', function(e) {
+                    if (e.target === checkoutModal) {
+                        checkoutModal.classList.remove('open');
+                    }
+                });
+            }
             
             // Submit order
-            customerForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const name = document.getElementById('customer-name').value;
-                const address = document.getElementById('customer-address').value;
-                const phone = document.getElementById('customer-phone').value;
-                const notes = cartNotesInput.value;
-                
-                // Prepare order message
-                let message = `🍔 *طلب جديد من Tasty Fast Food* 🍕\n\n`;
-                message += `👤 *الاسم:* ${name}\n`;
-                message += `📍 *العنوان:* ${address}\n`;
-                message += `📞 *رقم الهاتف:* ${phone}\n\n`;
-                message += `📋 *تفاصيل الطلب:*\n`;
-                
-                cart.forEach(item => {
-                    message += `- ${item.name} (${item.quantity} × ${item.price}) = ${item.quantity * item.price} دينار\n`;
+            if (customerForm) {
+                customerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('customer-name').value;
+                    const address = document.getElementById('customer-address').value;
+                    const phone = document.getElementById('customer-phone').value;
+                    const notes = cartNotesInput.value;
+                    
+                    // Prepare order message
+                    let message = `🍔 *طلب جديد من Tasty Fast Food* 🍕\n\n`;
+                    message += `👤 *الاسم:* ${name}\n`;
+                    message += `📍 *العنوان:* ${address}\n`;
+                    message += `📞 *رقم الهاتف:* ${phone}\n\n`;
+                    message += `📋 *تفاصيل الطلب:*\n`;
+                    
+                    cart.forEach(item => {
+                        message += `- ${item.name} (${item.quantity} × ${item.price}) = ${item.quantity * item.price} دينار\n`;
+                    });
+                    
+                    message += `\n💰 *المجموع:* ${totalPrice} دينار\n`;
+                    message += `🚚 *رسوم التوصيل:* ${deliveryFee} دينار\n`;
+                    message += `💵 *المجموع الكلي:* ${totalPrice + deliveryFee} دينار\n\n`;
+                    message += `⏱ *وقت التوصيل المتوقع:* 30-40 دقيقة\n`;
+                    
+                    if (notes) {
+                        message += `\n📝 *ملاحظات:* ${notes}`;
+                    }
+                    
+                    // Encode message for WhatsApp
+                    const encodedMessage = encodeURIComponent(message);
+                    
+                    // Send to WhatsApp
+                    window.open(`https://wa.me/9647701236363?text=${encodedMessage}`, '_blank');
+                    
+                    // Reset cart and close modal
+                    cart = [];
+                    updateCart();
+                    hideCart();
+                    checkoutModal.classList.remove('open');
+                    customerForm.reset();
+                    cartNotesInput.value = '';
+                    
+                    // Show success message
+                    showSuccessMessage('تم إرسال طلبك بنجاح!', 'شكراً لاختيارك Tasty Fast Food');
                 });
-                
-                message += `\n💰 *المجموع:* ${totalPrice} دينار\n`;
-                message += `🚚 *رسوم التوصيل:* ${deliveryFee} دينار\n`;
-                message += `💵 *المجموع الكلي:* ${totalPrice + deliveryFee} دينار\n\n`;
-                message += `⏱ *وقت التوصيل المتوقع:* 30-40 دقيقة\n`;
-                
-                if (notes) {
-                    message += `\n📝 *ملاحظات:* ${notes}`;
-                }
-                
-                // Encode message for WhatsApp
-                const encodedMessage = encodeURIComponent(message);
-                
-                // Send to WhatsApp
-                window.open(`https://wa.me/9647701236363?text=${encodedMessage}`, '_blank');
-                
-                // Reset cart and close modal
-                cart = [];
-                updateCart();
-                hideCart();
-                checkoutModal.classList.remove('open');
-                customerForm.reset();
-                cartNotesInput.value = '';
-                
-                // Show success message
-                showSuccessMessage('تم إرسال طلبك بنجاح!', 'شكراً لاختيارك Tasty Fast Food');
-            });
+            }
             
             // Show success message
             function showSuccessMessage(title, subtitle = '') {
@@ -1371,6 +1714,69 @@
                 setTimeout(() => {
                     successMsg.remove();
                 }, 3000);
+            }
+            
+            // Admin functionality
+            if (isAdmin) {
+                // Save changes button
+                document.getElementById('save-changes-btn').addEventListener('click', function() {
+                    // Save menuData to localStorage
+                    localStorage.setItem('tastyFastFoodMenu', JSON.stringify(menuData));
+                    
+                    showSuccessMessage('تم حفظ التغييرات', 'تم تحديث القائمة بنجاح');
+                });
+                
+                // Exit admin mode
+                document.getElementById('exit-admin-btn').addEventListener('click', function() {
+                    window.location.href = window.location.pathname;
+                });
+                
+                // Price input functionality
+                document.getElementById('price-input-btn').addEventListener('click', function() {
+                    const newPrice = parseInt(document.getElementById('price-input').value);
+                    
+                    if (!isNaN(newPrice) && newPrice >= 0 && currentEditingItem) {
+                        // Update price
+                        currentEditingItem.price = newPrice;
+                        
+                        // Update in menuData
+                        menuData[currentEditingCategory][currentEditingIndex].price = newPrice;
+                        
+                        // Update displayed price
+                        const menuItem = document.querySelector(`.item-edit-price[data-category="${currentEditingCategory}"][data-index="${currentEditingIndex}"]`)
+                            .closest('.menu-item');
+                        menuItem.querySelector('.item-price').textContent = `${newPrice} دينار`;
+                        
+                        // Update add to cart button
+                        menuItem.querySelector('.add-to-cart').setAttribute('data-price', newPrice);
+                        
+                        // Hide price input
+                        document.getElementById('price-input-container').classList.remove('show');
+                        setTimeout(() => {
+                            document.getElementById('price-input-container').style.display = 'none';
+                        }, 300);
+                    }
+                });
+                
+                // Close price input when clicking outside
+                document.addEventListener('click', function(e) {
+                    const priceContainer = document.getElementById('price-input-container');
+                    if (priceContainer.style.display === 'block' && !priceContainer.contains(e.target) && 
+                        !e.target.classList.contains('item-edit-price') && 
+                        !e.target.closest('.item-edit-price')) {
+                        priceContainer.classList.remove('show');
+                        setTimeout(() => {
+                            priceContainer.style.display = 'none';
+                        }, 300);
+                    }
+                });
+                
+                // Load saved menu data if exists
+                const savedMenuData = localStorage.getItem('tastyFastFoodMenu');
+                if (savedMenuData) {
+                    menuData = JSON.parse(savedMenuData);
+                    generateMenuItems();
+                }
             }
         });
     </script>
