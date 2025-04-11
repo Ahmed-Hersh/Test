@@ -20,6 +20,8 @@
             --gray: #95A5A6;
             --success-color: #27AE60;
             --danger-color: #E74C3C;
+            --warning-color: #F39C12;
+            --admin-color: #9C27B0;
         }
         
         * {
@@ -747,6 +749,244 @@
             color: var(--primary-dark);
         }
         
+        /* Admin Mode Styles */
+        .admin-btn {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: linear-gradient(135deg, var(--admin-color), #7B1FA2);
+            color: var(--white);
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background-color: var(--white);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 1002;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .admin-panel.open {
+            right: 0;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .admin-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--admin-color);
+        }
+        
+        .close-admin {
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s ease;
+        }
+        
+        .close-admin:hover {
+            color: var(--admin-color);
+        }
+        
+        .admin-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .admin-section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .admin-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .admin-item-name {
+            flex-grow: 1;
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 0.9rem;
+        }
+        
+        .admin-item-price {
+            width: 80px;
+            margin: 0 0.8rem;
+        }
+        
+        .admin-item-price input {
+            width: 100%;
+            padding: 0.3rem 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .admin-item-available {
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-item-available input {
+            margin-left: 0.5rem;
+        }
+        
+        .save-changes-btn {
+            background: linear-gradient(to right, var(--admin-color), #7B1FA2);
+            color: white;
+            border: none;
+            padding: 0.9rem;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            box-shadow: 0 3px 8px rgba(156, 39, 176, 0.3);
+        }
+        
+        .save-changes-btn:hover {
+            background: linear-gradient(to right, #7B1FA2, var(--admin-color));
+            box-shadow: 0 5px 12px rgba(156, 39, 176, 0.4);
+        }
+        
+        .admin-password-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1003;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .admin-password-modal.open {
+            display: flex;
+        }
+        
+        .admin-password-box {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .admin-password-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--admin-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .admin-password-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        
+        .admin-password-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .admin-password-submit {
+            flex: 1;
+            background-color: var(--admin-color);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        
+        .admin-password-cancel {
+            flex: 1;
+            background-color: var(--gray);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        
+        /* Item Out of Stock */
+        .menu-item.out-of-stock {
+            opacity: 0.7;
+            position: relative;
+        }
+        
+        .menu-item.out-of-stock::after {
+            content: "غير متوفر";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--danger-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+        
+        .menu-item.out-of-stock .add-to-cart {
+            background: var(--gray);
+            cursor: not-allowed;
+        }
+        
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             .header-content {
@@ -778,6 +1018,18 @@
                 font-size: 1.3rem;
                 bottom: 1.2rem;
                 left: 1.2rem;
+            }
+            
+            .admin-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 1.3rem;
+                bottom: 1.2rem;
+                right: 1.2rem;
+            }
+            
+            .admin-panel {
+                width: 320px;
             }
         }
         
@@ -844,6 +1096,10 @@
             
             .working-hours {
                 font-size: 0.8rem;
+            }
+            
+            .admin-panel {
+                width: 280px;
             }
         }
     </style>
@@ -925,6 +1181,61 @@
         <span class="cart-count">0</span>
     </button>
     
+    <!-- Admin Button -->
+    <button class="admin-btn" id="admin-btn">
+        <i class="fas fa-user-shield"></i>
+    </button>
+    
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="admin-panel">
+        <div class="admin-header">
+            <div class="admin-title"><i class="fas fa-cog"></i> لوحة التحكم</div>
+            <button class="close-admin" id="close-admin"><i class="fas fa-times"></i></button>
+        </div>
+        
+        <div class="admin-section">
+            <div class="admin-section-title"><i class="fas fa-pizza-slice"></i> البيتزا</div>
+            <div id="admin-pizza-items">
+                <!-- Pizza items for admin will be generated here -->
+            </div>
+        </div>
+        
+        <div class="admin-section">
+            <div class="admin-section-title"><i class="fas fa-hamburger"></i> الوجبات</div>
+            <div id="admin-meals-items">
+                <!-- Meals items for admin will be generated here -->
+            </div>
+        </div>
+        
+        <div class="admin-section">
+            <div class="admin-section-title"><i class="fas fa-star"></i> السبيشل</div>
+            <div id="admin-special-items">
+                <!-- Special items for admin will be generated here -->
+            </div>
+        </div>
+        
+        <div class="admin-section">
+            <div class="admin-section-title"><i class="fas fa-coffee"></i> المشروبات والمقبلات</div>
+            <div id="admin-drinks-items">
+                <!-- Drinks items for admin will be generated here -->
+            </div>
+        </div>
+        
+        <button class="save-changes-btn" id="save-changes-btn"><i class="fas fa-save"></i> حفظ التغييرات</button>
+    </div>
+    
+    <!-- Admin Password Modal -->
+    <div class="admin-password-modal" id="admin-password-modal">
+        <div class="admin-password-box">
+            <div class="admin-password-title">كلمة المرور</div>
+            <input type="password" class="admin-password-input" id="admin-password-input" placeholder="أدخل كلمة المرور">
+            <div class="admin-password-buttons">
+                <button class="admin-password-cancel" id="admin-password-cancel">إلغاء</button>
+                <button class="admin-password-submit" id="admin-password-submit">دخول</button>
+            </div>
+        </div>
+    </div>
+    
     <!-- Cart Sidebar -->
     <div class="cart-container">
         <div class="cart-header">
@@ -985,66 +1296,74 @@
         // Menu Data with local images
         let menuData = {
             pizza: [
-                { name: "بيتزا دجاج", price: 5000, description: "بيتزا بالدجاج المشوي وجبنة موزاريلا", image: "images/pizza1.jpg" },
-                { name: "بيتزا لحم", price: 6000, description: "بيتزا باللحم المفروم الطازج", image: "images/pizza2.jpg" },
-                { name: "بيتزا مشكل", price: 6000, description: "بيتزا بالدجاج واللحم والفطر", image: "images/pizza3.jpg" },
-                { name: "بيتزا گص", price: 6000, description: "بيتزا بالصوص الخاص ولحم البقر", image: "images/pizza4.jpg" },
-                { name: "بيتزا خضروات", price: 4500, description: "بيتزا نباتية بالخضار الطازجة", image: "images/pizza5.jpg" },
-                { name: "بيتزا حار", price: 6000, description: "بيتزا بالصوص الحار والدجاج", image: "images/pizza6.jpg" },
-                { name: "بيتزا كالزون", price: 6500, description: "بيتزا محشوة بالجبنة واللحم", image: "images/pizza7.jpg" },
-                { name: "بيتزا محشي", price: 6000, description: "بيتزا محشوة بالخضار والجبنة", image: "images/pizza8.jpg" },
-                { name: "بيتزا مارگريتا", price: 4000, description: "بيتزا كلاسيكية بالجبنة والريحان", image: "images/pizza9.jpg" },
-                { name: "بيتزا تيستي", price: 7000, description: "بيتزا مميزة بالصوص الخاص", image: "images/pizza10.jpg" },
-                { name: "بيتزا ستيك چكن", price: 7000, description: "بيتزا بشرائح ستيك الدجاج", image: "images/pizza11.jpg" },
-                { name: "بيتزا فنگر", price: 4500, description: "بيتزا بأصابع الدجاج المقرمشة", image: "images/pizza12.jpg" },
-                { name: "بيتزا صوصج", price: 5000, description: "بيتزا بالصوص الخاص بالجبنة", image: "images/pizza1.jpg" }
+                { name: "بيتزا دجاج", price: 5000, description: "بيتزا بالدجاج المشوي وجبنة موزاريلا", image: "images/pizza1.jpg", available: true },
+                { name: "بيتزا لحم", price: 6000, description: "بيتزا باللحم المفروم الطازج", image: "images/pizza2.jpg", available: true },
+                { name: "بيتزا مشكل", price: 6000, description: "بيتزا بالدجاج واللحم والفطر", image: "images/pizza3.jpg", available: true },
+                { name: "بيتزا گص", price: 6000, description: "بيتزا بالصوص الخاص ولحم البقر", image: "images/pizza4.jpg", available: true },
+                { name: "بيتزا خضروات", price: 4500, description: "بيتزا نباتية بالخضار الطازجة", image: "images/pizza5.jpg", available: true },
+                { name: "بيتزا حار", price: 6000, description: "بيتزا بالصوص الحار والدجاج", image: "images/pizza6.jpg", available: true },
+                { name: "بيتزا كالزون", price: 6500, description: "بيتزا محشوة بالجبنة واللحم", image: "images/pizza7.jpg", available: true },
+                { name: "بيتزا محشي", price: 6000, description: "بيتزا محشوة بالخضار والجبنة", image: "images/pizza8.jpg", available: true },
+                { name: "بيتزا مارگريتا", price: 4000, description: "بيتزا كلاسيكية بالجبنة والريحان", image: "images/pizza9.jpg", available: true },
+                { name: "بيتزا تيستي", price: 7000, description: "بيتزا مميزة بالصوص الخاص", image: "images/pizza10.jpg", available: true },
+                { name: "بيتزا ستيك چكن", price: 7000, description: "بيتزا بشرائح ستيك الدجاج", image: "images/pizza11.jpg", available: true },
+                { name: "بيتزا فنگر", price: 4500, description: "بيتزا بأصابع الدجاج المقرمشة", image: "images/pizza12.jpg", available: true },
+                { name: "بيتزا صوصج", price: 5000, description: "بيتزا بالصوص الخاص بالجبنة", image: "images/pizza1.jpg", available: true }
             ],
             meals: [
-                { name: "برغر دجاج", price: 3500, description: "برغر دجاج مع الخضار والصوص", image: "images/burger1.jpg" },
-                { name: "برغر لحم", price: 4000, description: "برغر لحم بقري طازج", image: "images/burger2.jpg" },
-                { name: "دبل برغر", price: 6000, description: "برغر مزدوج باللحم والجبنة", image: "images/burger3.jpg" },
-                { name: "برغر مكسيكي", price: 5000, description: "برغر بالصوص المكسيكي الحار", image: "images/burger4.jpg" },
-                { name: "برغر زنجر", price: 5000, description: "برغر دجاج زنجر مقرمش", image: "images/burger5.jpg" },
-                { name: "كينغ برغر", price: 6000, description: "برغر كبير باللحم والخضار", image: "images/burger6.jpg" },
-                { name: "كص دجاج+فنكر", price: 3000, description: "وجبة دجاج مع أصابع الدجاج", image: "images/meal1.jpg" },
-                { name: "كص لحم +فنكر", price: 3500, description: "وجبة لحم مع أصابع الدجاج", image: "images/meal2.jpg" },
-                { name: "صاج لحم دبل", price: 5000, description: "وجبة لحم مزدوجة على الصاج", image: "images/meal3.jpg" },
-                { name: "صاج دجاج دبل", price: 4000, description: "وجبة دجاج مزدوجة على الصاج", image: "images/meal4.jpg" },
-                { name: "طبق كص لحم", price: 6500, description: "طبق لحم كامل مع الخضار", image: "images/meal5.jpg" },
-                { name: "طبق كص دجاج", price: 5500, description: "طبق دجاج كامل مع الخضار", image: "images/meal6.jpg" },
-                { name: "طبق كص مشكل", price: 6000, description: "طبق مشكل باللحم والدجاج", image: "images/meal7.jpg" },
-                { name: "سندويش راب", price: 5000, description: "سندويش راب بالخضار والصوص", image: "images/meal8.jpg" },
-                { name: "سندويش تيستي", price: 5000, description: "سندويش مميز بالصوص الخاص", image: "images/meal9.jpg" },
-                { name: "فيلادلفيا", price: 6000, description: "سندويش فيلادلفيا بالسلمون", image: "images/meal10.jpg" }
+                { name: "برغر دجاج", price: 3500, description: "برغر دجاج مع الخضار والصوص", image: "images/burger1.jpg", available: true },
+                { name: "برغر لحم", price: 4000, description: "برغر لحم بقري طازج", image: "images/burger2.jpg", available: true },
+                { name: "دبل برغر", price: 6000, description: "برغر مزدوج باللحم والجبنة", image: "images/burger3.jpg", available: true },
+                { name: "برغر مكسيكي", price: 5000, description: "برغر بالصوص المكسيكي الحار", image: "images/burger4.jpg", available: true },
+                { name: "برغر زنجر", price: 5000, description: "برغر دجاج زنجر مقرمش", image: "images/burger5.jpg", available: true },
+                { name: "كينغ برغر", price: 6000, description: "برغر كبير باللحم والخضار", image: "images/burger6.jpg", available: true },
+                { name: "كص دجاج+فنكر", price: 3000, description: "وجبة دجاج مع أصابع الدجاج", image: "images/meal1.jpg", available: true },
+                { name: "كص لحم +فنكر", price: 3500, description: "وجبة لحم مع أصابع الدجاج", image: "images/meal2.jpg", available: true },
+                { name: "صاج لحم دبل", price: 5000, description: "وجبة لحم مزدوجة على الصاج", image: "images/meal3.jpg", available: true },
+                { name: "صاج دجاج دبل", price: 4000, description: "وجبة دجاج مزدوجة على الصاج", image: "images/meal4.jpg", available: true },
+                { name: "طبق كص لحم", price: 6500, description: "طبق لحم كامل مع الخضار", image: "images/meal5.jpg", available: true },
+                { name: "طبق كص دجاج", price: 5500, description: "طبق دجاج كامل مع الخضار", image: "images/meal6.jpg", available: true },
+                { name: "طبق كص مشكل", price: 6000, description: "طبق مشكل باللحم والدجاج", image: "images/meal7.jpg", available: true },
+                { name: "سندويش راب", price: 5000, description: "سندويش راب بالخضار والصوص", image: "images/meal8.jpg", available: true },
+                { name: "سندويش تيستي", price: 5000, description: "سندويش مميز بالصوص الخاص", image: "images/meal9.jpg", available: true },
+                { name: "فيلادلفيا", price: 6000, description: "سندويش فيلادلفيا بالسلمون", image: "images/meal10.jpg", available: true }
             ],
             special: [
-                { name: "تاكو", price: 6000, description: "تاكو مكسيكي باللحم والخضار", image: "images/special1.jpg" },
-                { name: "طبق ستيك دجاج بالمشروم", price: 6000, description: "ستيك دجاج مع صلصة المشروم", image: "images/special2.jpg" },
-                { name: "طبق ستيك دجاج", price: 5000, description: "ستيك دجاج مشوي مع الخضار", image: "images/special3.jpg" },
-                { name: "3 قطع صدر دجاج مع فنگر", price: 4000, description: "3 قطع دجاج مع أصابع الدجاج", image: "images/special4.jpg" },
-                { name: "5 قطع صدر دجاج مع فنگر", price: 6000, description: "5 قطع دجاج مع أصابع الدجاج", image: "images/special5.jpg" },
-                { name: "ريزو كنتاكي", price: 5000, description: "أرز بالدجاج المقلي والخضار", image: "images/special6.jpg" },
-                { name: "ريزو گص دجاج", price: 5000, description: "أرز بالصوص الخاص والدجاج", image: "images/special7.jpg" },
-                { name: "ريزو گص لحم", price: 5000, description: "أرز بالصوص الخاص واللحم", image: "images/special8.jpg" },
-                { name: "پاستا دجاج", price: 5000, description: "معكرونة بالدجاج والصوص الأبيض", image: "images/special9.jpg" },
-                { name: "پاستا لحم", price: 5000, description: "معكرونة باللحم والصوص الأحمر", image: "images/special10.jpg" },
-                { name: "فنگر تيستي", price: 3500, description: "أصابع دجاج مميزة بالتوابل", image: "images/special11.jpg" },
-                { name: "طبق فنگر", price: 2500, description: "طبق أصابع الدجاج المقرمشة", image: "images/special12.jpg" },
-                { name: "طبق وجز", price: 3000, description: "طبق أجنحة دجاج مشوية", image: "images/special13.jpg" },
-                { name: "حلقات بصل", price: 2000, description: "حلقات بصل مقرمشة", image: "images/special14.jpg" },
-                { name: "گلاص فنگر", price: 1500, description: "أصابع دجاج صغيرة مقرمشة", image: "images/special15.jpg" }
+                { name: "تاكو", price: 6000, description: "تاكو مكسيكي باللحم والخضار", image: "images/special1.jpg", available: true },
+                { name: "طبق ستيك دجاج بالمشروم", price: 6000, description: "ستيك دجاج مع صلصة المشروم", image: "images/special2.jpg", available: true },
+                { name: "طبق ستيك دجاج", price: 5000, description: "ستيك دجاج مشوي مع الخضار", image: "images/special3.jpg", available: true },
+                { name: "3 قطع صدر دجاج مع فنگر", price: 4000, description: "3 قطع دجاج مع أصابع الدجاج", image: "images/special4.jpg", available: true },
+                { name: "5 قطع صدر دجاج مع فنگر", price: 6000, description: "5 قطع دجاج مع أصابع الدجاج", image: "images/special5.jpg", available: true },
+                { name: "ريزو كنتاكي", price: 5000, description: "أرز بالدجاج المقلي والخضار", image: "images/special6.jpg", available: true },
+                { name: "ريزو گص دجاج", price: 5000, description: "أرز بالصوص الخاص والدجاج", image: "images/special7.jpg", available: true },
+                { name: "ريزو گص لحم", price: 5000, description: "أرز بالصوص الخاص واللحم", image: "images/special8.jpg", available: true },
+                { name: "پاستا دجاج", price: 5000, description: "معكرونة بالدجاج والصوص الأبيض", image: "images/special9.jpg", available: true },
+                { name: "پاستا لحم", price: 5000, description: "معكرونة باللحم والصوص الأحمر", image: "images/special10.jpg", available: true },
+                { name: "فنگر تيستي", price: 3500, description: "أصابع دجاج مميزة بالتوابل", image: "images/special11.jpg", available: true },
+                { name: "طبق فنگر", price: 2500, description: "طبق أصابع الدجاج المقرمشة", image: "images/special12.jpg", available: true },
+                { name: "طبق وجز", price: 3000, description: "طبق أجنحة دجاج مشوية", image: "images/special13.jpg", available: true },
+                { name: "حلقات بصل", price: 2000, description: "حلقات بصل مقرمشة", image: "images/special14.jpg", available: true },
+                { name: "گلاص فنگر", price: 1500, description: "أصابع دجاج صغيرة مقرمشة", image: "images/special15.jpg", available: true }
             ],
             drinks: [
-                { name: "بيبسي", price: 500, description: "مشروب غازي منعش", image: "images/drink1.jpg" },
-                { name: "ديو", price: 500, description: "مشروب غازي بنكهة الليمون", image: "images/drink2.jpg" },
-                { name: "سفن", price: 500, description: "مشروب غازي خفيف", image: "images/drink3.jpg" },
-                { name: "ميرندا", price: 500, description: "مشروب غازي بنكهة البرتقال", image: "images/drink4.jpg" },
-                { name: "ماء", price: 250, description: "ماء معدني", image: "images/drink5.jpg" },
-                { name: "مقبلات صغير", price: 2000, description: "طبق مقبلات صغير الحجم", image: "images/appetizer1.jpg" },
-                { name: "مقبلات وسط", price: 3000, description: "طبق مقبلات متوسط الحجم", image: "images/appetizer2.jpg" },
-                { name: "مقبلات كبير", price: 5000, description: "طبق مقبلات كبير الحجم", image: "images/appetizer3.jpg" }
+                { name: "بيبسي", price: 500, description: "مشروب غازي منعش", image: "images/drink1.jpg", available: true },
+                { name: "ديو", price: 500, description: "مشروب غازي بنكهة الليمون", image: "images/drink2.jpg", available: true },
+                { name: "سفن", price: 500, description: "مشروب غازي خفيف", image: "images/drink3.jpg", available: true },
+                { name: "ميرندا", price: 500, description: "مشروب غازي بنكهة البرتقال", image: "images/drink4.jpg", available: true },
+                { name: "ماء", price: 250, description: "ماء معدني", image: "images/drink5.jpg", available: true },
+                { name: "مقبلات صغير", price: 2000, description: "طبق مقبلات صغير الحجم", image: "images/appetizer1.jpg", available: true },
+                { name: "مقبلات وسط", price: 3000, description: "طبق مقبلات متوسط الحجم", image: "images/appetizer2.jpg", available: true },
+                { name: "مقبلات كبير", price: 5000, description: "طبق مقبلات كبير الحجم", image: "images/appetizer3.jpg", available: true }
             ]
         };
+
+        // Admin password (in a real app, this should be more secure)
+        const ADMIN_PASSWORD = "admin123";
+        
+        // Check if localStorage has saved menu data
+        if (localStorage.getItem('menuData')) {
+            menuData = JSON.parse(localStorage.getItem('menuData'));
+        }
 
         // Generate Menu Items
         function generateMenuItems() {
@@ -1054,7 +1373,7 @@
                 
                 menuData[category].forEach(item => {
                     const menuItem = document.createElement('div');
-                    menuItem.className = 'menu-item';
+                    menuItem.className = `menu-item ${item.available ? '' : 'out-of-stock'}`;
                     
                     menuItem.innerHTML = `
                         <div class="item-image-container">
@@ -1064,13 +1383,39 @@
                             <div class="item-name">${item.name}</div>
                             <div class="item-description">${item.description}</div>
                             <div class="item-price">${item.price} دينار</div>
-                            <button class="add-to-cart" data-name="${item.name}" data-price="${item.price}">
-                                <i class="fas fa-cart-plus"></i> إضافة للسلة
+                            <button class="add-to-cart" data-name="${item.name}" data-price="${item.price}" ${item.available ? '' : 'disabled'}>
+                                <i class="fas fa-cart-plus"></i> ${item.available ? 'إضافة للسلة' : 'غير متوفر'}
                             </button>
                         </div>
                     `;
                     
                     container.appendChild(menuItem);
+                });
+            }
+        }
+
+        // Generate Admin Panel Items
+        function generateAdminPanelItems() {
+            for (const category in menuData) {
+                const container = document.getElementById(`admin-${category}-items`);
+                container.innerHTML = '';
+                
+                menuData[category].forEach((item, index) => {
+                    const adminItem = document.createElement('div');
+                    adminItem.className = 'admin-item';
+                    
+                    adminItem.innerHTML = `
+                        <div class="admin-item-name">${item.name}</div>
+                        <div class="admin-item-price">
+                            <input type="number" value="${item.price}" data-category="${category}" data-index="${index}" class="price-input">
+                        </div>
+                        <div class="admin-item-available">
+                            <label>متوفر</label>
+                            <input type="checkbox" ${item.available ? 'checked' : ''} data-category="${category}" data-index="${index}" class="available-input">
+                        </div>
+                    `;
+                    
+                    container.appendChild(adminItem);
                 });
             }
         }
@@ -1099,8 +1444,27 @@
             return true;
         }
 
+        // Show success message
+        function showSuccessMessage(title, subtitle = '') {
+            const successMsg = document.createElement('div');
+            successMsg.className = 'success-message';
+            successMsg.innerHTML = `
+                <div class="success-content">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>${title}</h3>
+                    ${subtitle ? `<p>${subtitle}</p>` : ''}
+                </div>
+            `;
+            document.body.appendChild(successMsg);
+            
+            setTimeout(() => {
+                successMsg.remove();
+            }, 3000);
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             generateMenuItems();
+            generateAdminPanelItems();
             
             // Check if restaurant is open and show message if closed
             const closedMessage = document.getElementById('closed-message');
@@ -1355,23 +1719,82 @@
                 showSuccessMessage('تم إرسال طلبك بنجاح!', 'شكراً لاختيارك Tasty Fast Food');
             });
             
-            // Show success message
-            function showSuccessMessage(title, subtitle = '') {
-                const successMsg = document.createElement('div');
-                successMsg.className = 'success-message';
-                successMsg.innerHTML = `
-                    <div class="success-content">
-                        <i class="fas fa-check-circle"></i>
-                        <h3>${title}</h3>
-                        ${subtitle ? `<p>${subtitle}</p>` : ''}
-                    </div>
-                `;
-                document.body.appendChild(successMsg);
+            // Admin functionality
+            const adminBtn = document.getElementById('admin-btn');
+            const adminPanel = document.getElementById('admin-panel');
+            const closeAdminBtn = document.getElementById('close-admin');
+            const saveChangesBtn = document.getElementById('save-changes-btn');
+            const adminPasswordModal = document.getElementById('admin-password-modal');
+            const adminPasswordInput = document.getElementById('admin-password-input');
+            const adminPasswordSubmit = document.getElementById('admin-password-submit');
+            const adminPasswordCancel = document.getElementById('admin-password-cancel');
+            
+            let adminMode = false;
+            
+            // Show admin password modal
+            adminBtn.addEventListener('click', function() {
+                if (adminMode) {
+                    adminPanel.classList.toggle('open');
+                } else {
+                    adminPasswordModal.classList.add('open');
+                }
+            });
+            
+            // Close admin panel
+            closeAdminBtn.addEventListener('click', function() {
+                adminPanel.classList.remove('open');
+            });
+            
+            // Submit admin password
+            adminPasswordSubmit.addEventListener('click', function() {
+                if (adminPasswordInput.value === ADMIN_PASSWORD) {
+                    adminMode = true;
+                    adminPasswordModal.classList.remove('open');
+                    adminPanel.classList.add('open');
+                    showSuccessMessage('تم الدخول بنجاح', 'وضع المسؤول مفعل الآن');
+                } else {
+                    showSuccessMessage('كلمة المرور خاطئة', 'الرجاء إدخال كلمة المرور الصحيحة');
+                }
+                adminPasswordInput.value = '';
+            });
+            
+            // Cancel admin password
+            adminPasswordCancel.addEventListener('click', function() {
+                adminPasswordModal.classList.remove('open');
+                adminPasswordInput.value = '';
+            });
+            
+            // Save changes in admin panel
+            saveChangesBtn.addEventListener('click', function() {
+                // Update prices and availability from inputs
+                document.querySelectorAll('.price-input').forEach(input => {
+                    const category = input.getAttribute('data-category');
+                    const index = parseInt(input.getAttribute('data-index'));
+                    const newPrice = parseInt(input.value);
+                    
+                    if (!isNaN(newPrice) {
+                        menuData[category][index].price = newPrice;
+                    }
+                });
                 
-                setTimeout(() => {
-                    successMsg.remove();
-                }, 3000);
-            }
+                document.querySelectorAll('.available-input').forEach(input => {
+                    const category = input.getAttribute('data-category');
+                    const index = parseInt(input.getAttribute('data-index'));
+                    menuData[category][index].available = input.checked;
+                });
+                
+                // Save to localStorage
+                localStorage.setItem('menuData', JSON.stringify(menuData));
+                
+                // Regenerate menu items
+                generateMenuItems();
+                
+                // Show success message
+                showSuccessMessage('تم حفظ التغييرات', 'تم تحديث القائمة بنجاح');
+                
+                // Close admin panel
+                adminPanel.classList.remove('open');
+            });
         });
     </script>
 </body>
