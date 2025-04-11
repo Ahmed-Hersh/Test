@@ -111,47 +111,46 @@
         /* Food Gallery Slider */
         .food-gallery {
             width: 100%;
-            overflow-x: auto;
+            height: 120px;
             background-color: var(--white);
-            padding: 0.8rem 0;
-            white-space: nowrap;
-            scrollbar-width: none;
+            overflow: hidden;
+            position: relative;
+            margin-top: 10px;
             border-top: 1px solid #eee;
             border-bottom: 1px solid #eee;
         }
         
-        .food-gallery::-webkit-scrollbar {
-            display: none;
+        .gallery-track {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            animation: scroll 30s linear infinite;
         }
         
-        .food-gallery-item {
-            display: inline-block;
-            width: 120px;
-            height: 120px;
-            border-radius: 10px;
+        .gallery-item {
+            height: 100px;
+            width: 150px;
+            flex-shrink: 0;
+            margin: 0 10px;
+            border-radius: 8px;
             overflow: hidden;
-            margin: 0 8px;
             box-shadow: 0 3px 6px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
-            position: relative;
         }
         
-        .food-gallery-item:first-child {
-            margin-right: 15px;
-        }
-        
-        .food-gallery-item:last-child {
-            margin-left: 15px;
-        }
-        
-        .food-gallery-item:hover {
+        .gallery-item:hover {
             transform: scale(1.05);
         }
         
-        .food-gallery-item img {
+        .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+        
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
         
         /* Categories Styles */
@@ -810,6 +809,15 @@
                 font-size: 2rem;
             }
             
+            .food-gallery {
+                height: 100px;
+            }
+            
+            .gallery-item {
+                height: 80px;
+                width: 120px;
+            }
+            
             .menu-items {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -824,11 +832,6 @@
                 font-size: 1.3rem;
                 bottom: 1.2rem;
                 left: 1.2rem;
-            }
-            
-            .food-gallery-item {
-                width: 100px;
-                height: 100px;
             }
         }
         
@@ -849,6 +852,16 @@
             .logo-container {
                 width: 90px;
                 height: 90px;
+            }
+            
+            .food-gallery {
+                height: 80px;
+            }
+            
+            .gallery-item {
+                height: 70px;
+                width: 100px;
+                margin: 0 5px;
             }
             
             .category-btn {
@@ -896,11 +909,6 @@
             .working-hours {
                 font-size: 0.8rem;
             }
-            
-            .food-gallery-item {
-                width: 80px;
-                height: 80px;
-            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -922,50 +930,86 @@
                 <img src="images/logo.png" alt="شعار Tasty Fast Food" class="logo">
             </div>
         </div>
+        
+        <!-- Food Gallery Slider -->
+        <div class="food-gallery">
+            <div class="gallery-track">
+                <div class="gallery-item">
+                    <img src="images/pizza1.jpg" alt="بيتزا دجاج">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/burger1.jpg" alt="برغر دجاج">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/special1.jpg" alt="تاكو">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/drink1.jpg" alt="بيبسي">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/pizza2.jpg" alt="بيتزا لحم">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/burger2.jpg" alt="برغر لحم">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/special2.jpg" alt="ستيك دجاج">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/drink2.jpg" alt="ديو">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/pizza3.jpg" alt="بيتزا مشكل">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/burger3.jpg" alt="دبل برغر">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/special3.jpg" alt="ستيك دجاج">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/drink3.jpg" alt="سفن">
+                </div>
+                <!-- Duplicate items for infinite loop -->
+                <div class="gallery-item">
+                    <img src="images/pizza1.jpg" alt="بيتزا دجاج">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/burger1.jpg" alt="برغر دجاج">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/special1.jpg" alt="تاكو">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/drink1.jpg" alt="بيبسي">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/pizza2.jpg" alt="بيتزا لحم">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/burger2.jpg" alt="برغر لحم">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/special2.jpg" alt="ستيك دجاج">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/drink2.jpg" alt="ديو">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/pizza3.jpg" alt="بيتزا مشكل">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/burger3.jpg" alt="دبل برغر">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/special3.jpg" alt="ستيك دجاج">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/drink3.jpg" alt="سفن">
+                </div>
+            </div>
+        </div>
     </header>
-    
-    <!-- Food Gallery Slider -->
-    <div class="food-gallery">
-        <div class="food-gallery-item">
-            <img src="images/pizza1.jpg" alt="بيتزا دجاج">
-        </div>
-        <div class="food-gallery-item">
-            <img src="images/pizza2.jpg" alt="بيتزا لحم">
-        </div>
-        <div class="food-gallery-item">
-            <img src="images/pizza3.jpg" alt="بيتزا مشكل">
-        </div>
-        <div class="food-gallery-item">
-            <img src="images/pizza4.jpg" alt="بيتزا گص">
-        </div>
-        <div class="food-gallery-item">
-            <img src="images/burger1.jpg" alt="برغر دجاج">
-        </div>
-        <div class="food-gallery-item">
-            <img src="images/burger2.jpg" alt="برغر لحم">
-        </div>
-        <div class="food-gallery-item">
-            <img src="images/burger3.jpg" alt="دبل برغر">
-        </div>
-        <div class="food-gallery-item">
-            <img src="images/meal1.jpg" alt="وجبة دجاج">
-        </div>
-        <div class="food-gallery-item">
-            <img src="images/meal2.jpg" alt="وجبة لحم">
-        </div>
-        <div class="food-gallery-item">
-            <img src="images/special1.jpg" alt="تاكو">
-        </div>
-        <div class="food-gallery-item">
-            <img src="images/special2.jpg" alt="ستيك دجاج">
-        </div>
-        <div class="food-gallery-item">
-            <img src="images/drink1.jpg" alt="بيبسي">
-        </div>
-        <div class="food-gallery-item">
-            <img src="images/appetizer1.jpg" alt="مقبلات">
-        </div>
-    </div>
     
     <!-- Categories Navigation -->
     <div class="categories">
@@ -1059,7 +1103,7 @@
     <div class="modal-overlay" id="checkout-modal">
         <div class="modal">
             <div class="modal-header">
-                <div class="modal-title">معلومات التوصيل</div>
+                <div class="modal-title">معلوم��ت التوصيل</div>
                 <button class="close-modal"><i class="fas fa-times"></i></button>
             </div>
             <form id="customer-form">
