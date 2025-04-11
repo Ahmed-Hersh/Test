@@ -211,7 +211,6 @@
             height: 110px;
             overflow: hidden;
             position: relative;
-            cursor: pointer;
         }
         
         .item-image {
@@ -719,62 +718,19 @@
             color: var(--primary-color);
         }
         
-        /* Image Modal */
-        .image-modal {
+        /* Closed Message */
+        .closed-message {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1003;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        
-        .image-modal.open {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        .image-modal-content {
-            max-width: 90%;
-            max-height: 90%;
-        }
-        
-        .image-modal-content img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        
-        .close-image-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+            right: 0;
+            background-color: var(--danger-color);
             color: white;
-            font-size: 2rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-        
-        /* Closed Message */
-        .closed-message {
-            background-color: rgba(231, 76, 60, 0.1);
-            border: 2px solid var(--danger-color);
-            color: var(--danger-color);
             padding: 1rem;
-            margin: 1rem auto;
-            max-width: 1200px;
-            border-radius: 8px;
             text-align: center;
             font-weight: 700;
-            display: none;
+            z-index: 1001;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         
         /* Working Hours */
@@ -782,19 +738,13 @@
             text-align: center;
             padding: 1rem;
             background-color: var(--white);
-            margin-top: 1rem;
             border-top: 1px solid #eee;
-        }
-        
-        .working-hours h3 {
-            color: var(--primary-dark);
-            margin-bottom: 0.5rem;
-        }
-        
-        .working-hours p {
-            color: var(--dark-color);
-            margin: 0.3rem 0;
             font-size: 0.9rem;
+            color: var(--dark-color);
+        }
+        
+        .working-hours strong {
+            color: var(--primary-dark);
         }
         
         /* Responsive Adjustments */
@@ -891,11 +841,20 @@
             .restaurant-info p {
                 font-size: 0.9rem;
             }
+            
+            .working-hours {
+                font-size: 0.8rem;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <!-- Closed Message (will be shown/hidden by JavaScript) -->
+    <div class="closed-message" id="closed-message" style="display: none;">
+        <i class="fas fa-store-slash"></i> المطعم مغلق حالياً. أوقات العمل: السبت-الخميس 10:00 صباحاً إلى 11:45 مساءً | الجمعة 3:00 مساءً إلى 12:00 منتصف الليل
+    </div>
+    
     <!-- Header Section -->
     <header class="header">
         <div class="header-content">
@@ -908,11 +867,6 @@
             </div>
         </div>
     </header>
-    
-    <!-- Closed Message -->
-    <div class="closed-message" id="closed-message">
-        <i class="fas fa-store-slash"></i> المطعم مغلق حالياً. أوقات العمل: السبت-الخميس 10:00 صباحاً إلى 11:45 مساءً، الجمعة 3:00 مساءً إلى 12:00 منتصف الليل
-    </div>
     
     <!-- Categories Navigation -->
     <div class="categories">
@@ -962,9 +916,7 @@
     
     <!-- Working Hours -->
     <div class="working-hours">
-        <h3>أوقات العمل</h3>
-        <p>السبت - الخميس: 10:00 صباحاً إلى 11:45 مساءً</p>
-        <p>الجمعة: 3:00 مساءً إلى 12:00 منتصف الليل</p>
+        <p><strong>أوقات العمل:</strong> السبت-الخميس من 10:00 صباحاً إلى 11:45 مساءً | الجمعة من 3:00 مساءً إلى 12:00 منتصف الليل</p>
     </div>
     
     <!-- Floating Cart Button -->
@@ -997,7 +949,7 @@
         
         <!-- Notes Section in Cart -->
         <div class="cart-notes-container">
-            <label for="cart-notes" class="cart-notes-label"><i class="fas fa-edit"></i> ملاحظ��ت خاصة:</label>
+            <label for="cart-notes" class="cart-notes-label"><i class="fas fa-edit"></i> ملاحظات خاصة:</label>
             <textarea id="cart-notes" class="cart-notes-input" placeholder="اكتب هنا أي ملاحظات أو تعليمات خاصة بطلبك..."></textarea>
         </div>
         
@@ -1026,14 +978,6 @@
                 </div>
                 <button type="submit" class="submit-order"><i class="fas fa-check-circle"></i> تأكيد الطلب</button>
             </form>
-        </div>
-    </div>
-    
-    <!-- Image Modal -->
-    <div class="image-modal" id="image-modal">
-        <button class="close-image-modal"><i class="fas fa-times"></i></button>
-        <div class="image-modal-content">
-            <img src="" alt="Zoomed Image" id="zoomed-image">
         </div>
     </div>
     
@@ -1137,63 +1081,44 @@
             const day = now.getDay(); // 0 is Sunday, 6 is Saturday
             const hours = now.getHours();
             const minutes = now.getMinutes();
-            const currentTime = hours + (minutes / 60);
+            const currentTime = hours * 100 + minutes;
             
-            let isOpen = false;
-            
-            // Saturday to Thursday: 10:00 AM to 11:45 PM (10:00 to 23:75)
-            if (day >= 1 && day <= 5) { // Monday to Friday
-                isOpen = currentTime >= 10 && currentTime <= 23.75;
-            }
-            // Friday: 3:00 PM to 12:00 AM (15:00 to 24:00)
-            else if (day === 6) { // Saturday
-                isOpen = currentTime >= 15 && currentTime <= 24;
-            }
-            // Sunday: 10:00 AM to 11:45 PM (10:00 to 23:75)
-            else if (day === 0) { // Sunday
-                isOpen = currentTime >= 10 && currentTime <= 23.75;
+            // Friday hours: 3:00 PM (15:00) to 12:00 AM (24:00)
+            if (day === 5) { // Friday
+                if (currentTime < 1500 || currentTime >= 2400) {
+                    return false;
+                }
+            } 
+            // Other days hours: 10:00 AM (10:00) to 11:45 PM (23:45)
+            else {
+                if (currentTime < 1000 || currentTime >= 2345) {
+                    return false;
+                }
             }
             
-            return isOpen;
+            return true;
         }
 
         document.addEventListener('DOMContentLoaded', function() {
             generateMenuItems();
             
-            // Check restaurant status
-            const isOpen = checkRestaurantOpen();
+            // Check if restaurant is open and show message if closed
             const closedMessage = document.getElementById('closed-message');
-            const checkoutBtn = document.querySelector('.checkout-btn');
-            
-            if (!isOpen) {
+            if (!checkRestaurantOpen()) {
                 closedMessage.style.display = 'block';
-                checkoutBtn.disabled = true;
-                checkoutBtn.style.opacity = '0.6';
-                checkoutBtn.style.cursor = 'not-allowed';
+                
+                // Disable add to cart buttons
+                document.querySelectorAll('.add-to-cart').forEach(btn => {
+                    btn.disabled = true;
+                    btn.style.opacity = '0.6';
+                    btn.style.cursor = 'not-allowed';
+                });
+                
+                // Disable checkout button
+                document.querySelector('.checkout-btn').disabled = true;
+                document.querySelector('.checkout-btn').style.opacity = '0.6';
+                document.querySelector('.checkout-btn').style.cursor = 'not-allowed';
             }
-            
-            // Image Modal functionality
-            const imageModal = document.getElementById('image-modal');
-            const zoomedImage = document.getElementById('zoomed-image');
-            const closeImageModal = document.querySelector('.close-image-modal');
-            
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('item-image') || e.target.parentElement.classList.contains('item-image-container')) {
-                    const img = e.target.classList.contains('item-image') ? e.target : e.target.querySelector('.item-image');
-                    zoomedImage.src = img.src;
-                    imageModal.classList.add('open');
-                }
-            });
-            
-            closeImageModal.addEventListener('click', function() {
-                imageModal.classList.remove('open');
-            });
-            
-            imageModal.addEventListener('click', function(e) {
-                if (e.target === imageModal) {
-                    imageModal.classList.remove('open');
-                }
-            });
             
             // Category switching
             const categoryBtns = document.querySelectorAll('.category-btn');
@@ -1222,6 +1147,7 @@
             const cartCount = document.querySelector('.cart-count');
             const totalPriceElement = document.querySelector('.total-price');
             const totalWithDeliveryElement = document.querySelector('.total-with-delivery-price');
+            const checkoutBtn = document.querySelector('.checkout-btn');
             const checkoutModal = document.getElementById('checkout-modal');
             const closeModalBtn = document.querySelector('.close-modal');
             const customerForm = document.getElementById('customer-form');
@@ -1234,12 +1160,14 @@
             // Add to cart
             document.addEventListener('click', function(e) {
                 if (e.target.classList.contains('add-to-cart') || e.target.closest('.add-to-cart')) {
-                    if (!isOpen) {
-                        alert('المطعم مغلق حالياً. أوقات العمل: السبت-الخميس 10:00 صباحاً إلى 11:45 مساءً، الجمعة 3:00 مساءً إلى 12:00 منتصف الليل');
+                    const btn = e.target.classList.contains('add-to-cart') ? e.target : e.target.closest('.add-to-cart');
+                    
+                    // Check if restaurant is closed
+                    if (!checkRestaurantOpen()) {
+                        showSuccessMessage('المطعم مغلق حالياً', 'الرجاء المحاولة خلال أوقات العمل');
                         return;
                     }
                     
-                    const btn = e.target.classList.contains('add-to-cart') ? e.target : e.target.closest('.add-to-cart');
                     const name = btn.getAttribute('data-name');
                     const price = parseInt(btn.getAttribute('data-price'));
                     
@@ -1354,13 +1282,14 @@
             
             // Checkout
             checkoutBtn.addEventListener('click', function() {
-                if (!isOpen) {
-                    alert('المطعم مغلق حالياً. أوقات العمل: السبت-الخميس 10:00 صباحاً إلى 11:45 مساءً، الجمعة 3:00 مساءً إلى 12:00 منتصف الليل');
+                if (cart.length === 0) {
+                    showSuccessMessage('السلة فارغة', 'الرجاء إضافة عناصر أولاً');
                     return;
                 }
                 
-                if (cart.length === 0) {
-                    alert('السلة فارغة، الرجاء إضافة عناصر أولاً');
+                // Check if restaurant is closed
+                if (!checkRestaurantOpen()) {
+                    showSuccessMessage('المطعم مغلق حالياً', 'لا يمكن إتمام الطلب خارج أوقات العمل');
                     return;
                 }
                 
