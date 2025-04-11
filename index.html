@@ -108,8 +108,8 @@
             object-fit: cover;
         }
         
-        /* Food Gallery Slider */
-        .food-gallery {
+        /* Image Slider Styles */
+        .image-slider {
             width: 100%;
             height: 120px;
             background-color: var(--white);
@@ -120,37 +120,42 @@
             border-bottom: 1px solid #eee;
         }
         
-        .gallery-track {
+        .slider-track {
             display: flex;
             height: 100%;
             align-items: center;
             animation: scroll 30s linear infinite;
+            width: calc(200px * 14);
         }
         
-        .gallery-item {
+        .slider-item {
+            width: 200px;
             height: 100px;
-            width: 150px;
-            flex-shrink: 0;
             margin: 0 10px;
             border-radius: 8px;
             overflow: hidden;
+            flex-shrink: 0;
             box-shadow: 0 3px 6px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
         }
         
-        .gallery-item:hover {
+        .slider-item:hover {
             transform: scale(1.05);
         }
         
-        .gallery-item img {
+        .slider-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
         
         @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-200px * 7));
+            }
         }
         
         /* Categories Styles */
@@ -809,15 +814,6 @@
                 font-size: 2rem;
             }
             
-            .food-gallery {
-                height: 100px;
-            }
-            
-            .gallery-item {
-                height: 80px;
-                width: 120px;
-            }
-            
             .menu-items {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -832,6 +828,15 @@
                 font-size: 1.3rem;
                 bottom: 1.2rem;
                 left: 1.2rem;
+            }
+            
+            .image-slider {
+                height: 100px;
+            }
+            
+            .slider-item {
+                width: 160px;
+                height: 80px;
             }
         }
         
@@ -852,16 +857,6 @@
             .logo-container {
                 width: 90px;
                 height: 90px;
-            }
-            
-            .food-gallery {
-                height: 80px;
-            }
-            
-            .gallery-item {
-                height: 70px;
-                width: 100px;
-                margin: 0 5px;
             }
             
             .category-btn {
@@ -909,6 +904,16 @@
             .working-hours {
                 font-size: 0.8rem;
             }
+            
+            .image-slider {
+                height: 80px;
+            }
+            
+            .slider-item {
+                width: 140px;
+                height: 70px;
+                margin: 0 5px;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -931,81 +936,161 @@
             </div>
         </div>
         
-        <!-- Food Gallery Slider -->
-        <div class="food-gallery">
-            <div class="gallery-track">
-                <div class="gallery-item">
-                    <img src="images/pizza1.jpg" alt="بيتزا دجاج">
+        <!-- Image Slider -->
+        <div class="image-slider">
+            <div class="slider-track">
+                <div class="slider-item">
+                    <img src="images/pizza1.jpg" alt="بيتزا" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/burger1.jpg" alt="برغر دجاج">
+                <div class="slider-item">
+                    <img src="images/pizza2.jpg" alt="بيتزا" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/special1.jpg" alt="تاكو">
+                <div class="slider-item">
+                    <img src="images/pizza3.jpg" alt="بيتزا" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/drink1.jpg" alt="بيبسي">
+                <div class="slider-item">
+                    <img src="images/pizza4.jpg" alt="بيتزا" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/pizza2.jpg" alt="بيتزا لحم">
+                <div class="slider-item">
+                    <img src="images/pizza5.jpg" alt="بيتزا" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/burger2.jpg" alt="برغر لحم">
+                <div class="slider-item">
+                    <img src="images/pizza6.jpg" alt="بيتزا" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/special2.jpg" alt="ستيك دجاج">
+                <div class="slider-item">
+                    <img src="images/pizza7.jpg" alt="بيتزا" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/drink2.jpg" alt="ديو">
+                <div class="slider-item">
+                    <img src="images/pizza8.jpg" alt="بيتزا" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/pizza3.jpg" alt="بيتزا مشكل">
+                <div class="slider-item">
+                    <img src="images/pizza9.jpg" alt="بيتزا" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/burger3.jpg" alt="دبل برغر">
+                <div class="slider-item">
+                    <img src="images/pizza10.jpg" alt="بيتزا" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/special3.jpg" alt="ستيك دجاج">
+                <div class="slider-item">
+                    <img src="images/pizza11.jpg" alt="بيتزا" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/drink3.jpg" alt="سفن">
+                <div class="slider-item">
+                    <img src="images/pizza12.jpg" alt="بيتزا" class="slider-img">
                 </div>
-                <!-- Duplicate items for infinite loop -->
-                <div class="gallery-item">
-                    <img src="images/pizza1.jpg" alt="بيتزا دجاج">
+                <div class="slider-item">
+                    <img src="images/burger1.jpg" alt="برغر" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/burger1.jpg" alt="برغر دجاج">
+                <div class="slider-item">
+                    <img src="images/burger2.jpg" alt="برغر" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/special1.jpg" alt="تاكو">
+                <div class="slider-item">
+                    <img src="images/burger3.jpg" alt="برغر" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/drink1.jpg" alt="بيبسي">
+                <div class="slider-item">
+                    <img src="images/burger4.jpg" alt="برغر" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/pizza2.jpg" alt="بيتزا لحم">
+                <div class="slider-item">
+                    <img src="images/burger5.jpg" alt="برغر" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/burger2.jpg" alt="برغر لحم">
+                <div class="slider-item">
+                    <img src="images/burger6.jpg" alt="برغر" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/special2.jpg" alt="ستيك دجاج">
+                <div class="slider-item">
+                    <img src="images/meal1.jpg" alt="وجبة" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/drink2.jpg" alt="ديو">
+                <div class="slider-item">
+                    <img src="images/meal2.jpg" alt="وجبة" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/pizza3.jpg" alt="بيتزا مشكل">
+                <div class="slider-item">
+                    <img src="images/meal3.jpg" alt="وجبة" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/burger3.jpg" alt="دبل برغر">
+                <div class="slider-item">
+                    <img src="images/meal4.jpg" alt="وجبة" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/special3.jpg" alt="ستيك دجاج">
+                <div class="slider-item">
+                    <img src="images/meal5.jpg" alt="وجبة" class="slider-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/drink3.jpg" alt="سفن">
+                <div class="slider-item">
+                    <img src="images/meal6.jpg" alt="وجبة" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/meal7.jpg" alt="وجبة" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/meal8.jpg" alt="وجبة" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/meal9.jpg" alt="وجبة" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/meal10.jpg" alt="وجبة" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/special1.jpg" alt="سبيشل" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/special2.jpg" alt="سبيشل" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/special3.jpg" alt="سبيشل" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/special4.jpg" alt="سبيشل" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/special5.jpg" alt="سبيشل" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/special6.jpg" alt="سبيشل" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/special7.jpg" alt="سبيشل" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/special8.jpg" alt="سبيشل" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/special9.jpg" alt="سبيشل" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/special10.jpg" alt="سبيشل" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/special11.jpg" alt="سبيشل" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/special12.jpg" alt="سبيشل" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/special13.jpg" alt="سبيشل" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/special14.jpg" alt="سبيشل" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/special15.jpg" alt="سبيشل" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/drink1.jpg" alt="مشروب" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/drink2.jpg" alt="مشروب" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/drink3.jpg" alt="مشروب" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/drink4.jpg" alt="مشروب" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/drink5.jpg" alt="مشروب" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/appetizer1.jpg" alt="مقبلات" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/appetizer2.jpg" alt="مقبلات" class="slider-img">
+                </div>
+                <div class="slider-item">
+                    <img src="images/appetizer3.jpg" alt="مقبلات" class="slider-img">
                 </div>
             </div>
         </div>
@@ -1103,7 +1188,7 @@
     <div class="modal-overlay" id="checkout-modal">
         <div class="modal">
             <div class="modal-header">
-                <div class="modal-title">معلوم��ت التوصيل</div>
+                <div class="modal-title">معلومات التوصيل</div>
                 <button class="close-modal"><i class="fas fa-times"></i></button>
             </div>
             <form id="customer-form">
@@ -1518,4 +1603,4 @@
         });
     </script>
 </body>
-</html>
+</html>ء
