@@ -3,413 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tasty Fast Food - قائمة الطعام</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>Tasty Fast Food</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #2E7D32;
-            --primary-dark: #1B5E20;
-            --secondary-color: #4CAF50;
-            --accent-color: #8BC34A;
-            --dark-color: #263238;
-            --light-color: #F5F5F5;
-            --white: #FFFFFF;
-            --text-color: #333333;
-            --gray: #95A5A6;
-            --success-color: #27AE60;
-            --danger-color: #E74C3C;
-            --warning-color: #F39C12;
+            --orange: #FF7F00;
+            --dark-orange: #E67300;
+            --light-gray: #F5F5F5;
+            --dark-gray: #333;
+            --white: #FFF;
         }
         
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Tajawal', sans-serif;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
         }
         
         body {
-            background-color: var(--light-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding-bottom: 80px;
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
         }
         
-        /* Header Styles */
         .header {
-            background-color: var(--white);
-            color: var(--text-color);
-            padding: 1rem 0;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        
-        .header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(0,0,0,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
-            opacity: 0.1;
-        }
-        
-        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .restaurant-name {
-            text-align: right;
-            flex-grow: 1;
-            margin-right: 20px;
-        }
-        
-        .restaurant-name h1 {
-            font-size: 2.2rem;
-            font-weight: 900;
-            margin-bottom: 0.3rem;
-            color: var(--primary-dark);
-        }
-        
-        .restaurant-name p {
-            font-size: 1rem;
-            opacity: 0.9;
-            font-weight: 500;
-            color: var(--gray);
-        }
-        
-        .logo-container {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
+            padding: 10px 20px;
             background-color: var(--white);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border: 3px solid var(--accent-color);
-            overflow: hidden;
-            flex-shrink: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
         }
         
         .logo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: 50px;
         }
         
-        /* Categories Styles */
+        .restaurant-name {
+            color: var(--orange);
+            font-size: 14px;
+            text-align: center;
+            flex-grow: 1;
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+            text-align: right;
+        }
+        
+        .dropdown-content a {
+            color: var(--dark-gray);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: var(--light-gray);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
         .categories {
             display: flex;
-            overflow-x: auto;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 10px;
             background-color: var(--white);
-            padding: 0.8rem 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            scrollbar-width: none;
-        }
-        
-        .categories::-webkit-scrollbar {
-            display: none;
+            border-bottom: 1px solid #ddd;
         }
         
         .category-btn {
-            background: none;
+            margin: 5px;
+            padding: 8px 15px;
             border: none;
-            color: var(--dark-color);
-            padding: 0.5rem 1.2rem;
-            margin: 0 0.3rem;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-        
-        .category-btn.active {
-            background-color: var(--primary-color);
+            background-color: var(--orange);
             color: var(--white);
-            box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
         
-        .category-btn:hover:not(.active) {
-            background-color: rgba(76, 175, 80, 0.1);
+        .category-btn:hover, .category-btn.active {
+            background-color: var(--dark-orange);
+            transform: translateY(-2px);
         }
         
-        /* Menu Container */
         .menu-container {
-            display: none;
-            padding: 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .menu-container.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .section-title {
-            font-size: 1.5rem;
-            color: var(--primary-dark);
-            margin-bottom: 1.2rem;
-            padding-bottom: 0.6rem;
-            border-bottom: 2px dashed var(--accent-color);
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: "";
-            position: absolute;
-            bottom: -4px;
-            right: 0;
-            width: 30%;
-            height: 2px;
-            background-color: var(--primary-color);
-        }
-        
-        .menu-items {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
         }
         
         .menu-item {
             background-color: var(--white);
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-            position: relative;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
         }
         
         .menu-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
-        }
-        
-        .item-image-container {
-            height: 110px;
-            overflow: hidden;
-            position: relative;
         }
         
         .item-image {
             width: 100%;
-            height: 100%;
+            height: 200px;
             object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .menu-item:hover .item-image {
-            transform: scale(1.05);
         }
         
         .item-details {
-            padding: 0.8rem;
-            position: relative;
+            padding: 15px;
         }
         
         .item-name {
-            font-weight: 700;
-            margin-bottom: 0.3rem;
-            font-size: 0.9rem;
-            color: var(--dark-color);
-        }
-        
-        .item-description {
-            color: var(--gray);
-            font-size: 0.75rem;
-            margin-bottom: 0.5rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            font-weight: bold;
+            margin-bottom: 5px;
         }
         
         .item-price {
-            color: var(--primary-color);
-            font-weight: 800;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
+            color: var(--orange);
+            font-weight: bold;
+            margin-bottom: 10px;
         }
         
         .add-to-cart {
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            width: 100%;
+            padding: 8px;
+            background-color: var(--orange);
             color: var(--white);
             border: none;
-            padding: 0.5rem;
-            border-radius: 6px;
+            border-radius: 5px;
             cursor: pointer;
-            width: 100%;
-            margin-top: 0.5rem;
-            font-weight: 700;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 3px 6px rgba(46, 125, 50, 0.2);
+            transition: background-color 0.3s;
         }
         
         .add-to-cart:hover {
-            background: linear-gradient(to right, var(--primary-dark), var(--primary-color));
-            box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
+            background-color: var(--dark-orange);
         }
         
-        .add-to-cart i {
-            margin-left: 5px;
-            font-size: 0.8rem;
-        }
-        
-        /* Floating Cart Button */
-        .cart-btn {
+        .cart-container {
             position: fixed;
-            bottom: 1.5rem;
-            left: 1.5rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        
+        .cart-btn {
+            background-color: var(--orange);
             color: var(--white);
-            width: 65px;
-            height: 65px;
+            border: none;
             border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.4rem;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            z-index: 1000;
-            border: none;
-            transition: all 0.3s ease;
-        }
-        
-        .cart-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+            position: relative;
         }
         
         .cart-count {
             position: absolute;
             top: -5px;
             right: -5px;
-            background-color: var(--danger-color);
+            background-color: red;
             color: white;
-            width: 24px;
-            height: 24px;
             border-radius: 50%;
+            width: 25px;
+            height: 25px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 0.8rem;
-            font-weight: 700;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            font-size: 12px;
         }
         
-        /* Cart Container */
-        .cart-container {
+        .cart-modal {
+            display: none;
             position: fixed;
-            bottom: -100%;
-            left: 0;
+            top: 0;
+            right: 0;
             width: 100%;
+            max-width: 400px;
+            height: 100%;
             background-color: var(--white);
-            border-radius: 15px 15px 0 0;
-            box-shadow: 0 -8px 20px rgba(0,0,0,0.2);
-            transition: bottom 0.4s ease;
-            z-index: 999;
-            max-height: 70vh;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            z-index: 101;
             overflow-y: auto;
-            padding: 1.2rem;
-        }
-        
-        .cart-container.open {
-            bottom: 0;
+            padding: 20px;
         }
         
         .cart-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.2rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .cart-title {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-        }
-        
-        .cart-title i {
-            margin-left: 0.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
         }
         
         .close-cart {
             background: none;
             border: none;
-            font-size: 1.6rem;
+            font-size: 24px;
             cursor: pointer;
-            color: var(--gray);
-            transition: color 0.3s ease;
-        }
-        
-        .close-cart:hover {
-            color: var(--primary-color);
         }
         
         .cart-items {
-            margin-bottom: 1.2rem;
+            margin-bottom: 20px;
         }
         
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.8rem 0;
-            border-bottom: 1px solid #f0f0f0;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
         }
         
-        .cart-item:last-child {
-            border-bottom: none;
+        .cart-item-info {
+            flex-grow: 1;
         }
         
         .cart-item-name {
-            flex-grow: 1;
-            font-weight: 600;
-            color: var(--dark-color);
-            font-size: 0.9rem;
+            font-weight: bold;
         }
         
         .cart-item-price {
-            color: var(--primary-color);
-            font-weight: 700;
-            margin: 0 0.8rem;
-            min-width: 70px;
-            text-align: center;
-            font-size: 0.9rem;
+            color: var(--orange);
         }
         
         .cart-item-quantity {
@@ -418,1197 +265,1001 @@
         }
         
         .quantity-btn {
-            background-color: #f5f5f5;
+            width: 25px;
+            height: 25px;
+            background-color: var(--light-gray);
             border: none;
-            width: 26px;
-            height: 26px;
             border-radius: 50%;
+            cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: pointer;
-            font-weight: 700;
-            color: var(--dark-color);
-            transition: all 0.3s ease;
-            font-size: 0.8rem;
         }
         
-        .quantity-btn:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .quantity-value {
-            margin: 0 0.5rem;
-            font-weight: 700;
-            min-width: 18px;
-            text-align: center;
-            font-size: 0.9rem;
+        .quantity {
+            margin: 0 10px;
         }
         
         .remove-item {
-            color: var(--danger-color);
             background: none;
             border: none;
-            margin-right: 0.3rem;
+            color: red;
             cursor: pointer;
-            font-size: 1rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .remove-item:hover {
-            transform: scale(1.1);
+            margin-left: 10px;
         }
         
         .cart-total {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 800;
-            font-size: 1.2rem;
-            margin: 1.2rem 0;
-            padding-top: 0.8rem;
-            border-top: 2px dashed var(--accent-color);
+            font-weight: bold;
+            font-size: 18px;
+            text-align: right;
+            margin: 20px 0;
         }
         
-        .delivery-fee {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 600;
-            font-size: 1rem;
-            margin: 0.5rem 0;
-            color: var(--dark-color);
-        }
-        
-        .total-with-delivery {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 800;
-            font-size: 1.3rem;
-            margin: 1rem 0;
-            padding-top: 0.8rem;
-            border-top: 2px solid var(--primary-color);
-            color: var(--primary-dark);
-        }
-        
-        /* Notes Section in Cart */
-        .cart-notes-container {
-            margin: 1rem 0;
-            background-color: var(--white);
-            border-radius: 8px;
-        }
-        
-        .cart-notes-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-            color: var(--dark-color);
-            font-size: 1rem;
-        }
-        
-        .cart-notes-input {
+        .notes {
             width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            resize: vertical;
-            min-height: 80px;
-            font-family: 'Tajawal', sans-serif;
-            transition: border 0.3s ease;
-            font-size: 0.9rem;
-        }
-        
-        .cart-notes-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            resize: none;
         }
         
         .checkout-btn {
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            color: white;
-            border: none;
-            padding: 0.9rem;
             width: 100%;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 700;
+            padding: 12px;
+            background-color: var(--orange);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 8px rgba(46, 125, 50, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transition: background-color 0.3s;
         }
         
         .checkout-btn:hover {
-            background: linear-gradient(to right, var(--primary-dark), var(--primary-color));
-            box-shadow: 0 5px 12px rgba(46, 125, 50, 0.4);
+            background-color: var(--dark-orange);
         }
         
-        .checkout-btn i {
-            margin-left: 0.5rem;
-        }
-        
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.6);
+        .customer-form {
             display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1001;
-            backdrop-filter: blur(3px);
-        }
-        
-        .modal-overlay.open {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .modal {
-            background-color: white;
-            border-radius: 12px;
-            width: 95%;
-            max-width: 500px;
-            padding: 1.5rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        
-        .modal-overlay.open .modal {
-            transform: translateY(0);
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.2rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary-color);
-        }
-        
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.6rem;
-            cursor: pointer;
-            color: var(--gray);
-            transition: color 0.3s ease;
-        }
-        
-        .close-modal:hover {
-            color: var(--primary-color);
+            margin-top: 20px;
         }
         
         .form-group {
-            margin-bottom: 1.2rem;
+            margin-bottom: 15px;
         }
         
-        .form-label {
+        .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--dark-color);
-            font-size: 1rem;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
         
-        .form-input {
+        .form-group input {
             width: 100%;
-            padding: 0.8rem 1rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-family: 'Tajawal', sans-serif;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-        
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
         
         .submit-order {
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 1rem;
-            width: 100%;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 700;
+            border-radius: 5px;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
-            box-shadow: 0 3px 8px rgba(46, 125, 50, 0.3);
+            transition: background-color 0.3s;
         }
         
         .submit-order:hover {
-            background: linear-gradient(to right, var(--primary-dark), var(--primary-color));
-            box-shadow: 0 5px 12px rgba(46, 125, 50, 0.4);
+            background-color: #45a049;
         }
         
-        /* Success Message */
-        .success-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: var(--white);
-            padding: 1.8rem;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        .footer {
             text-align: center;
-            z-index: 1002;
-            animation: fadeIn 0.3s ease;
+            padding: 20px;
+            background-color: var(--dark-gray);
+            color: var(--white);
+            margin-top: 30px;
         }
         
-        .success-content i {
-            color: var(--success-color);
-            font-size: 3.5rem;
-            margin-bottom: 1.2rem;
-        }
-        
-        .success-content h3 {
-            color: var(--dark-color);
-            margin-bottom: 0.8rem;
-            font-size: 1.4rem;
-        }
-        
-        .success-content p {
-            color: var(--gray);
-            font-size: 1.1rem;
-        }
-        
-        /* Restaurant Info */
-        .restaurant-info {
-            text-align: center;
-            padding: 1.5rem;
-            margin-top: 2rem;
-            background-color: var(--white);
-            border-top: 1px solid #eee;
-        }
-        
-        .restaurant-info p {
-            margin: 0.5rem 0;
-            color: var(--dark-color);
-            font-size: 1rem;
-        }
-        
-        .restaurant-info .address {
-            font-weight: 600;
-            color: var(--primary-dark);
-        }
-        
-        .restaurant-info .phone {
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-        
-        /* Closed Message */
-        .closed-message {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background-color: var(--danger-color);
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            font-weight: 700;
-            z-index: 1001;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        
-        /* Working Hours */
-        .working-hours {
-            text-align: center;
-            padding: 1rem;
-            background-color: var(--white);
-            border-top: 1px solid #eee;
-            font-size: 0.9rem;
-            color: var(--dark-color);
-        }
-        
-        .working-hours strong {
-            color: var(--primary-dark);
-        }
-        
-        /* Admin Panel Styles */
         .admin-panel {
-            position: fixed;
-            top: 0;
-            right: 0;
-            background-color: var(--warning-color);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-bottom-left-radius: 8px;
-            z-index: 1002;
-            font-weight: 700;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        
-        .admin-controls {
             display: none;
-            background-color: var(--white);
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            margin: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         
-        .admin-controls.active {
+        .admin-panel h2 {
+            color: var(--orange);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .admin-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .admin-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .admin-tab.active {
+            border-bottom: 2px solid var(--orange);
+            color: var(--orange);
+            font-weight: bold;
+        }
+        
+        .admin-content {
+            display: none;
+        }
+        
+        .admin-content.active {
             display: block;
         }
         
-        .admin-title {
-            font-size: 1.2rem;
-            color: var(--warning-color);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--warning-color);
-        }
-        
-        .admin-toggle {
-            position: absolute;
-            top: 0.8rem;
-            left: 1rem;
-            background-color: var(--white);
-            color: var(--warning-color);
-            border: none;
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-        
-        .admin-toggle:hover {
-            background-color: var(--warning-color);
-            color: white;
-        }
-        
-        .admin-item {
+        .form-row {
             display: flex;
-            align-items: center;
-            margin-bottom: 0.8rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
         }
         
-        .admin-item-name {
-            flex-grow: 1;
-            font-weight: 600;
+        .form-col {
+            flex: 1;
+            min-width: 200px;
+            padding: 0 10px;
         }
         
-        .admin-item-price {
-            margin: 0 1rem;
+        .form-col label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
         
-        .admin-item-price input {
-            width: 80px;
-            padding: 0.3rem 0.5rem;
+        .form-col input, .form-col select {
+            width: 100%;
+            padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            text-align: center;
         }
         
-        .admin-item-available {
-            display: flex;
-            align-items: center;
-        }
-        
-        .admin-item-available input {
-            margin-left: 0.5rem;
-        }
-        
-        .save-changes-btn {
-            background-color: var(--success-color);
+        .admin-btn {
+            padding: 8px 15px;
+            background-color: var(--orange);
             color: white;
             border: none;
-            padding: 0.7rem 1.2rem;
-            border-radius: 6px;
-            font-weight: 700;
+            border-radius: 4px;
             cursor: pointer;
-            margin-top: 1rem;
-            display: block;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .admin-btn:hover {
+            background-color: var(--dark-orange);
+        }
+        
+        .admin-btn.cancel {
+            background-color: #6c757d;
+        }
+        
+        .admin-btn.cancel:hover {
+            background-color: #5a6268;
+        }
+        
+        .admin-btn.delete {
+            background-color: #dc3545;
+        }
+        
+        .admin-btn.delete:hover {
+            background-color: #c82333;
+        }
+        
+        .image-preview {
+            max-width: 100px;
+            max-height: 100px;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .items-list {
             width: 100%;
-            transition: all 0.3s ease;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
         
-        .save-changes-btn:hover {
-            background-color: #219653;
+        .items-list th, .items-list td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: right;
         }
         
-        .item-unavailable {
-            position: relative;
+        .items-list th {
+            background-color: #f2f2f2;
         }
         
-        .item-unavailable::after {
-            content: "غير متوفر";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0,0,0,0.7);
+        .items-list tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .items-list tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .edit-btn, .delete-btn {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 3px;
+        }
+        
+        .edit-btn {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        
+        .delete-btn {
+            background-color: #dc3545;
             color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 700;
-            border-radius: 12px;
         }
         
-        /* Responsive Adjustments */
         @media (max-width: 768px) {
-            .header-content {
-                flex-direction: row;
-                text-align: right;
+            .menu-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
             
-            .logo-container {
-                margin-left: 0.8rem;
-                width: 100px;
-                height: 100px;
-            }
-            
-            .restaurant-name h1 {
-                font-size: 2rem;
-            }
-            
-            .menu-items {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .item-image-container {
-                height: 100px;
-            }
-            
-            .cart-btn {
-                width: 60px;
-                height: 60px;
-                font-size: 1.3rem;
-                bottom: 1.2rem;
-                left: 1.2rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .header-content {
-                flex-direction: row;
-                align-items: center;
-            }
-            
-            .restaurant-name h1 {
-                font-size: 1.6rem;
-            }
-            
-            .restaurant-name p {
-                font-size: 0.9rem;
-            }
-            
-            .logo-container {
-                width: 90px;
-                height: 90px;
+            .restaurant-name {
+                font-size: 12px;
             }
             
             .category-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-            }
-            
-            .section-title {
-                font-size: 1.3rem;
-            }
-            
-            .menu-item {
-                border-radius: 10px;
-            }
-            
-            .item-image-container {
-                height: 90px;
-            }
-            
-            .item-name {
-                font-size: 0.85rem;
-            }
-            
-            .item-description {
-                font-size: 0.7rem;
-            }
-            
-            .item-price {
-                font-size: 0.85rem;
-            }
-            
-            .add-to-cart {
-                font-size: 0.75rem;
-                padding: 0.4rem;
-            }
-            
-            .restaurant-info {
-                padding: 1rem;
-            }
-            
-            .restaurant-info p {
-                font-size: 0.9rem;
-            }
-            
-            .working-hours {
-                font-size: 0.8rem;
+                padding: 6px 12px;
+                font-size: 12px;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Closed Message (will be shown/hidden by JavaScript) -->
-    <div class="closed-message" id="closed-message" style="display: none;">
-        <i class="fas fa-store-slash"></i> المطعم مغلق حالياً. أوقات العمل: السبت-الخميس 10:00 صباحاً إلى 11:45 مساءً | الجمعة 3:00 مساءً إلى 12:00 منتصف الليل
-    </div>
-    
-    <!-- Admin Panel -->
-    <div class="admin-panel" id="admin-panel" style="display: none;">
-        وضع المسؤول
-        <button class="admin-toggle" id="admin-toggle">
-            <i class="fas fa-cog"></i>
-        </button>
-    </div>
-    
     <!-- Header Section -->
-    <header class="header">
-        <div class="header-content">
-            <div class="restaurant-name">
-                <h1>Tasty Fast Food</h1>
-                <p>ألذ الأطباق بأفضل الأسعار</p>
-            </div>
-            <div class="logo-container">
-                <img src="images/logo.png" alt="شعار Tasty Fast Food" class="logo">
+    <div class="header">
+        <div class="dropdown">
+            <button class="dropdown-btn"><i class="fas fa-bars"></i></button>
+            <div class="dropdown-content">
+                <a href="#">الرئيسية</a>
+                <a href="#">موقع المطعم</a>
+                <a href="#">تواصل معنا</a>
             </div>
         </div>
-    </header>
+        
+        <h1 class="restaurant-name">Tasty Fast Food</h1>
+        
+        <img src="logo.png" alt="شعار المطعم" class="logo">
+    </div>
     
-    <!-- Admin Controls -->
-    <div class="admin-controls" id="admin-controls">
-        <h3 class="admin-title"><i class="fas fa-user-shield"></i> لوحة التحكم</h3>
+    <!-- Categories Section -->
+    <div class="categories">
+        <button class="category-btn active" data-category="all">الكل</button>
+        <button class="category-btn" data-category="pizza">بيتزا</button>
+        <button class="category-btn" data-category="meals">وجبات</button>
+        <button class="category-btn" data-category="special">سبيشل</button>
+        <button class="category-btn" data-category="drinks">كولا و مقبلات</button>
+    </div>
+    
+    <!-- Menu Container -->
+    <div class="menu-container" id="menuContainer">
+        <!-- Menu items will be loaded here dynamically -->
+    </div>
+    
+    <!-- Admin Panel (Hidden by default) -->
+    <div class="admin-panel" id="adminPanel">
+        <h2>لوحة التحكم</h2>
         
-        <div id="pizza-admin-controls">
-            <h4>بيتزا</h4>
-            <!-- Pizza admin controls will be generated here -->
+        <div class="admin-tabs">
+            <div class="admin-tab active" data-tab="items">إدارة الأصناف</div>
+            <div class="admin-tab" data-tab="categories">إدارة الأقسام</div>
+            <div class="admin-tab" data-tab="settings">الإعدادات</div>
         </div>
         
-        <div id="meals-admin-controls">
-            <h4>وجبات</h4>
-            <!-- Meals admin controls will be generated here -->
+        <div class="admin-content active" id="itemsTab">
+            <button class="admin-btn" id="addItemBtn">إضافة صنف جديد</button>
+            
+            <div id="itemForm" style="display: none; margin-top: 20px;">
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="itemName">اسم الصنف</label>
+                        <input type="text" id="itemName">
+                    </div>
+                    <div class="form-col">
+                        <label for="itemPrice">السعر</label>
+                        <input type="number" id="itemPrice">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="itemCategory">القسم</label>
+                        <select id="itemCategory">
+                            <option value="pizza">بيتزا</option>
+                            <option value="meals">وجبات</option>
+                            <option value="special">سبيشل</option>
+                            <option value="drinks">كولا و مقبلات</option>
+                        </select>
+                    </div>
+                    <div class="form-col">
+                        <label for="itemImage">صورة الصنف</label>
+                        <input type="file" id="itemImage" accept="image/*">
+                        <img id="itemImagePreview" class="image-preview">
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <button class="admin-btn" id="saveItemBtn">حفظ</button>
+                    <button class="admin-btn cancel" id="cancelItemBtn">إلغاء</button>
+                </div>
+            </div>
+            
+            <table class="items-list">
+                <thead>
+                    <tr>
+                        <th>الصورة</th>
+                        <th>الاسم</th>
+                        <th>القسم</th>
+                        <th>السعر</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="itemsTableBody">
+                    <!-- Items will be loaded here -->
+                </tbody>
+            </table>
         </div>
         
-        <div id="special-admin-controls">
-            <h4>سبيشل</h4>
-            <!-- Special admin controls will be generated here -->
+        <div class="admin-content" id="categoriesTab">
+            <h3>إدارة الأقسام</h3>
+            <p>هنا يمكنك إدارة أقسام القائمة</p>
         </div>
         
-        <div id="drinks-admin-controls">
-            <h4>مشروبات و مقبلات</h4>
-            <!-- Drinks admin controls will be generated here -->
+        <div class="admin-content" id="settingsTab">
+            <h3>إعدادات المطعم</h3>
+            <p>هنا يمكنك تعديل إعدادات المطعم</p>
         </div>
-        
-        <button class="save-changes-btn" id="save-changes-btn">
-            <i class="fas fa-save"></i> حفظ التغييرات
+    </div>
+    
+    <!-- Cart Button -->
+    <div class="cart-container">
+        <button class="cart-btn" id="cartBtn">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count" id="cartCount">0</span>
         </button>
     </div>
     
-    <!-- Categories Navigation -->
-    <div class="categories">
-        <button class="category-btn active" data-category="pizza">🍕 بيتزا</button>
-        <button class="category-btn" data-category="meals">🍔 وجبات</button>
-        <button class="category-btn" data-category="special">🌟 سبيشل</button>
-        <button class="category-btn" data-category="drinks">🥤 مشروبات و مقبلات</button>
-    </div>
-    
-    <!-- Pizza Menu Section -->
-    <div class="menu-container active" id="pizza-menu">
-        <h2 class="section-title">قائمة البيتزا</h2>
-        <div class="menu-items">
-            <!-- Pizza Items will be generated here -->
-        </div>
-    </div>
-    
-    <!-- Meals Menu Section -->
-    <div class="menu-container" id="meals-menu">
-        <h2 class="section-title">قائمة الوجبات</h2>
-        <div class="menu-items">
-            <!-- Meals Items will be generated here -->
-        </div>
-    </div>
-    
-    <!-- Special Menu Section -->
-    <div class="menu-container" id="special-menu">
-        <h2 class="section-title">قائمة السبيشل</h2>
-        <div class="menu-items">
-            <!-- Special Items will be generated here -->
-        </div>
-    </div>
-    
-    <!-- Drinks Menu Section -->
-    <div class="menu-container" id="drinks-menu">
-        <h2 class="section-title">المشروبات والمقبلات</h2>
-        <div class="menu-items">
-            <!-- Drinks Items will be generated here -->
-        </div>
-    </div>
-    
-    <!-- Restaurant Info -->
-    <div class="restaurant-info">
-        <p class="address">العنوان: كركوك - سوق الحصير</p>
-        <p class="phone">رقم الهاتف: 07701236363</p>
-    </div>
-    
-    <!-- Working Hours -->
-    <div class="working-hours">
-        <p><strong>أوقات العمل:</strong> السبت-الخميس من 10:00 صباحاً إلى 11:45 مساءً | الجمعة من 3:00 مساءً إلى 12:00 منتصف الليل</p>
-    </div>
-    
-    <!-- Floating Cart Button -->
-    <button class="cart-btn">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-count">0</span>
-    </button>
-    
-    <!-- Cart Sidebar -->
-    <div class="cart-container">
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
         <div class="cart-header">
-            <div class="cart-title"><i class="fas fa-cart-plus"></i> سلة التسوق</div>
-            <button class="close-cart"><i class="fas fa-times"></i></button>
+            <h2>سلة المشتريات</h2>
+            <button class="close-cart" id="closeCart">&times;</button>
         </div>
-        <div class="cart-items">
-            <!-- Cart items will be added here dynamically -->
+        
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be loaded here -->
         </div>
+        
         <div class="cart-total">
-            <span>المجموع:</span>
-            <span class="total-price">0 دينار</span>
-        </div>
-        <div class="delivery-fee">
-            <span>رسوم التوصيل:</span>
-            <span class="delivery-price">1500 دينار</span>
-        </div>
-        <div class="total-with-delivery">
-            <span>المجموع الكلي:</span>
-            <span class="total-with-delivery-price">1500 دينار</span>
+            المجموع الكلي: <span id="totalAmount">0</span> دينار
         </div>
         
-        <!-- Notes Section in Cart -->
-        <div class="cart-notes-container">
-            <label for="cart-notes" class="cart-notes-label"><i class="fas fa-edit"></i> ملاحظات خاصة:</label>
-            <textarea id="cart-notes" class="cart-notes-input" placeholder="اكتب هنا أي ملاحظات أو تعليمات خاصة بطلبك..."></textarea>
-        </div>
+        <textarea class="notes" id="orderNotes" placeholder="ملاحظات خاصة بالطلب..."></textarea>
         
-        <button class="checkout-btn"><i class="fas fa-paper-plane"></i> إتمام الطلب</button>
+        <button class="checkout-btn" id="checkoutBtn">إتمام الطلب</button>
+        
+        <div class="customer-form" id="customerForm">
+            <div class="form-group">
+                <label for="customerName">اسم الزبون</label>
+                <input type="text" id="customerName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="customerAddress">العنوان</label>
+                <input type="text" id="customerAddress" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="customerPhone">رقم الهاتف</label>
+                <input type="tel" id="customerPhone" required>
+            </div>
+            
+            <button class="submit-order" id="submitOrder">إرسال الطلب</button>
+        </div>
     </div>
     
-    <!-- Checkout Modal -->
-    <div class="modal-overlay" id="checkout-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <div class="modal-title">معلومات التوصيل</div>
-                <button class="close-modal"><i class="fas fa-times"></i></button>
-            </div>
-            <form id="customer-form">
-                <div class="form-group">
-                    <label for="customer-name" class="form-label">الاسم الكامل</label>
-                    <input type="text" id="customer-name" class="form-input" required placeholder="ادخل اسمك الكامل">
-                </div>
-                <div class="form-group">
-                    <label for="customer-address" class="form-label">عنوان التوصيل</label>
-                    <input type="text" id="customer-address" class="form-input" required placeholder="ادخل عنوانك بالتفصيل">
-                </div>
-                <div class="form-group">
-                    <label for="customer-phone" class="form-label">رقم الهاتف</label>
-                    <input type="tel" id="customer-phone" class="form-input" required placeholder="ادخل رقم هاتفك">
-                </div>
-                <button type="submit" class="submit-order"><i class="fas fa-check-circle"></i> تأكيد الطلب</button>
-            </form>
-        </div>
+    <!-- Footer -->
+    <div class="footer">
+        <p>عنوان المطعم: كركوك-سوق الحصير</p>
+        <p>رقم الهاتف: 07701236363</p>
     </div>
     
     <script>
-        // Menu Data with local images
-        let menuData = {
+        // Menu Data
+        const menuData = {
             pizza: [
-                { name: "بيتزا دجاج", price: 5000, description: "بيتزا بالدجاج المشوي وجبنة موزاريلا", image: "images/pizza1.jpg", available: true },
-                { name: "بيتزا لحم", price: 6000, description: "بيتزا باللحم المفروم الطازج", image: "images/pizza2.jpg", available: true },
-                { name: "بيتزا مشكل", price: 6000, description: "بيتزا بالدجاج واللحم والفطر", image: "images/pizza3.jpg", available: true },
-                { name: "بيتزا گص", price: 6000, description: "بيتزا بالصوص الخاص ولحم البقر", image: "images/pizza4.jpg", available: true },
-                { name: "بيتزا خضروات", price: 4500, description: "بيتزا نباتية بالخضار الطازجة", image: "images/pizza5.jpg", available: true },
-                { name: "بيتزا حار", price: 6000, description: "بيتزا بالصوص الحار والدجاج", image: "images/pizza6.jpg", available: true },
-                { name: "بيتزا كالزون", price: 6500, description: "بيتزا محشوة بالجبنة واللحم", image: "images/pizza7.jpg", available: true },
-                { name: "بيتزا محشي", price: 6000, description: "بيتزا محشوة بالخضار والجبنة", image: "images/pizza8.jpg", available: true },
-                { name: "بيتزا مارگريتا", price: 4000, description: "بيتزا كلاسيكية بالجبنة والريحان", image: "images/pizza9.jpg", available: true },
-                { name: "بيتزا تيستي", price: 7000, description: "بيتزا مميزة بالصوص الخاص", image: "images/pizza10.jpg", available: true },
-                { name: "بيتزا ستيك چكن", price: 7000, description: "بيتزا بشرائح ستيك الدجاج", image: "images/pizza11.jpg", available: true },
-                { name: "بيتزا فنگر", price: 4500, description: "بيتزا بأصابع الدجاج المقرمشة", image: "images/pizza12.jpg", available: true },
-                { name: "بيتزا صوصج", price: 5000, description: "بيتزا بالصوص الخاص بالجبنة", image: "images/pizza13.jpg", available: true }
+                { id: 1, name: "بيتزا دجاج", price: 5000, image: "pizza1.jpg" },
+                { id: 2, name: "بيتزا لحم", price: 6000, image: "pizza2.jpg" },
+                { id: 3, name: "بيتزا مشكل", price: 6000, image: "pizza3.jpg" },
+                { id: 4, name: "بيتزا كص", price: 6000, image: "pizza4.jpg" },
+                { id: 5, name: "بيتزا خضروات", price: 4500, image: "pizza5.jpg" },
+                { id: 6, name: "بيتزا حار", price: 6000, image: "pizza6.jpg" },
+                { id: 7, name: "بيتزا كالزون", price: 6500, image: "pizza7.jpg" },
+                { id: 8, name: "بيتزا محشي", price: 6000, image: "pizza8.jpg" },
+                { id: 9, name: "بيتزا ماركريتا", price: 4000, image: "pizza9.jpg" },
+                { id: 10, name: "بيتزا صوصج", price: 5000, image: "pizza10.jpg" },
+                { id: 11, name: "بيتزا تيستي", price: 7000, image: "pizza11.jpg" },
+                { id: 12, name: "بيتزا ستيك جكن", price: 7000, image: "pizza12.jpg" },
+                { id: 13, name: "بيتزا فنگر", price: 4500, image: "pizza13.jpg" }
             ],
             meals: [
-                { name: "برغر دجاج", price: 3500, description: "برغر دجاج مع الخضار والصوص", image: "images/burger1.jpg", available: true },
-                { name: "برغر لحم", price: 4000, description: "برغر لحم بقري طازج", image: "images/burger2.jpg", available: true },
-                { name: "دبل برغر", price: 6000, description: "برغر مزدوج باللحم والجبنة", image: "images/burger3.jpg", available: true },
-                { name: "برغر مكسيكي", price: 5000, description: "برغر بالصوص المكسيكي الحار", image: "images/burger4.jpg", available: true },
-                { name: "برغر زنجر", price: 5000, description: "برغر دجاج زنجر مقرمش", image: "images/burger5.jpg", available: true },
-                { name: "كينغ برغر", price: 6000, description: "برغر كبير باللحم والخضار", image: "images/burger6.jpg", available: true },
-                { name: "كص دجاج+فنكر", price: 3000, description: "وجبة دجاج مع أصابع الدجاج", image: "images/meal1.jpg", available: true },
-                { name: "كص لحم +فنكر", price: 3500, description: "وجبة لحم مع أصابع الدجاج", image: "images/meal2.jpg", available: true },
-                { name: "صاج لحم دبل", price: 5000, description: "وجبة لحم مزدوجة على الصاج", image: "images/meal3.jpg", available: true },
-                { name: "صاج دجاج دبل", price: 4000, description: "وجبة دجاج مزدوجة على الصاج", image: "images/meal4.jpg", available: true },
-                { name: "طبق كص لحم", price: 6500, description: "طبق لحم كامل مع الخضار", image: "images/meal5.jpg", available: true },
-                { name: "طبق كص دجاج", price: 5500, description: "طبق دجاج كامل مع الخضار", image: "images/meal6.jpg", available: true },
-                { name: "طبق كص مشكل", price: 6000, description: "طبق مشكل باللحم والدجاج", image: "images/meal7.jpg", available: true },
-                { name: "سندويش راب", price: 5000, description: "سندويش راب بالخضار والصوص", image: "images/meal8.jpg", available: true },
-                { name: "سندويش تيستي", price: 5000, description: "سندويش مميز بالصوص الخاص", image: "images/meal9.jpg", available: true },
-                { name: "فيلادلفيا", price: 6000, description: "سندويش فيلادلفيا بالسلمون", image: "images/meal10.jpg", available: true }
+                { id: 14, name: "برغر دجاج", price: 3500, image: "meal1.jpg" },
+                { id: 15, name: "برغر لحم", price: 4000, image: "meal2.jpg" },
+                { id: 16, name: "دبل برغر", price: 6000, image: "meal3.jpg" },
+                { id: 17, name: "برغر مكسيكي", price: 5000, image: "meal4.jpg" },
+                { id: 18, name: "برغر زنجر", price: 5000, image: "meal5.jpg" },
+                { id: 19, name: "كينغ برغر", price: 6000, image: "meal6.jpg" },
+                { id: 20, name: "كص دجاج+فنكر", price: 3000, image: "meal7.jpg" },
+                { id: 21, name: "كص لحم +فنكر", price: 3500, image: "meal8.jpg" },
+                { id: 22, name: "صاج لحم دبل", price: 5000, image: "meal9.jpg" },
+                { id: 23, name: "صاج دجاج دبل", price: 4000, image: "meal10.jpg" },
+                { id: 24, name: "طبق كص لحم", price: 6500, image: "meal11.jpg" },
+                { id: 25, name: "طبق كص دجاج", price: 5500, image: "meal12.jpg" },
+                { id: 26, name: "طبق كص مشكل", price: 6000, image: "meal13.jpg" },
+                { id: 27, name: "سندويش راب", price: 5000, image: "meal14.jpg" },
+                { id: 28, name: "سندويش تيستي", price: 5000, image: "meal15.jpg" },
+                { id: 29, name: "فيلادلفيا", price: 6000, image: "meal16.jpg" }
             ],
             special: [
-                { name: "تاكو", price: 6000, description: "تاكو مكسيكي باللحم والخضار", image: "images/special1.jpg", available: true },
-                { name: "طبق ستيك دجاج بالمشروم", price: 6000, description: "ستيك دجاج مع صلصة المشروم", image: "images/special2.jpg", available: true },
-                { name: "طبق ستيك دجاج", price: 5000, description: "ستيك دجاج مشوي مع الخضار", image: "images/special3.jpg", available: true },
-                { name: "3 قطع صدر دجاج مع فنگر", price: 4000, description: "3 قطع دجاج مع أصابع الدجاج", image: "images/special4.jpg", available: true },
-                { name: "5 قطع صدر دجاج مع فنگر", price: 6000, description: "5 قطع دجاج مع أصابع الدجاج", image: "images/special5.jpg", available: true },
-                { name: "ريزو كنتاكي", price: 5000, description: "أرز بالدجاج المقلي والخضار", image: "images/special6.jpg", available: true },
-                { name: "ريزو گص دجاج", price: 5000, description: "أرز بالصوص الخاص والدجاج", image: "images/special7.jpg", available: true },
-                { name: "ريزو گص لحم", price: 5000, description: "أرز بالصوص الخاص واللحم", image: "images/special8.jpg", available: true },
-                { name: "پاستا دجاج", price: 5000, description: "معكرونة بالدجاج والصوص الأبيض", image: "images/special9.jpg", available: true },
-                { name: "پاستا لحم", price: 5000, description: "معكرونة باللحم والصوص الأحمر", image: "images/special10.jpg", available: true },
-                { name: "فنگر تيستي", price: 3500, description: "أصابع دجاج مميزة بالتوابل", image: "images/special11.jpg", available: true },
-                { name: "طبق فنگر", price: 2500, description: "طبق أصابع الدجاج المقرمشة", image: "images/special12.jpg", available: true },
-                { name: "طبق وجز", price: 3000, description: "طبق أجنحة دجاج مشوية", image: "images/special13.jpg", available: true },
-                { name: "حلقات بصل", price: 2000, description: "حلقات بصل مقرمشة", image: "images/special14.jpg", available: true },
-                { name: "گلاص فنگر", price: 1500, description: "أصابع دجاج صغيرة مقرمشة", image: "images/special15.jpg", available: true }
+                { id: 30, name: "تاكو", price: 6000, image: "special1.jpg" },
+                { id: 31, name: "طبق ستيك دجاج بالمشروم", price: 6000, image: "special2.jpg" },
+                { id: 32, name: "طبق ستيك دجاج", price: 5000, image: "special3.jpg" },
+                { id: 33, name: "3 قطع صدر دجاج مع فنكر", price: 4000, image: "special4.jpg" },
+                { id: 34, name: "5قطع صدر دجاج مع فنكر", price: 6000, image: "special5.jpg" },
+                { id: 35, name: "ريزو كنتاكي", price: 5000, image: "special6.jpg" },
+                { id: 36, name: "ريزو گص دجاج", price: 5000, image: "special7.jpg" },
+                { id: 37, name: "ريزو گص لحم", price: 5000, image: "special8.jpg" },
+                { id: 38, name: "باستا دجاج", price: 5000, image: "special9.jpg" },
+                { id: 39, name: "باستا لحم", price: 5000, image: "special10.jpg" },
+                { id: 40, name: "فنكر تيستي", price: 3500, image: "special11.jpg" },
+                { id: 41, name: "طبق فنكر", price: 2500, image: "special12.jpg" },
+                { id: 42, name: "طبق وجز", price: 3000, image: "special13.jpg" },
+                { id: 43, name: "حلقات بصل", price: 2000, image: "special14.jpg" },
+                { id: 44, name: "گلاص فنگر", price: 1500, image: "special15.jpg" }
             ],
             drinks: [
-                { name: "بيبسي", price: 500, description: "مشروب غازي منعش", image: "images/drink1.jpg", available: true },
-                { name: "ديو", price: 500, description: "مشروب غازي بنكهة الليمون", image: "images/drink2.jpg", available: true },
-                { name: "سفن", price: 500, description: "مشروب غازي خفيف", image: "images/drink3.jpg", available: true },
-                { name: "ميرندا", price: 500, description: "مشروب غازي بنكهة البرتقال", image: "images/drink4.jpg", available: true },
-                { name: "ماء", price: 250, description: "ماء معدني", image: "images/drink5.jpg", available: true },
-                { name: "مقبلات صغير", price: 2000, description: "طبق مقبلات صغير الحجم", image: "images/appetizer1.jpg", available: true },
-                { name: "مقبلات وسط", price: 3000, description: "طبق مقبلات متوسط الحجم", image: "images/appetizer2.jpg", available: true },
-                { name: "مقبلات كبير", price: 5000, description: "طبق مقبلات كبير الحجم", image: "images/appetizer3.jpg", available: true }
+                { id: 45, name: "بيبسي", price: 500, image: "drink1.jpg" },
+                { id: 46, name: "ديو", price: 500, image: "drink2.jpg" },
+                { id: 47, name: "سفن", price: 500, image: "drink3.jpg" },
+                { id: 48, name: "ميرندا", price: 500, image: "drink4.jpg" },
+                { id: 49, name: "ماء", price: 250, image: "drink5.jpg" },
+                { id: 50, name: "مقبلات صغير", price: 2000, image: "drink6.jpg" },
+                { id: 51, name: "مقبلات وسط", price: 3000, image: "drink7.jpg" },
+                { id: 52, name: "مقبلات كبير", price: 5000, image: "drink8.jpg" }
             ]
         };
-
-        // Check if in admin mode
+        
+        // Cart Data
+        let cart = [];
+        
+        // DOM Elements
+        const menuContainer = document.getElementById('menuContainer');
+        const cartBtn = document.getElementById('cartBtn');
+        const cartModal = document.getElementById('cartModal');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartCount = document.getElementById('cartCount');
+        const totalAmount = document.getElementById('totalAmount');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const customerForm = document.getElementById('customerForm');
+        const submitOrder = document.getElementById('submitOrder');
+        const orderNotes = document.getElementById('orderNotes');
+        const customerName = document.getElementById('customerName');
+        const customerAddress = document.getElementById('customerAddress');
+        const customerPhone = document.getElementById('customerPhone');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const adminPanel = document.getElementById('adminPanel');
+        const adminTabs = document.querySelectorAll('.admin-tab');
+        const adminContents = document.querySelectorAll('.admin-content');
+        const addItemBtn = document.getElementById('addItemBtn');
+        const itemForm = document.getElementById('itemForm');
+        const saveItemBtn = document.getElementById('saveItemBtn');
+        const cancelItemBtn = document.getElementById('cancelItemBtn');
+        const itemsTableBody = document.getElementById('itemsTableBody');
+        const itemName = document.getElementById('itemName');
+        const itemPrice = document.getElementById('itemPrice');
+        const itemCategory = document.getElementById('itemCategory');
+        const itemImage = document.getElementById('itemImage');
+        const itemImagePreview = document.getElementById('itemImagePreview');
+        
+        // Check if admin mode is enabled
         const urlParams = new URLSearchParams(window.location.search);
-        const isAdmin = urlParams.has('admin') && urlParams.get('admin') === 'true';
-
-        // Generate Menu Items
-        function generateMenuItems() {
-            for (const category in menuData) {
-                const container = document.getElementById(`${category}-menu`).querySelector('.menu-items');
-                container.innerHTML = '';
-                
-                menuData[category].forEach(item => {
-                    const menuItem = document.createElement('div');
-                    menuItem.className = `menu-item ${!item.available ? 'item-unavailable' : ''}`;
-                    
-                    menuItem.innerHTML = `
-                        <div class="item-image-container">
-                            <img src="${item.image}" alt="${item.name}" class="item-image" loading="lazy">
-                        </div>
-                        <div class="item-details">
-                            <div class="item-name">${item.name}</div>
-                            <div class="item-description">${item.description}</div>
-                            <div class="item-price">${item.price} دينار</div>
-                            <button class="add-to-cart" data-name="${item.name}" data-price="${item.price}" ${!item.available ? 'disabled style="opacity:0.6; cursor:not-allowed;"' : ''}>
-                                <i class="fas fa-cart-plus"></i> ${item.available ? 'إضافة للسلة' : 'غير متوفر'}
-                            </button>
-                        </div>
-                    `;
-                    
-                    container.appendChild(menuItem);
-                });
+        const isAdmin = urlParams.get('Admin') === 'true';
+        
+        if (isAdmin) {
+            adminPanel.style.display = 'block';
+            loadItemsTable();
+        }
+        
+        // Initialize the menu
+        function initMenu() {
+            menuContainer.innerHTML = '';
+            
+            // Get active category
+            const activeCategory = document.querySelector('.category-btn.active').dataset.category;
+            
+            // Display items based on active category
+            if (activeCategory === 'all') {
+                for (const category in menuData) {
+                    displayCategoryItems(category);
+                }
+            } else {
+                displayCategoryItems(activeCategory);
             }
         }
-
-        // Generate Admin Controls
-        function generateAdminControls() {
-            for (const category in menuData) {
-                const container = document.getElementById(`${category}-admin-controls`);
-                container.innerHTML = '<div class="admin-items"></div>';
-                const itemsContainer = container.querySelector('.admin-items');
+        
+        // Display items for a specific category
+        function displayCategoryItems(category) {
+            menuData[category].forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item';
+                menuItem.dataset.category = category;
+                menuItem.dataset.id = item.id;
                 
-                menuData[category].forEach((item, index) => {
-                    const adminItem = document.createElement('div');
-                    adminItem.className = 'admin-item';
-                    
-                    adminItem.innerHTML = `
-                        <div class="admin-item-name">${item.name}</div>
-                        <div class="admin-item-price">
-                            السعر: <input type="number" value="${item.price}" data-category="${category}" data-index="${index}" class="price-input">
-                        </div>
-                        <div class="admin-item-available">
-                            متوفر: <input type="checkbox" ${item.available ? 'checked' : ''} data-category="${category}" data-index="${index}" class="available-input">
-                        </div>
-                    `;
-                    
-                    itemsContainer.appendChild(adminItem);
-                });
-            }
-        }
-
-        // Check if restaurant is open
-        function checkRestaurantOpen() {
-            const now = new Date();
-            const day = now.getDay(); // 0 is Sunday, 6 is Saturday
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const currentTime = hours * 100 + minutes;
-            
-            // Friday hours: 3:00 PM (15:00) to 12:00 AM (24:00)
-            if (day === 5) { // Friday
-                if (currentTime < 1500 || currentTime >= 2400) {
-                    return false;
-                }
-            } 
-            // Other days hours: 10:00 AM (10:00) to 11:45 PM (23:45)
-            else {
-                if (currentTime < 1000 || currentTime >= 2345) {
-                    return false;
-                }
-            }
-            
-            return true;
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Show admin panel if in admin mode
-            if (isAdmin) {
-                document.getElementById('admin-panel').style.display = 'block';
-                generateAdminControls();
-                
-                // Toggle admin controls
-                document.getElementById('admin-toggle').addEventListener('click', function() {
-                    document.getElementById('admin-controls').classList.toggle('active');
-                });
-                
-                // Save changes
-                document.getElementById('save-changes-btn').addEventListener('click', function() {
-                    // Update prices and availability from inputs
-                    document.querySelectorAll('.price-input').forEach(input => {
-                        const category = input.getAttribute('data-category');
-                        const index = parseInt(input.getAttribute('data-index'));
-                        menuData[category][index].price = parseInt(input.value);
-                    });
-                    
-                    document.querySelectorAll('.available-input').forEach(input => {
-                        const category = input.getAttribute('data-category');
-                        const index = parseInt(input.getAttribute('data-index'));
-                        menuData[category][index].available = input.checked;
-                    });
-                    
-                    // Save to localStorage
-                    localStorage.setItem('menuData', JSON.stringify(menuData));
-                    
-                    // Regenerate menu items
-                    generateMenuItems();
-                    
-                    // Show success message
-                    showSuccessMessage('تم حفظ التغييرات بنجاح!', 'سيتم تطبيق التغييرات على القائمة');
-                });
-            }
-            
-            // Load saved menu data if exists
-            const savedMenuData = localStorage.getItem('menuData');
-            if (savedMenuData) {
-                menuData = JSON.parse(savedMenuData);
-            }
-            
-            generateMenuItems();
-            
-            // Check if restaurant is open and show message if closed
-            const closedMessage = document.getElementById('closed-message');
-            if (!checkRestaurantOpen()) {
-                closedMessage.style.display = 'block';
-                
-                // Disable add to cart buttons
-                document.querySelectorAll('.add-to-cart').forEach(btn => {
-                    btn.disabled = true;
-                    btn.style.opacity = '0.6';
-                    btn.style.cursor = 'not-allowed';
-                });
-                
-                // Disable checkout button
-                document.querySelector('.checkout-btn').disabled = true;
-                document.querySelector('.checkout-btn').style.opacity = '0.6';
-                document.querySelector('.checkout-btn').style.cursor = 'not-allowed';
-            }
-            
-            // Category switching
-            const categoryBtns = document.querySelectorAll('.category-btn');
-            const menuContainers = document.querySelectorAll('.menu-container');
-            
-            categoryBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    // Remove active class from all buttons and containers
-                    categoryBtns.forEach(b => b.classList.remove('active'));
-                    menuContainers.forEach(c => c.classList.remove('active'));
-                    
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                    
-                    // Show corresponding menu
-                    const category = this.getAttribute('data-category');
-                    document.getElementById(`${category}-menu`).classList.add('active');
-                });
-            });
-            
-            // Cart functionality
-            const cartBtn = document.querySelector('.cart-btn');
-            const cartContainer = document.querySelector('.cart-container');
-            const closeCartBtn = document.querySelector('.close-cart');
-            const cartItemsContainer = document.querySelector('.cart-items');
-            const cartCount = document.querySelector('.cart-count');
-            const totalPriceElement = document.querySelector('.total-price');
-            const totalWithDeliveryElement = document.querySelector('.total-with-delivery-price');
-            const checkoutBtn = document.querySelector('.checkout-btn');
-            const checkoutModal = document.getElementById('checkout-modal');
-            const closeModalBtn = document.querySelector('.close-modal');
-            const customerForm = document.getElementById('customer-form');
-            const cartNotesInput = document.getElementById('cart-notes');
-            
-            let cart = [];
-            let totalPrice = 0;
-            const deliveryFee = 1500;
-            
-            // Add to cart
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('add-to-cart') || e.target.closest('.add-to-cart')) {
-                    const btn = e.target.classList.contains('add-to-cart') ? e.target : e.target.closest('.add-to-cart');
-                    
-                    // Check if restaurant is closed
-                    if (!checkRestaurantOpen()) {
-                        showSuccessMessage('المطعم مغلق حالياً', 'الرجاء المحاولة خلال أوقات العمل');
-                        return;
-                    }
-                    
-                    const name = btn.getAttribute('data-name');
-                    const price = parseInt(btn.getAttribute('data-price'));
-                    
-                    // Check if item already exists in cart
-                    const existingItem = cart.find(item => item.name === name);
-                    
-                    if (existingItem) {
-                        existingItem.quantity += 1;
-                    } else {
-                        cart.push({
-                            name,
-                            price,
-                            quantity: 1
-                        });
-                    }
-                    
-                    updateCart();
-                    
-                    // Add animation to cart button
-                    cartBtn.classList.add('pulse');
-                    setTimeout(() => {
-                        cartBtn.classList.remove('pulse');
-                    }, 300);
-                }
-            });
-            
-            // Update cart
-            function updateCart() {
-                // Clear cart items
-                cartItemsContainer.innerHTML = '';
-                
-                // Reset total price
-                totalPrice = 0;
-                
-                // Add items to cart
-                cart.forEach((item, index) => {
-                    const itemElement = document.createElement('div');
-                    itemElement.className = 'cart-item';
-                    
-                    itemElement.innerHTML = `
-                        <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-price">${item.price} دينار</div>
-                        <div class="cart-item-quantity">
-                            <button class="quantity-btn decrease" data-index="${index}">-</button>
-                            <span class="quantity-value">${item.quantity}</span>
-                            <button class="quantity-btn increase" data-index="${index}">+</button>
-                        </div>
-                        <button class="remove-item" data-index="${index}"><i class="fas fa-trash"></i></button>
-                    `;
-                    
-                    cartItemsContainer.appendChild(itemElement);
-                    
-                    // Add to total price
-                    totalPrice += item.price * item.quantity;
-                });
-                
-                // Update cart count and total price
-                const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
-                cartCount.textContent = itemCount;
-                totalPriceElement.textContent = `${totalPrice} دينار`;
-                totalWithDeliveryElement.textContent = `${totalPrice + deliveryFee} دينار`;
-                
-                // Show/hide cart count
-                cartCount.style.display = itemCount > 0 ? 'flex' : 'none';
-                
-                // Add event listeners to quantity buttons
-                document.querySelectorAll('.decrease').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const index = parseInt(this.getAttribute('data-index'));
-                        if (cart[index].quantity > 1) {
-                            cart[index].quantity -= 1;
-                            updateCart();
-                        }
-                    });
-                });
-                
-                document.querySelectorAll('.increase').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const index = parseInt(this.getAttribute('data-index'));
-                        cart[index].quantity += 1;
-                        updateCart();
-                    });
-                });
-                
-                document.querySelectorAll('.remove-item').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const index = parseInt(this.getAttribute('data-index'));
-                        cart.splice(index, 1);
-                        updateCart();
-                    });
-                });
-            }
-            
-            // Show/hide cart
-            function showCart() {
-                cartContainer.classList.add('open');
-            }
-            
-            function hideCart() {
-                cartContainer.classList.remove('open');
-            }
-            
-            cartBtn.addEventListener('click', showCart);
-            closeCartBtn.addEventListener('click', hideCart);
-            
-            // Close cart when clicking outside
-            cartContainer.addEventListener('click', function(e) {
-                if (e.target === cartContainer) {
-                    hideCart();
-                }
-            });
-            
-            // Checkout
-            checkoutBtn.addEventListener('click', function() {
-                if (cart.length === 0) {
-                    showSuccessMessage('السلة فارغة', 'الرجاء إضافة عناصر أولاً');
-                    return;
-                }
-                
-                // Check if restaurant is closed
-                if (!checkRestaurantOpen()) {
-                    showSuccessMessage('المطعم مغلق حالياً', 'لا يمكن إتمام الطلب خارج أوقات العمل');
-                    return;
-                }
-                
-                checkoutModal.classList.add('open');
-            });
-            
-            // Close modal
-            closeModalBtn.addEventListener('click', function() {
-                checkoutModal.classList.remove('open');
-            });
-            
-            // Close modal when clicking outside
-            checkoutModal.addEventListener('click', function(e) {
-                if (e.target === checkoutModal) {
-                    checkoutModal.classList.remove('open');
-                }
-            });
-            
-            // Submit order
-            customerForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const name = document.getElementById('customer-name').value;
-                const address = document.getElementById('customer-address').value;
-                const phone = document.getElementById('customer-phone').value;
-                const notes = cartNotesInput.value;
-                
-                // Prepare order message
-                let message = `🍔 *طلب جديد من Tasty Fast Food* 🍕\n\n`;
-                message += `👤 *الاسم:* ${name}\n`;
-                message += `📍 *العنوان:* ${address}\n`;
-                message += `📞 *رقم الهاتف:* ${phone}\n\n`;
-                message += `📋 *تفاصيل الطلب:*\n`;
-                
-                cart.forEach(item => {
-                    message += `- ${item.name} (${item.quantity} × ${item.price}) = ${item.quantity * item.price} دينار\n`;
-                });
-                
-                message += `\n💰 *المجموع:* ${totalPrice} دينار\n`;
-                message += `🚚 *رسوم التوصيل:* ${deliveryFee} دينار\n`;
-                message += `💵 *المجموع الكلي:* ${totalPrice + deliveryFee} دينار\n\n`;
-                message += `⏱ *وقت التوصيل المتوقع:* 30-40 دقيقة\n`;
-                
-                if (notes) {
-                    message += `\n📝 *ملاحظات:* ${notes}`;
-                }
-                
-                // Encode message for WhatsApp
-                const encodedMessage = encodeURIComponent(message);
-                
-                // Send to WhatsApp
-                window.open(`https://wa.me/9647701236363?text=${encodedMessage}`, '_blank');
-                
-                // Reset cart and close modal
-                cart = [];
-                updateCart();
-                hideCart();
-                checkoutModal.classList.remove('open');
-                customerForm.reset();
-                cartNotesInput.value = '';
-                
-                // Show success message
-                showSuccessMessage('تم إرسال طلبك بنجاح!', 'شكراً لاختيارك Tasty Fast Food');
-            });
-            
-            // Show success message
-            function showSuccessMessage(title, subtitle = '') {
-                const successMsg = document.createElement('div');
-                successMsg.className = 'success-message';
-                successMsg.innerHTML = `
-                    <div class="success-content">
-                        <i class="fas fa-check-circle"></i>
-                        <h3>${title}</h3>
-                        ${subtitle ? `<p>${subtitle}</p>` : ''}
+                menuItem.innerHTML = `
+                    <img src="${item.image || 'placeholder.jpg'}" alt="${item.name}" class="item-image">
+                    <div class="item-details">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-price">${item.price} دينار</div>
+                        <button class="add-to-cart" data-id="${item.id}">إضافة إلى السلة</button>
                     </div>
                 `;
-                document.body.appendChild(successMsg);
                 
-                setTimeout(() => {
-                    successMsg.remove();
-                }, 3000);
+                menuContainer.appendChild(menuItem);
+            });
+            
+            // Add event listeners to add to cart buttons
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.addEventListener('click', addToCart);
+            });
+        }
+        
+        // Add item to cart
+        function addToCart(e) {
+            const itemId = parseInt(e.target.dataset.id);
+            let item;
+            
+            // Find the item in menu data
+            for (const category in menuData) {
+                item = menuData[category].find(i => i.id === itemId);
+                if (item) break;
+            }
+            
+            if (!item) return;
+            
+            // Check if item already exists in cart
+            const existingItem = cart.find(i => i.id === item.id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...item,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showCartNotification();
+        }
+        
+        // Update cart UI
+        function updateCart() {
+            cartItems.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                
+                cartItem.innerHTML = `
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price} دينار</div>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                        <span class="quantity">${item.quantity}</span>
+                        <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                        <button class="remove-item" data-id="${item.id}"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                
+                cartItems.appendChild(cartItem);
+                total += item.price * item.quantity;
+            });
+            
+            // Add event listeners to quantity buttons
+            document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+                btn.addEventListener('click', decreaseQuantity);
+            });
+            
+            document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+                btn.addEventListener('click', increaseQuantity);
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', removeItem);
+            });
+            
+            totalAmount.textContent = total;
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+        }
+        
+        // Increase item quantity
+        function increaseQuantity(e) {
+            const itemId = parseInt(e.target.dataset.id);
+            const item = cart.find(i => i.id === itemId);
+            
+            if (item) {
+                item.quantity += 1;
+                updateCart();
+            }
+        }
+        
+        // Decrease item quantity
+        function decreaseQuantity(e) {
+            const itemId = parseInt(e.target.dataset.id);
+            const item = cart.find(i => i.id === itemId);
+            
+            if (item && item.quantity > 1) {
+                item.quantity -= 1;
+                updateCart();
+            }
+        }
+        
+        // Remove item from cart
+        function removeItem(e) {
+            const itemId = parseInt(e.target.dataset.id);
+            cart = cart.filter(i => i.id !== itemId);
+            updateCart();
+        }
+        
+        // Show cart notification
+        function showCartNotification() {
+            cartBtn.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                cartBtn.style.transform = 'scale(1)';
+            }, 300);
+        }
+        
+        // Checkout process
+        function checkout() {
+            if (cart.length === 0) {
+                alert('السلة فارغة، الرجاء إضافة أصناف قبل إتمام الطلب');
+                return;
+            }
+            
+            customerForm.style.display = 'block';
+            checkoutBtn.style.display = 'none';
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+        
+        // Submit order
+        function submitOrderHandler() {
+            if (!customerName.value || !customerAddress.value || !customerPhone.value) {
+                alert('الرجاء ملء جميع الحقول المطلوبة');
+                return;
+            }
+            
+            // Prepare order message
+            let message = `طلب جديد من Tasty Fast Food\n\n`;
+            message += `اسم الزبون: ${customerName.value}\n`;
+            message += `العنوان: ${customerAddress.value}\n`;
+            message += `رقم الهاتف: ${customerPhone.value}\n\n`;
+            message += `الطلبات:\n`;
+            
+            cart.forEach(item => {
+                message += `${item.name} × ${item.quantity} - ${item.price * item.quantity} دينار\n`;
+            });
+            
+            message += `\nالمجموع الكلي: ${totalAmount.textContent} دينار\n`;
+            
+            if (orderNotes.value) {
+                message += `\nملاحظات: ${orderNotes.value}`;
+            }
+            
+            // Encode message for WhatsApp URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Send to WhatsApp
+            window.open(`https://wa.me/9647701236363?text=${encodedMessage}`, '_blank');
+            
+            // Reset cart and form
+            cart = [];
+            updateCart();
+            customerForm.style.display = 'none';
+            checkoutBtn.style.display = 'block';
+            orderNotes.value = '';
+            customerName.value = '';
+            customerAddress.value = '';
+            customerPhone.value = '';
+            
+            // Close cart modal
+            cartModal.style.display = 'none';
+            
+            alert('تم إرسال الطلب بنجاح! شكراً لكم');
+        }
+        
+        // Load items table for admin
+        function loadItemsTable() {
+            itemsTableBody.innerHTML = '';
+            let items = [];
+            
+            for (const category in menuData) {
+                items = items.concat(menuData[category]);
+            }
+            
+            items.forEach(item => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td><img src="${item.image || 'placeholder.jpg'}" style="max-width: 50px;"></td>
+                    <td>${item.name}</td>
+                    <td>${getCategoryName(item.category || findItemCategory(item.id))}</td>
+                    <td>${item.price} دينار</td>
+                    <td>
+                        <button class="edit-btn" data-id="${item.id}">تعديل</button>
+                        <button class="delete-btn" data-id="${item.id}">حذف</button>
+                    </td>
+                `;
+                
+                itemsTableBody.appendChild(row);
+            });
+            
+            // Add event listeners to edit and delete buttons
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', editItem);
+            });
+            
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', deleteItem);
+            });
+        }
+        
+        // Find item category by ID
+        function findItemCategory(id) {
+            for (const category in menuData) {
+                if (menuData[category].some(item => item.id === id)) {
+                    return category;
+                }
+            }
+            return 'pizza';
+        }
+        
+        // Get category name
+        function getCategoryName(category) {
+            const names = {
+                pizza: 'بيتزا',
+                meals: 'وجبات',
+                special: 'سبيشل',
+                drinks: 'كولا و مقبلات'
+            };
+            
+            return names[category] || category;
+        }
+        
+        // Edit item
+        function editItem(e) {
+            const itemId = parseInt(e.target.dataset.id);
+            let item;
+            let category;
+            
+            // Find the item
+            for (const cat in menuData) {
+                item = menuData[cat].find(i => i.id === itemId);
+                if (item) {
+                    category = cat;
+                    break;
+                }
+            }
+            
+            if (!item) return;
+            
+            // Fill the form
+            itemName.value = item.name;
+            itemPrice.value = item.price;
+            itemCategory.value = category;
+            itemImagePreview.src = item.image || 'placeholder.jpg';
+            itemImagePreview.style.display = 'block';
+            
+            // Show the form
+            itemForm.style.display = 'block';
+            saveItemBtn.dataset.id = itemId;
+            saveItemBtn.dataset.mode = 'edit';
+            
+            // Scroll to form
+            itemForm.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Delete item
+        function deleteItem(e) {
+            if (!confirm('هل أنت متأكد من حذف هذا الصنف؟')) return;
+            
+            const itemId = parseInt(e.target.dataset.id);
+            
+            // Find and remove the item
+            for (const category in menuData) {
+                const index = menuData[category].findIndex(item => item.id === itemId);
+                if (index !== -1) {
+                    menuData[category].splice(index, 1);
+                    break;
+                }
+            }
+            
+            // Reload the table
+            loadItemsTable();
+            
+            // If the item was in cart, remove it
+            cart = cart.filter(item => item.id !== itemId);
+            updateCart();
+            
+            // Reinitialize the menu
+            initMenu();
+        }
+        
+        // Save item (add or edit)
+        function saveItem() {
+            const name = itemName.value.trim();
+            const price = parseInt(itemPrice.value);
+            const category = itemCategory.value;
+            const mode = saveItemBtn.dataset.mode;
+            const id = mode === 'edit' ? parseInt(saveItemBtn.dataset.id) : Date.now();
+            
+            if (!name || isNaN(price) {
+                alert('الرجاء ملء جميع الحقول بشكل صحيح');
+                return;
+            }
+            
+            const item = {
+                id,
+                name,
+                price,
+                image: itemImagePreview.src === window.location.href + 'placeholder.jpg' ? '' : itemImagePreview.src
+            };
+            
+            if (mode === 'edit') {
+                // Find and update the item
+                let found = false;
+                
+                for (const cat in menuData) {
+                    const index = menuData[cat].findIndex(i => i.id === id);
+                    if (index !== -1) {
+                        // If category changed, remove from old and add to new
+                        if (cat !== category) {
+                            menuData[cat].splice(index, 1);
+                            menuData[category].push(item);
+                        } else {
+                            menuData[cat][index] = item;
+                        }
+                        found = true;
+                        break;
+                    }
+                }
+                
+                if (!found) {
+                    menuData[category].push(item);
+                }
+            } else {
+                // Add new item
+                menuData[category].push(item);
+            }
+            
+            // Reset form
+            itemForm.style.display = 'none';
+            itemName.value = '';
+            itemPrice.value = '';
+            itemImage.value = '';
+            itemImagePreview.style.display = 'none';
+            
+            // Reload data
+            loadItemsTable();
+            initMenu();
+        }
+        
+        // Cancel item editing/adding
+        function cancelItem() {
+            itemForm.style.display = 'none';
+            itemName.value = '';
+            itemPrice.value = '';
+            itemImage.value = '';
+            itemImagePreview.style.display = 'none';
+        }
+        
+        // Preview image before upload
+        function previewImage() {
+            const file = itemImage.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    itemImagePreview.src = e.target.result;
+                    itemImagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', initMenu);
+        
+        // Category buttons
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelector('.category-btn.active').classList.remove('active');
+                this.classList.add('active');
+                initMenu();
+            });
+        });
+        
+        // Cart buttons
+        cartBtn.addEventListener('click', function() {
+            cartModal.style.display = 'block';
+        });
+        
+        closeCart.addEventListener('click', function() {
+            cartModal.style.display = 'none';
+        });
+        
+        window.addEventListener('click', function(e) {
+            if (e.target === cartModal) {
+                cartModal.style.display = 'none';
             }
         });
+        
+        // Checkout buttons
+        checkoutBtn.addEventListener('click', checkout);
+        submitOrder.addEventListener('click', submitOrderHandler);
+        
+        // Admin tabs
+        adminTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelector('.admin-tab.active').classList.remove('active');
+                this.classList.add('active');
+                
+                const tabId = this.dataset.tab + 'Tab';
+                document.querySelector('.admin-content.active').classList.remove('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Admin item management
+        addItemBtn.addEventListener('click', function() {
+            itemForm.style.display = 'block';
+            saveItemBtn.dataset.mode = 'add';
+            saveItemBtn.dataset.id = '';
+            itemName.value = '';
+            itemPrice.value = '';
+            itemImage.value = '';
+            itemImagePreview.style.display = 'none';
+            itemForm.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        saveItemBtn.addEventListener('click', saveItem);
+        cancelItemBtn.addEventListener('click', cancelItem);
+        itemImage.addEventListener('change', previewImage);
     </script>
 </body>
 </html>
