@@ -923,66 +923,6 @@
             background-color: var(--primary-dark);
         }
         
-        /* Image Edit Icons in Admin Mode */
-        .image-edit-icons {
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            display: flex;
-            gap: 5px;
-            z-index: 10;
-        }
-        
-        .image-edit-btn {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background-color: rgba(0,0,0,0.7);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .image-edit-btn:hover {
-            background-color: var(--primary-color);
-            transform: scale(1.1);
-        }
-        
-        /* Image Preview */
-        .image-preview-container {
-            margin-top: 1rem;
-            text-align: center;
-        }
-        
-        .image-preview {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            display: none;
-        }
-        
-        /* Upload Progress */
-        .upload-progress {
-            width: 100%;
-            height: 5px;
-            background-color: #f0f0f0;
-            border-radius: 5px;
-            margin-top: 0.5rem;
-            overflow: hidden;
-            display: none;
-        }
-        
-        .upload-progress-bar {
-            height: 100%;
-            background-color: var(--primary-color);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-        
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             .header-content {
@@ -1145,16 +1085,6 @@
                     <label class="admin-form-label">الوصف</label>
                     <input type="text" class="admin-form-input" id="pizza-add-description">
                 </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">صورة العنصر</label>
-                    <input type="file" class="admin-form-input" id="pizza-add-image" accept="image/*">
-                    <div class="image-preview-container">
-                        <img id="pizza-image-preview" class="image-preview">
-                    </div>
-                    <div class="upload-progress" id="pizza-upload-progress">
-                        <div class="upload-progress-bar"></div>
-                    </div>
-                </div>
                 <button class="add-item-btn" data-category="pizza">إضافة عنصر</button>
             </div>
         </div>
@@ -1178,16 +1108,6 @@
                 <div class="admin-form-group">
                     <label class="admin-form-label">الوصف</label>
                     <input type="text" class="admin-form-input" id="meals-add-description">
-                </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">صورة العنصر</label>
-                    <input type="file" class="admin-form-input" id="meals-add-image" accept="image/*">
-                    <div class="image-preview-container">
-                        <img id="meals-image-preview" class="image-preview">
-                    </div>
-                    <div class="upload-progress" id="meals-upload-progress">
-                        <div class="upload-progress-bar"></div>
-                    </div>
                 </div>
                 <button class="add-item-btn" data-category="meals">إضافة عنصر</button>
             </div>
@@ -1213,16 +1133,6 @@
                     <label class="admin-form-label">الوصف</label>
                     <input type="text" class="admin-form-input" id="special-add-description">
                 </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">صورة العنصر</label>
-                    <input type="file" class="admin-form-input" id="special-add-image" accept="image/*">
-                    <div class="image-preview-container">
-                        <img id="special-image-preview" class="image-preview">
-                    </div>
-                    <div class="upload-progress" id="special-upload-progress">
-                        <div class="upload-progress-bar"></div>
-                    </div>
-                </div>
                 <button class="add-item-btn" data-category="special">إضافة عنصر</button>
             </div>
         </div>
@@ -1246,16 +1156,6 @@
                 <div class="admin-form-group">
                     <label class="admin-form-label">الوصف</label>
                     <input type="text" class="admin-form-input" id="drinks-add-description">
-                </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">صورة العنصر</label>
-                    <input type="file" class="admin-form-input" id="drinks-add-image" accept="image/*">
-                    <div class="image-preview-container">
-                        <img id="drinks-image-preview" class="image-preview">
-                    </div>
-                    <div class="upload-progress" id="drinks-upload-progress">
-                        <div class="upload-progress-bar"></div>
-                    </div>
                 </div>
                 <button class="add-item-btn" data-category="drinks">إضافة عنصر</button>
             </div>
@@ -1379,31 +1279,6 @@
         </div>
     </div>
     
-    <!-- Image Edit Modal -->
-    <div class="modal-overlay" id="image-edit-modal" style="display: none;">
-        <div class="modal">
-            <div class="modal-header">
-                <div class="modal-title">تغيير صورة العنصر</div>
-                <button class="close-modal" id="close-image-modal"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="form-group">
-                <label for="new-image-url" class="form-label">رابط الصورة الجديدة (URL)</label>
-                <input type="text" id="new-image-url" class="form-input" placeholder="أدخل رابط الصورة">
-            </div>
-            <div class="form-group">
-                <label class="form-label">أو رفع صورة من الجهاز</label>
-                <input type="file" id="image-upload" class="form-input" accept="image/*">
-                <div class="image-preview-container">
-                    <img id="edit-image-preview" class="image-preview">
-                </div>
-                <div class="upload-progress" id="edit-upload-progress">
-                    <div class="upload-progress-bar"></div>
-                </div>
-            </div>
-            <button class="submit-order" id="save-image-btn"><i class="fas fa-save"></i> حفظ الصورة</button>
-        </div>
-    </div>
-    
     <!-- Success Message Template -->
     <div id="success-message-template" style="display: none;">
         <div class="success-content">
@@ -1478,42 +1353,9 @@
             ]
         };
 
-        // Variables for image editing
-        let currentEditingItem = null;
-        let currentEditingCategory = null;
-        let currentEditingIndex = null;
-
         // Check if in admin mode
         const urlParams = new URLSearchParams(window.location.search);
         const isAdmin = urlParams.has('admin') && urlParams.get('admin') === 'true';
-
-        // Function to convert image to base64
-        function getBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
-            });
-        }
-
-        // Function to simulate image upload (in a real app, this would upload to a server)
-        async function uploadImage(file, progressBar) {
-            return new Promise((resolve) => {
-                // Simulate upload progress
-                let progress = 0;
-                const interval = setInterval(() => {
-                    progress += 10;
-                    progressBar.querySelector('.upload-progress-bar').style.width = `${progress}%`;
-                    
-                    if (progress >= 100) {
-                        clearInterval(interval);
-                        // Return a mock URL (in a real app, this would be the server response)
-                        resolve(URL.createObjectURL(file));
-                    }
-                }, 200);
-            });
-        }
 
         // Generate Menu Items
         function generateMenuItems() {
@@ -1528,16 +1370,6 @@
                     menuItem.innerHTML = `
                         <div class="item-image-container">
                             <img src="${item.image}" alt="${item.name}" class="item-image" loading="lazy">
-                            ${isAdmin ? `
-                            <div class="image-edit-icons">
-                                <div class="image-edit-btn edit-image-btn" data-category="${category}" data-index="${index}">
-                                    <i class="fas fa-edit"></i>
-                                </div>
-                                <div class="image-edit-btn remove-image-btn" data-category="${category}" data-index="${index}">
-                                    <i class="fas fa-trash"></i>
-                                </div>
-                            </div>
-                            ` : ''}
                         </div>
                         <div class="item-details">
                             <div class="item-name">${item.name}</div>
@@ -1552,49 +1384,6 @@
                     container.appendChild(menuItem);
                 });
             }
-
-            // Add event listeners to image edit buttons
-            if (isAdmin) {
-                document.querySelectorAll('.edit-image-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const category = this.getAttribute('data-category');
-                        const index = parseInt(this.getAttribute('data-index'));
-                        openImageEditModal(category, index);
-                    });
-                });
-
-                document.querySelectorAll('.remove-image-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const category = this.getAttribute('data-category');
-                        const index = parseInt(this.getAttribute('data-index'));
-                        
-                        if (confirm('هل أنت متأكد من حذف صورة هذا العنصر؟')) {
-                            menuData[category][index].image = 'images/no-image.jpg';
-                            generateMenuItems();
-                            showSuccessMessage('تم الحذف', 'تم حذف صورة العنصر بنجاح');
-                        }
-                    });
-                });
-            }
-        }
-
-        // Open image edit modal
-        function openImageEditModal(category, index) {
-            currentEditingCategory = category;
-            currentEditingIndex = index;
-            currentEditingItem = menuData[category][index];
-            
-            document.getElementById('new-image-url').value = currentEditingItem.image;
-            document.getElementById('image-upload').value = '';
-            document.getElementById('edit-image-preview').src = currentEditingItem.image;
-            document.getElementById('edit-image-preview').style.display = 'block';
-            document.getElementById('edit-upload-progress').style.display = 'none';
-            document.getElementById('image-edit-modal').style.display = 'flex';
-        }
-
-        // Close image edit modal
-        function closeImageEditModal() {
-            document.getElementById('image-edit-modal').style.display = 'none';
         }
 
         // Generate Admin Controls
@@ -1680,60 +1469,24 @@
                     document.getElementById('admin-controls').classList.toggle('active');
                 });
                 
-                // Setup image preview for add item forms
-                ['pizza', 'meals', 'special', 'drinks'].forEach(category => {
-                    const input = document.getElementById(`${category}-add-image`);
-                    const preview = document.getElementById(`${category}-image-preview`);
-                    const progressBar = document.getElementById(`${category}-upload-progress`);
-                    
-                    input.addEventListener('change', function(e) {
-                        const file = e.target.files[0];
-                        if (file) {
-                            const reader = new FileReader();
-                            reader.onload = function(e) {
-                                preview.src = e.target.result;
-                                preview.style.display = 'block';
-                            };
-                            reader.readAsDataURL(file);
-                        }
-                    });
-                });
-                
                 // Add new item functionality
                 document.querySelectorAll('.add-item-btn').forEach(btn => {
-                    btn.addEventListener('click', async function() {
+                    btn.addEventListener('click', function() {
                         const category = this.getAttribute('data-category');
                         const nameInput = document.getElementById(`${category}-add-name`);
                         const priceInput = document.getElementById(`${category}-add-price`);
                         const descInput = document.getElementById(`${category}-add-description`);
-                        const imageInput = document.getElementById(`${category}-add-image`);
-                        const preview = document.getElementById(`${category}-image-preview`);
-                        const progressBar = document.getElementById(`${category}-upload-progress`);
                         
                         if (!nameInput.value || !priceInput.value) {
                             showSuccessMessage('خطأ', 'الرجاء إدخال اسم العنصر والسعر');
                             return;
                         }
                         
-                        let imageUrl = 'images/no-image.jpg';
-                        
-                        if (imageInput.files && imageInput.files[0]) {
-                            try {
-                                progressBar.style.display = 'block';
-                                imageUrl = await uploadImage(imageInput.files[0], progressBar);
-                                progressBar.style.display = 'none';
-                            } catch (error) {
-                                console.error('Error uploading image:', error);
-                                showSuccessMessage('خطأ', 'حدث خطأ أثناء رفع الصورة');
-                                return;
-                            }
-                        }
-                        
                         const newItem = {
                             name: nameInput.value,
                             price: parseInt(priceInput.value),
                             description: descInput.value || 'لا يوجد وصف',
-                            image: imageUrl,
+                            image: `images/${category}-new.jpg`,
                             available: true
                         };
                         
@@ -1743,9 +1496,6 @@
                         nameInput.value = '';
                         priceInput.value = '';
                         descInput.value = '';
-                        imageInput.value = '';
-                        preview.style.display = 'none';
-                        preview.src = '';
                         
                         // Regenerate controls and menu
                         generateAdminControls();
@@ -1800,50 +1550,6 @@
                     
                     // Show success message
                     showSuccessMessage('تم حفظ التغييرات بنجاح!', 'سيتم تطبيق التغييرات على القائمة');
-                });
-
-                // Image edit modal functionality
-                document.getElementById('close-image-modal').addEventListener('click', closeImageEditModal);
-                
-                // Setup image preview for edit modal
-                document.getElementById('image-upload').addEventListener('change', function(e) {
-                    const file = e.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            document.getElementById('edit-image-preview').src = e.target.result;
-                            document.getElementById('edit-image-preview').style.display = 'block';
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-                
-                document.getElementById('save-image-btn').addEventListener('click', async function() {
-                    const newImageUrl = document.getElementById('new-image-url').value;
-                    const imageUpload = document.getElementById('image-upload');
-                    const progressBar = document.getElementById('edit-upload-progress');
-                    
-                    if (imageUpload.files && imageUpload.files[0]) {
-                        try {
-                            progressBar.style.display = 'block';
-                            const uploadedUrl = await uploadImage(imageUpload.files[0], progressBar);
-                            menuData[currentEditingCategory][currentEditingIndex].image = uploadedUrl;
-                            progressBar.style.display = 'none';
-                        } catch (error) {
-                            console.error('Error uploading image:', error);
-                            showSuccessMessage('خطأ', 'حدث خطأ أثناء رفع الصورة');
-                            return;
-                        }
-                    } else if (newImageUrl) {
-                        menuData[currentEditingCategory][currentEditingIndex].image = newImageUrl;
-                    } else {
-                        showSuccessMessage('خطأ', 'الرجاء إدخال رابط صورة أو اختيار صورة');
-                        return;
-                    }
-                    
-                    generateMenuItems();
-                    closeImageEditModal();
-                    showSuccessMessage('تم التحديث', 'تم تحديث صورة العنصر بنجاح');
                 });
             }
             
