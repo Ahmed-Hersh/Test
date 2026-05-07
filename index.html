@@ -1,424 +1,191 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>TENDY | مطعم تيندي - شيف إيهاب</title>
-  <!-- Font Awesome 6 (Free CDN) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Fonts: Tajawal (عربية حديثة) -->
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasty FastFood | مطعم تيستي فاست فوود</title>
+    <style>
+        /* تعريف الألوان والهوية البصرية */
+        :root {
+            --primary-color: #ff4d4d; /* الأحمر الخاص بالمطاعم */
+            --secondary-color: #ff9800; /* البرتقالي */
+            --dark-color: #1a1a1a;
+            --light-color: #ffffff;
+        }
 
-    body {
-      font-family: 'Tajawal', sans-serif;
-      background: #0a0a0a;
-      color: #f5efe7;
-      scroll-behavior: smooth;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
 
-    /* custom scroll */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #1e1e1e;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #d4a373;
-      border-radius: 10px;
-    }
+        /* الهيدر (رأس الصفحة) */
+        header {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            border-bottom: 4px solid var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 1.8rem;
-    }
+        /* قسم الواجهة (Hero Section) */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover;
+            background-position: center;
+            height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
 
-    /* header / nav */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 1.4rem 0;
-      border-bottom: 1px solid rgba(212, 163, 115, 0.3);
-    }
-    .logo h1 {
-      font-size: 1.9rem;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #f7b05e, #e07a2c);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .logo p {
-      font-size: 0.8rem;
-      color: #d4a373;
-      font-weight: 500;
-    }
-    .nav-links a {
-      color: #f5efe7;
-      text-decoration: none;
-      margin-right: 2rem;
-      font-weight: 600;
-      transition: 0.2s;
-      font-size: 1rem;
-    }
-    .nav-links a:hover {
-      color: #e07a2c;
-    }
-    .hot-badge {
-      background: #c4450c;
-      padding: 0.2rem 0.8rem;
-      border-radius: 30px;
-      font-size: 0.7rem;
-      font-weight: bold;
-      margin-right: 0.5rem;
-    }
-    /* hero */
-    .hero {
-      padding: 3.5rem 0 2.5rem;
-      text-align: center;
-    }
-    .hero h2 {
-      font-size: 3rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #ffffff, #f7b05e);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 0.5rem;
-    }
-    .hero-tag {
-      font-size: 1.4rem;
-      font-weight: 500;
-      margin: 0.8rem 0;
-      color: #e2c7a3;
-    }
-    .by-chef {
-      font-size: 1rem;
-      color: #d4a373;
-      letter-spacing: 1px;
-    }
-    .catch-phrase {
-      font-size: 1.2rem;
-      background: rgba(212, 163, 115, 0.15);
-      display: inline-block;
-      padding: 0.5rem 1.2rem;
-      border-radius: 60px;
-      margin-top: 1rem;
-      font-weight: 500;
-    }
-    /* menu hot section */
-    .hot-section {
-      padding: 3rem 0;
-    }
-    .section-title {
-      font-size: 2.2rem;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 2.5rem;
-      position: relative;
-    }
-    .section-title span {
-      background: #c4450c;
-      padding: 0.2rem 1rem;
-      border-radius: 40px;
-      font-size: 1rem;
-      margin-right: 12px;
-      vertical-align: middle;
-    }
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.7rem;
-    }
-    .menu-card {
-      background: #161616;
-      border-radius: 28px;
-      padding: 1.4rem;
-      text-align: center;
-      transition: 0.25s ease;
-      border: 1px solid #2e2e2e;
-    }
-    .menu-card:hover {
-      transform: translateY(-5px);
-      border-color: #d4a373;
-      box-shadow: 0 12px 25px rgba(0,0,0,0.4);
-    }
-    .menu-icon {
-      font-size: 2.5rem;
-      background: #2a241e;
-      width: 65px;
-      height: 65px;
-      line-height: 65px;
-      border-radius: 50%;
-      margin: 0 auto 1rem;
-      color: #e07a2c;
-    }
-    .menu-card h3 {
-      font-size: 1.5rem;
-      font-weight: 800;
-    }
-    .hot-label {
-      background: #b64926;
-      display: inline-block;
-      padding: 0.2rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.7rem;
-      font-weight: bold;
-      margin-top: 0.6rem;
-    }
-    /* why tendy */
-    .why-tendy {
-      background: #0f0f0f;
-      padding: 3.5rem 0;
-      border-radius: 48px;
-      margin: 2rem 0;
-    }
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    .feature {
-      background: #1e1b18;
-      padding: 1rem 1.8rem;
-      border-radius: 60px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
-    .feature i {
-      font-size: 1.4rem;
-      color: #e07a2c;
-    }
-    /* contact & info */
-    .contact-info {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 2rem;
-      background: #111111;
-      border-radius: 2rem;
-      padding: 2.2rem;
-      margin: 2rem 0;
-    }
-    .info-block {
-      flex: 1;
-      min-width: 200px;
-    }
-    .info-block i {
-      font-size: 1.8rem;
-      color: #e07a2c;
-      margin-bottom: 0.6rem;
-    }
-    .info-block h4 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-      font-weight: 800;
-    }
-    .phone-number {
-      font-size: 1.5rem;
-      font-weight: 800;
-      direction: ltr;
-      display: inline-block;
-      background: #2b241f;
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      letter-spacing: 1px;
-    }
-    .btn-call {
-      background: #d98c2b;
-      border: none;
-      padding: 0.6rem 1.5rem;
-      border-radius: 40px;
-      font-weight: bold;
-      color: #0a0a0a;
-      margin-top: 0.8rem;
-      cursor: pointer;
-      font-family: 'Tajawal', sans-serif;
-      transition: 0.2s;
-    }
-    .btn-call:hover {
-      background: #f5a142;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem 0;
-      border-top: 1px solid #2a2a2a;
-      margin-top: 2rem;
-      color: #aaa;
-      font-size: 0.85rem;
-    }
-    @media (max-width: 680px) {
-      .navbar {
-        flex-direction: column;
-        gap: 0.8rem;
-      }
-      .nav-links a {
-        margin: 0 0.8rem;
-      }
-      .hero h2 {
-        font-size: 2.2rem;
-      }
-      .container {
-        padding: 0 1.2rem;
-      }
-    }
-  </style>
+        .hero h1 { font-size: 3.5rem; margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.4rem; max-width: 600px; }
+
+        .container { max-width: 1200px; margin: 3rem auto; padding: 0 20px; }
+
+        /* قسم قائمة الطعام */
+        .menu-section { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 2.5rem; 
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .menu-card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1); 
+        }
+
+        .menu-card img { width: 100%; height: 220px; object-fit: cover; }
+
+        .menu-info { padding: 1.5rem; }
+        .menu-info h3 { margin: 0 0 10px 0; color: var(--primary-color); font-size: 1.5rem; }
+
+        .price { 
+            font-weight: bold; 
+            font-size: 1.3rem; 
+            color: var(--secondary-color); 
+            display: block; 
+            margin-top: 15px; 
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            margin-top: 1.5rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn:hover { background: #e60000; }
+
+        /* معلومات التواصل */
+        .contact-info {
+            background: #fff;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 4rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* التذييل */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .social-links a { color: white; margin: 0 10px; text-decoration: none; font-size: 1.2rem; }
+    </style>
 </head>
 <body>
 
-<div class="container">
-  <!-- Header -->
-  <div class="navbar">
-    <div class="logo">
-      <h1>TENDY</h1>
-      <p>مقرمشات وبركر · شيف إيهاب</p>
-    </div>
-    <div class="nav-links">
-      <a href="#">الرئيسية</a>
-      <a href="#menu">القائمة</a>
-      <a href="#why">لماذا TENDY</a>
-      <a href="#contact">اتصل بنا</a>
-    </div>
-  </div>
+    <header>
+        <h1>Tasty FastFood</h1>
+        <p>مذاق لا يُنسى في كركوك</p>
+    </header>
 
-  <!-- Hero section -->
-  <div class="hero">
-    <h2>بركر ومقرمشات <br> بطعم مايتكرر</h2>
-    <div class="by-chef">By Chef Ehab</div>
-    <div class="hero-tag">
-      <i class="fas fa-fire-flame-curved" style="color:#e07a2c;"></i> الاختيار الليلة مو سهل .. كلهم يشهّون
-    </div>
-    <div class="catch-phrase">
-      <i class="fas fa-utensils"></i> إذا جرّبته مرة… صعب تنساه
-    </div>
-  </div>
+    <section class="hero">
+        <h1>أهلاً بكم في مطعم تيستي</h1>
+        <p>نقدم أفضل أنواع البرجر، البيتزا، والدجاج المقرمش المحضر طازجاً يومياً</p>
+        <a href="#menu" class="btn">اكتشف القائمة</a>
+    </section>
 
-  <!-- Most requested HOT menu -->
-  <div id="menu" class="hot-section">
-    <div class="section-title">
-      <span>HOT 🔥</span> الأكثر طلباً
-    </div>
-    <div class="menu-grid">
-      <!-- item 1 -->
-      <div class="menu-card">
-        <div class="menu-icon"><i class="fas fa-hamburger"></i></div>
-        <h3>وايت ماشروم</h3>
-        <div class="hot-label">HOT</div>
-      </div>
-      <!-- item 2 -->
-      <div class="menu-card">
-        <div class="menu-icon"><i class="fas fa-drumstick-bite"></i></div>
-        <h3>سموك تيندي</h3>
-        <div class="hot-label">HOT</div>
-      </div>
-      <!-- item 3 -->
-      <div class="menu-card">
-        <div class="menu-icon"><i class="fas fa-cheese-burger"></i></div>
-        <h3>مني بركر</h3>
-        <div class="hot-label">HOT</div>
-      </div>
-      <!-- item 4 -->
-      <div class="menu-card">
-        <div class="menu-icon"><i class="fas fa-french-fries"></i></div>
-        <h3>ناشتوز فرايز</h3>
-        <div class="hot-label">HOT</div>
-      </div>
-      <!-- item 5 -->
-      <div class="menu-card">
-        <div class="menu-icon"><i class="fas fa-egg"></i></div>
-        <h3>ريزو تيندي</h3>
-        <div class="hot-label">HOT</div>
-      </div>
-      <!-- item 6 -->
-      <div class="menu-card">
-        <div class="menu-icon"><i class="fas fa-seedling"></i></div>
-        <h3>فيغا تشكن</h3>
-        <div class="hot-label">HOT</div>
-      </div>
-      <!-- item 7 -->
-      <div class="menu-card">
-        <div class="menu-icon"><i class="fas fa-drumstick-bite"></i></div>
-        <h3>كنتاكي عائلي</h3>
-        <div class="hot-label">عائلي HOT</div>
-      </div>
-    </div>
-  </div>
+    <div class="container" id="menu">
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem; position: relative;">
+            أطباقنا المميزة
+            <span style="display:block; width: 60px; height: 4px; background: var(--primary-color); margin: 10px auto;"></span>
+        </h2>
 
-  <!-- Why TENDY section -->
-  <div id="why" class="why-tendy">
-    <div class="section-title" style="margin-bottom: 1rem;">ليش <span style="background: none; color:#e07a2c;">TENDY?</span></div>
-    <div class="features">
-      <div class="feature"><i class="fas fa-crunchy"></i> قرمشة واضحة</div>
-      <div class="feature"><i class="fas fa-jug"></i> صوصات مميزة</div>
-      <div class="feature"><i class="fas fa-leaf"></i> مكونات طازجة</div>
-      <div class="feature"><i class="fas fa-heart"></i> طعم يمشي وياك</div>
-      <div class="feature"><i class="fas fa-dragon"></i> لحم عراقي</div>
-      <div class="feature"><i class="fas fa-bread-slice"></i> صمون مميز</div>
-    </div>
-  </div>
+        <div class="menu-section">
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=500" alt="Burger">
+                <div class="menu-info">
+                    <h3>برجر تيستي الخاص</h3>
+                    <p>قطعة لحم بقري مشوية على اللهب مع جبن الشيدر الذائب والصلصة السرية.</p>
+                    <span class="price">7,000 د.ع</span>
+                </div>
+            </div>
 
-  <!-- Contact & Location -->
-  <div id="contact" class="contact-info">
-    <div class="info-block">
-      <i class="fas fa-phone-alt"></i>
-      <h4>اتصل بنا</h4>
-      <div class="phone-number">07737711347</div>
-      <button class="btn-call" onclick="window.location.href='tel:07737711347'">
-        <i class="fas fa-phone"></i> اتصل الآن
-      </button>
-    </div>
-    <div class="info-block">
-      <i class="fas fa-map-marker-alt"></i>
-      <h4>الموقع</h4>
-      <p>اسايدين - مقابل أسواق الحمدانية</p>
-      <i class="fas fa-clock" style="margin-top: 10px; display: inline-block;"></i>
-      <p style="margin-top: 5px;">من 10 صباحاً حتى 1 ليلاً</p>
-    </div>
-    <div class="info-block">
-      <i class="fas fa-motorcycle"></i>
-      <h4>خدمة التوصيل</h4>
-      <p>متوفرة لجميع المناطق</p>
-      <p style="font-size: 0.85rem; margin-top: 8px;"><i class="fas fa-check-circle" style="color:#e07a2c;"></i> توصيل سريع</p>
-    </div>
-  </div>
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=500" alt="Pizza">
+                <div class="menu-info">
+                    <h3>بيتزا مارجريتا</h3>
+                    <p>مزيج من الأجبان الإيطالية مع صلصة الريحان الطازجة وعجينة رقيقة مقرمشة.</p>
+                    <span class="price">10,000 د.ع</span>
+                </div>
+            </div>
 
-  <!-- footer -->
-  <footer>
-    <p>© 2026 By Chef Ehab | مطعم تيندي - TENDY</p>
-    <p style="margin-top: 6px;">جميع الحقوق محفوظة · قرمشة لا تُقاوم</p>
-  </footer>
-</div>
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&q=80&w=500" alt="Fried Chicken">
+                <div class="menu-info">
+                    <h3>وجبة الدجاج المقرمش</h3>
+                    <p>3 قطع دجاج بروستد مع البطاطس المقلية وصلصة الثومية والخبز الطازج.</p>
+                    <span class="price">8,500 د.ع</span>
+                </div>
+            </div>
+        </div>
 
-<!-- simple smooth scroll effect -->
-<script>
-  // smooth anchor scroll
-  document.querySelectorAll('.nav-links a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      const hash = this.getAttribute('href');
-      if(hash && hash !== '#' && hash.startsWith('#')) {
-        e.preventDefault();
-        const target = document.querySelector(hash);
-        if(target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    });
-  });
-</script>
+        <div class="contact-info">
+            <h2>تفضل بزيارتنا</h2>
+            <p>العنوان: كركوك - المنطقة التجارية</p>
+            <p>ساعات العمل: من 12 ظهراً حتى 12 ليلاً</p>
+            <a href="https://wa.me/your-number" class="btn" style="background: var(--secondary-color);">اطلب الآن عبر واتساب</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-links">
+            <a href="#">فيسبوك</a> | <a href="#">إنستغرام</a> | <a href="#">واتساب</a>
+        </div>
+        <p style="margin-top: 20px;">Tasty FastFood © 2026 - كركوك، العراق</p>
+    </footer>
+
 </body>
 </html>
