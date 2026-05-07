@@ -1287,6 +1287,88 @@
             <p></p>
         </div>
     </div>
+
+    <!-- AI Assistant -->
+    <div id="ai-chat">
+        <div id="chat-header">مساعد Tasty الذكي 🍕</div>
+        <div id="chat-box"></div>
+        <div id="chat-input-area">
+            <input type="text" id="user-input" placeholder="اكتب طلبك هنا...">
+            <button onclick="sendMessage()">إرسال</button>
+        </div>
+    </div>
+
+    <style>
+        #ai-chat{
+            position:fixed;
+            bottom:90px;
+            left:20px;
+            width:320px;
+            background:white;
+            border-radius:15px;
+            box-shadow:0 0 15px rgba(0,0,0,0.2);
+            overflow:hidden;
+            z-index:9999;
+            font-family:'Tajawal', sans-serif;
+        }
+
+        #chat-header{
+            background:#ff8800;
+            color:white;
+            padding:12px;
+            text-align:center;
+            font-weight:bold;
+        }
+
+        #chat-box{
+            height:300px;
+            overflow-y:auto;
+            padding:10px;
+            background:#fffaf5;
+        }
+
+        .message{
+            margin:10px 0;
+            padding:10px;
+            border-radius:10px;
+            max-width:80%;
+        }
+
+        .user{
+            background:#ffe0b3;
+            margin-right:auto;
+            text-align:right;
+        }
+
+        .bot{
+            background:#f1f1f1;
+            margin-left:auto;
+            text-align:right;
+        }
+
+        #chat-input-area{
+            display:flex;
+            border-top:1px solid #ddd;
+        }
+
+        #user-input{
+            flex:1;
+            border:none;
+            padding:10px;
+            outline:none;
+            font-family:'Tajawal', sans-serif;
+        }
+
+        #chat-input-area button{
+            background:#ff8800;
+            color:white;
+            border:none;
+            padding:10px 15px;
+            cursor:pointer;
+            font-family:'Tajawal', sans-serif;
+            font-weight:bold;
+        }
+    </style>
     
     <script>
         // Menu Data with local images
@@ -1457,6 +1539,98 @@
                 successMsg.remove();
             }, 3000);
         }
+
+        // AI Assistant Functions
+        const menuItemsAI = {
+            "بيتزا": [
+                "بيتزا دجاج",
+                "بيتزا لحم",
+                "بيتزا مشكل",
+                "بيتزا حار",
+                "بيتزا تيستي",
+                "بيتزا كالزون",
+                "بيتزا ستيك چكن"
+            ],
+            "برغر": [
+                "برغر دجاج",
+                "برغر زنجر",
+                "دبل برغر",
+                "كينغ برغر"
+            ]
+        };
+
+        function addMessage(text, sender){
+            const box = document.getElementById('chat-box');
+            const msg = document.createElement('div');
+            msg.classList.add('message');
+            if(sender === 'user'){
+                msg.classList.add('user');
+            }else{
+                msg.classList.add('bot');
+            }
+            msg.innerHTML = text;
+            box.appendChild(msg);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function aiReply(message){
+            message = message.toLowerCase();
+            if(message.includes('بيتزا')){
+                return '🍕 ننصحك بـ بيتزا تيستي أو بيتزا حار لأنها الأكثر طلباً. يمكنك إضافتها للسلة مباشرة من القائمة.';
+            }
+            if(message.includes('برغر')){
+                return '🍔 ننصحك بـ كينغ برغر أو دبل برغر. لدينا أيضاً برغر زنجر المقرمش!';
+            }
+            if(message.includes('سعر') || message.includes('سعره')){
+                return '💰 يمكنك مشاهدة الأسعار مباشرة من المنيو الموجود في الصفحة. الأسعار تبدأ من 250 دينار للمشروبات.';
+            }
+            if(message.includes('مرحبا') || message.includes('السلام') || message.includes('اهلاً')){
+                return 'أهلاً بك في Tasty Fast Food ❤️ كيف يمكنني مساعدتك اليوم؟ يمكنك طلب البيتزا، البرغر، الوجبات الخاصة أو المشروبات.';
+            }
+            if(message.includes('وجبة')){
+                return '🍟 لدينا وجبات مميزة مع البطاطا والمشروبات. جرب وجبة كص دجاج+فنكر أو صاج لحم دبل!';
+            }
+            if(message.includes('توصيل') || message.includes('التوصيل')){
+                return '🚚 رسوم التوصيل 1500 دينار. وقت التوصيل المتوقع 30-40 دقيقة داخل كركوك.';
+            }
+            if(message.includes('العنوان') || message.includes('أين')){
+                return '📍 عنواننا: كركوك - سوق الحصير. نتمنى زيارتكم!';
+            }
+            if(message.includes('الهاتف') || message.includes('رقم')){
+                return '📞 رقم هاتفنا: 07701236363 يمكنك الاتصال بنا للاستفسار أو الطلب.';
+            }
+            if(message.includes('وقت العمل') || message.includes('أوقات')){
+                return '⏰ أوقات العمل: السبت-الخميس من 10:00 صباحاً إلى 11:45 مساءً، الجمعة من 3:00 مساءً إلى 12:00 منتصف الليل.';
+            }
+            if(message.includes('شكرا')){
+                return 'العفو! شكراً لثقتك بنا ❤️ نتمنى لك وجبة شهية!';
+            }
+            return 'شكراً لتواصلك معنا ❤️ كيف يمكنني مساعدتك؟ يمكنك سؤالي عن البيتزا، البرغر، الأسعار، التوصيل، أو أوقات العمل.';
+        }
+
+        function sendMessage(){
+            const input = document.getElementById('user-input');
+            const text = input.value.trim();
+            if(text === '') return;
+            addMessage(text, 'user');
+            setTimeout(() => {
+                const reply = aiReply(text);
+                addMessage(reply, 'bot');
+            }, 500);
+            input.value = '';
+        }
+
+        // Allow Enter key to send message
+        document.addEventListener('DOMContentLoaded', function() {
+            const userInput = document.getElementById('user-input');
+            if(userInput) {
+                userInput.addEventListener('keypress', function(e) {
+                    if(e.key === 'Enter') {
+                        sendMessage();
+                    }
+                });
+            }
+        });
 
         document.addEventListener('DOMContentLoaded', function() {
             // Show admin panel if in admin mode
