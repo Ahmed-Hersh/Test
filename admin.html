@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tasty Fast Food - لوحة التحكم</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    :root{
+      --bg:#f5f7fb; --card:#fff; --text:#263238; --muted:#6b7280; --primary:#2E7D32; --primary-dark:#1B5E20; --secondary:#4CAF50; --border:#e5e7eb; --danger:#dc2626; --warn:#f59e0b; --success:#16a34a;
+      --shadow:0 12px 30px rgba(15,23,42,.08);
+      --radius:18px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:'Tajawal',sans-serif}
+    body{background:var(--bg);color:var(--text);line-height:1.6;padding:24px}
+    .wrap{max-width:1400px;margin:0 auto}
+    .topbar{
+      display:flex;gap:16px;align-items:center;justify-content:space-between;
+      background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+      color:#fff;padding:20px 22px;border-radius:24px;box-shadow:var(--shadow);margin-bottom:20px
+    }
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand-badge{width:54px;height:54px;border-radius:18px;background:rgba(255,255,255,.15);display:grid;place-items:center;font-size:1.4rem}
+    .brand h1{font-size:1.6rem;font-weight:900}
+    .brand p{opacity:.92;font-size:.95rem}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-start}
+    .btn{
+      border:none;border-radius:14px;padding:12px 16px;cursor:pointer;font-weight:800;font-size:.95rem;
+      display:inline-flex;align-items:center;gap:8px;transition:.2s ease;text-decoration:none
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:#fff;color:var(--primary-dark)}
+    .btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)}
+    .btn-soft{background:#eff6ff;color:#1d4ed8}
+    .btn-danger{background:#fee2e2;color:#991b1b}
+    .btn-success{background:#dcfce7;color:#166534}
+    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
+    .card{
+      background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden
+    }
+    .card-h{
+      padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px
+    }
+    .card-h h2{font-size:1.15rem;font-weight:900}
+    .card-b{padding:18px 20px}
+    .status{
+      padding:12px 14px;border-radius:14px;margin-bottom:16px;font-weight:700;display:none
+    }
+    .status.ok{display:block;background:#dcfce7;color:#166534;border:1px solid #86efac}
+    .status.err{display:block;background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+    .status.info{display:block;background:#e0f2fe;color:#075985;border:1px solid #7dd3fc}
+    .tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+    .tab{padding:10px 14px;border-radius:999px;background:#eef2f7;border:1px solid #dbe3ee;cursor:pointer;font-weight:800}
+    .tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .panel{display:none}.panel.active{display:block;animation:fade .18s ease}
+    @keyframes fade{from{opacity:.3;transform:translateY(4px)}to{opacity:1;transform:none}}
+    .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .field{display:flex;flex-direction:column;gap:7px}
+    .field.full{grid-column:1/-1}
+    label{font-size:.92rem;font-weight:800;color:#334155}
+    input,select,textarea{
+      width:100%;padding:12px 13px;border:1px solid var(--border);border-radius:14px;background:#fff;font-size:1rem;outline:none
+    }
+    textarea{min-height:110px;resize:vertical}
+    input:focus,select:focus,textarea:focus{border-color:#94a3b8;box-shadow:0 0 0 4px rgba(59,130,246,.08)}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap}
+    .muted{color:var(--muted);font-size:.95rem}
+    .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
+    .stat{
+      background:linear-gradient(180deg,#fff,#f8fafc);border:1px solid var(--border);border-radius:18px;padding:16px
+    }
+    .stat .k{font-size:.86rem;color:var(--muted);font-weight:800}
+    .stat .v{font-size:1.5rem;font-weight:900;margin-top:6px}
+    .list{display:grid;gap:12px}
+    .row{
+      background:#fff;border:1px solid var(--border);border-radius:16px;padding:14px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center
+    }
+    .row .title{font-weight:900}
+    .row .sub{font-size:.92rem;color:var(--muted);margin-top:4px}
+    .row .mini{font-size:.9rem;color:#475569}
+    .row .right{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-start}
+    .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-weight:800;font-size:.82rem}
+    .pill.ok{background:#dcfce7;color:#166534}.pill.off{background:#fee2e2;color:#991b1b}.pill.info{background:#e0f2fe;color:#075985}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .preview{
+      background:linear-gradient(180deg,#f8fafc,#fff);border:1px dashed #cbd5e1;border-radius:18px;padding:16px
+    }
+    .preview h3{font-size:1rem;margin-bottom:8px}
+    .preview p{margin:4px 0;color:#334155}
+    .small{font-size:.9rem}
+    .code{
+      background:#0f172a;color:#e2e8f0;border-radius:16px;padding:14px;overflow:auto;font-size:.92rem
+    }
+    .footer-note{margin-top:18px;color:var(--muted);font-size:.94rem}
+    @media (max-width: 1080px){ .grid,.split{grid-template-columns:1fr} .stats{grid-template-columns:repeat(2,minmax(0,1fr))} }
+    @media (max-width: 640px){ body{padding:14px} .topbar{padding:16px;border-radius:20px}.brand h1{font-size:1.25rem}.stats{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.row{grid-template-columns:1fr}.actions,.toolbar{width:100%}.btn{width:100%;justify-content:center} }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-badge"><i class="fas fa-utensils"></i></div>
+      <div>
+        <h1>Tasty Fast Food — لوحة التحكم</h1>
+        <p>إدارة المنتجات، الأقسام، والإعدادات من Firebase</p>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-outline" href="index.html" target="_blank"><i class="fas fa-store"></i> فتح الموقع</a>
+      <button class="btn btn-primary" id="btn-refresh"><i class="fas fa-rotate"></i> تحديث البيانات</button>
+    </div>
+  </div>
+
+  <div id="status" class="status info">جاهز...</div>
+
+  <div class="stats">
+    <div class="stat"><div class="k">الأقسام</div><div class="v" id="stat-categories">0</div></div>
+    <div class="stat"><div class="k">المنتجات</div><div class="v" id="stat-products">0</div></div>
+    <div class="stat"><div class="k">المنتجات الفعالة</div><div class="v" id="stat-active">0</div></div>
+    <div class="stat"><div class="k">رسوم التوصيل</div><div class="v" id="stat-delivery">0</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="settings">إعدادات المطعم</button>
+    <button class="tab" data-tab="categories">إدارة الأقسام</button>
+    <button class="tab" data-tab="products">إدارة المنتجات</button>
+    <button class="tab" data-tab="raw">البيانات الخام</button>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-h">
+        <h2 id="panel-title">إعدادات المطعم</h2>
+        <div class="toolbar">
+          <button class="btn btn-success" id="btn-save"><i class="fas fa-floppy-disk"></i> حفظ</button>
+          <button class="btn btn-soft" id="btn-seed"><i class="fas fa-seedling"></i> تحميل بيانات تجريبية</button>
+          <button class="btn btn-danger" id="btn-clear"><i class="fas fa-trash"></i> مسح قاعدة البيانات</button>
+        </div>
+      </div>
+      <div class="card-b">
+        <div id="panel-settings" class="panel active">
+          <div class="form-grid">
+            <div class="field"><label>اسم المطعم</label><input id="s-restaurantName" type="text"></div>
+            <div class="field"><label>العبارة التعريفية</label><input id="s-tagline" type="text"></div>
+            <div class="field"><label>العنوان</label><input id="s-address" type="text"></div>
+            <div class="field"><label>رقم الهاتف</label><input id="s-phone" type="text"></div>
+            <div class="field"><label>رقم واتساب</label><input id="s-whatsapp" type="text" placeholder="9647..."></div>
+            <div class="field"><label>رابط الشعار</label><input id="s-logo" type="text" placeholder="images/logo.png"></div>
+            <div class="field full"><label>رسوم التوصيل</label><input id="s-deliveryFee" type="number" min="0" step="1"></div>
+          </div>
+          <div class="footer-note">هذا القسم يغيّر ما يظهر مباشرة في صفحة <b>index.html</b>.</div>
+        </div>
+
+        <div id="panel-categories" class="panel">
+          <div class="split">
+            <div>
+              <div class="form-grid">
+                <div class="field"><label>معرّف القسم</label><input id="c-id" type="text" placeholder="pizza"></div>
+                <div class="field"><label>اسم الزر</label><input id="c-name" type="text" placeholder="🍕 بيتزا"></div>
+                <div class="field"><label>عنوان الصفحة</label><input id="c-title" type="text" placeholder="قائمة البيتزا"></div>
+                <div class="field"><label>الترتيب</label><input id="c-sort" type="number" min="0" step="1" placeholder="1"></div>
+              </div>
+              <div class="toolbar" style="margin-top:12px">
+                <button class="btn btn-success" id="btn-add-category"><i class="fas fa-plus"></i> إضافة/تحديث قسم</button>
+                <button class="btn btn-soft" id="btn-reset-category"><i class="fas fa-eraser"></i> تفريغ</button>
+              </div>
+            </div>
+            <div class="preview">
+              <h3>ملاحظات القسم</h3>
+              <p class="small">استخدم <b>معرّفًا ثابتًا</b> مثل: <code>pizza</code>, <code>meals</code>, <code>special</code>, <code>drinks</code>.</p>
+              <p class="small">هذا المعرّف هو الذي يربط القسم بالمنتجات الموجودة تحته.</p>
+            </div>
+          </div>
+          <div class="list" id="categories-list" style="margin-top:16px"></div>
+        </div>
+
+        <div id="panel-products" class="panel">
+          <div class="split">
+            <div>
+              <div class="form-grid">
+                <div class="field"><label>معرّف المنتج</label><input id="p-id" type="text" placeholder="pizza14"></div>
+                <div class="field"><label>القسم</label><select id="p-category"></select></div>
+                <div class="field"><label>اسم المنتج</label><input id="p-name" type="text"></div>
+                <div class="field"><label>السعر</label><input id="p-price" type="number" min="0" step="1"></div>
+                <div class="field full"><label>الوصف</label><textarea id="p-description"></textarea></div>
+                <div class="field full"><label>رابط الصورة</label><input id="p-image" type="text" placeholder="images/pizza1.jpg"></div>
+                <div class="field"><label>الترتيب</label><input id="p-sort" type="number" min="0" step="1" value="0"></div>
+                <div class="field"><label>الحالة</label>
+                  <select id="p-active">
+                    <option value="true">فعال</option>
+                    <option value="false">مخفي</option>
+                  </select>
+                </div>
+              </div>
+              <div class="toolbar" style="margin-top:12px">
+                <button class="btn btn-success" id="btn-add-product"><i class="fas fa-plus"></i> إضافة/تحديث منتج</button>
+                <button class="btn btn-soft" id="btn-reset-product"><i class="fas fa-eraser"></i> تفريغ</button>
+              </div>
+            </div>
+            <div class="preview">
+              <h3>نصائح سريعة</h3>
+              <p class="small">إذا كان المعرّف موجودًا، سيتم <b>تحديث نفس المنتج</b>.</p>
+              <p class="small">إذا تركت المعرّف فارغًا، سيُنشأ لك واحد تلقائيًا عند الحفظ.</p>
+            </div>
+          </div>
+          <div class="list" id="products-list" style="margin-top:16px"></div>
+        </div>
+
+        <div id="panel-raw" class="panel">
+          <div class="preview">
+            <h3>شكل البيانات في Firebase</h3>
+            <div class="code" id="raw-json">...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-h">
+        <h2>معلومات الاتصال</h2>
+      </div>
+      <div class="card-b">
+        <div class="preview">
+          <h3>ملفات العمل</h3>
+          <p>ضع <b>admin.html</b> و <b>index.html</b> في نفس المجلد على GitHub Pages.</p>
+          <p>بعد إدخال إعدادات Firebase هنا، سيقرأ الموقع التجريبي نفس القاعدة.</p>
+          <p>يمكنك لاحقًا حماية لوحة التحكم بكلمة مرور أو Firebase Auth.</p>
+        </div>
+        <div style="height:14px"></div>
+        <div class="preview">
+          <h3>خريطة البيانات</h3>
+          <p><b>/settings</b> — إعدادات المطعم</p>
+          <p><b>/categories</b> — الأقسام</p>
+          <p><b>/products</b> — المنتجات</p>
+          <p><b>/orders</b> — الطلبات لاحقًا</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+const firebaseConfig = {
+  enabled: false,
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.firebasestorage.app",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+const sampleData = {
+  settings: {
+    restaurantName: "Tasty Fast Food",
+    tagline: "ألذ الأطباق بأفضل الأسعار",
+    address: "كركوك - سوق الحصير",
+    phone: "07701236363",
+    whatsapp: "9647701236363",
+    logo: "images/logo.png",
+    deliveryFee: 1000
+  },
+  categories: [
+    {id:"pizza",name:"🍕 بيتزا",title:"قائمة البيتزا",sort:1},
+    {id:"meals",name:"🍔 وجبات",title:"قائمة الوجبات",sort:2},
+    {id:"special",name:"🌟 سبيشل",title:"قائمة السبيشل",sort:3},
+    {id:"drinks",name:"🥤 مشروبات و مقبلات",title:"المشروبات والمقبلات",sort:4}
+  ],
+  products: [
+    {id:"pizza1",category:"pizza",name:"بيتزا دجاج",price:5000,description:"بيتزا بالدجاج المشوي وجبنة موزاريلا",image:"images/pizza1.jpg",sort:1,active:true},
+    {id:"burger1",category:"meals",name:"برغر دجاج",price:3500,description:"برغر دجاج مع الخضار والصوص",image:"images/burger1.jpg",sort:1,active:true},
+    {id:"special1",category:"special",name:"تاكو",price:6000,description:"تاكو مكسيكي باللحم والدجاج والخضار",image:"images/special1.jpg",sort:1,active:true},
+    {id:"drink1",category:"drinks",name:"بيبسي",price:500,description:"مشروب غازي منعش",image:"images/drink1.jpg",sort:1,active:true}
+  ]
+};
+
+const state = {
+  data: structuredClone(sampleData),
+  db: null,
+  refs: null,
+  selectedTab: "settings"
+};
+
+const $ = (id) => document.getElementById(id);
+const money = (n) => `${Number(n || 0).toLocaleString('ar-IQ')} دينار`;
+
+function setStatus(type, message){
+  const box = $("status");
+  box.className = `status ${type}`;
+  box.textContent = message;
+}
+
+function escapeHtml(text){
+  return String(text ?? "").replace(/[&<>"']/g, m => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[m]));
+}
+
+function syncFormFromData(){
+  const s = state.data.settings || {};
+  $("s-restaurantName").value = s.restaurantName ?? "";
+  $("s-tagline").value = s.tagline ?? "";
+  $("s-address").value = s.address ?? "";
+  $("s-phone").value = s.phone ?? "";
+  $("s-whatsapp").value = s.whatsapp ?? "";
+  $("s-logo").value = s.logo ?? "";
+  $("s-deliveryFee").value = Number(s.deliveryFee ?? 0);
+
+  fillCategorySelect();
+  renderAll();
+}
+
+function fillCategorySelect(){
+  const select = $("p-category");
+  const cats = [...(state.data.categories || [])].sort((a,b)=>(a.sort||0)-(b.sort||0));
+  select.innerHTML = cats.map(c => `<option value="${escapeHtml(c.id)}">${escapeHtml(c.name || c.title || c.id)}</option>`).join("");
+}
+
+function renderAll(){
+  const cats = [...(state.data.categories || [])].sort((a,b)=>(a.sort||0)-(b.sort||0));
+  const products = [...(state.data.products || [])];
+
+  $("stat-categories").textContent = cats.length;
+  $("stat-products").textContent = products.length;
+  $("stat-active").textContent = products.filter(p => p.active !== false).length;
+  $("stat-delivery").textContent = money(state.data.settings?.deliveryFee || 0);
+
+  $("raw-json").textContent = JSON.stringify(state.data, null, 2);
+
+  renderCategoriesList();
+  renderProductsList();
+  fillCategorySelect();
+}
+
+function renderCategoriesList(){
+  const box = $("categories-list");
+  const cats = [...(state.data.categories || [])].sort((a,b)=>(a.sort||0)-(b.sort||0));
+  if (!cats.length){
+    box.innerHTML = `<div class="row"><div><div class="title">لا توجد أقسام</div><div class="sub">أضف قسمًا جديدًا من النموذج بالأعلى.</div></div></div>`;
+    return;
+  }
+  box.innerHTML = cats.map(c => {
+    const productCount = (state.data.products || []).filter(p => p.category === c.id).length;
+    return `
+      <div class="row">
+        <div>
+          <div class="title">${escapeHtml(c.name || c.id)} <span class="pill info">#${escapeHtml(c.id)}</span></div>
+          <div class="sub">${escapeHtml(c.title || "")}</div>
+          <div class="sub">الترتيب: ${escapeHtml(c.sort ?? 0)} — عدد المنتجات: ${productCount}</div>
+        </div>
+        <div class="right">
+          <button class="btn btn-soft" data-edit-category="${escapeHtml(c.id)}"><i class="fas fa-pen"></i> تعديل</button>
+          <button class="btn btn-danger" data-delete-category="${escapeHtml(c.id)}"><i class="fas fa-trash"></i> حذف</button>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+function renderProductsList(){
+  const box = $("products-list");
+  const products = [...(state.data.products || [])].sort((a,b)=> (a.category||"").localeCompare(b.category||"") || (a.sort||0)-(b.sort||0));
+  if (!products.length){
+    box.innerHTML = `<div class="row"><div><div class="title">لا توجد منتجات</div><div class="sub">أضف منتجًا جديدًا من النموذج بالأعلى.</div></div></div>`;
+    return;
+  }
+  box.innerHTML = products.map(p => `
+    <div class="row">
+      <div>
+        <div class="title">${escapeHtml(p.name)} <span class="pill ${p.active === false ? "off" : "ok"}">${p.active === false ? "مخفي" : "فعال"}</span></div>
+        <div class="sub">${escapeHtml(p.category || "")} — ${money(p.price)} — ${escapeHtml(p.id || "")}</div>
+        <div class="sub">${escapeHtml(p.description || "")}</div>
+        <div class="sub">الترتيب: ${escapeHtml(p.sort ?? 0)}</div>
+      </div>
+      <div class="right">
+        <button class="btn btn-soft" data-edit-product="${escapeHtml(p.id)}"><i class="fas fa-pen"></i> تعديل</button>
+        <button class="btn btn-danger" data-delete-product="${escapeHtml(p.id)}"><i class="fas fa-trash"></i> حذف</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function setTab(tab){
+  state.selectedTab = tab;
+  document.querySelectorAll(".tab").forEach(btn => btn.classList.toggle("active", btn.dataset.tab === tab));
+  document.querySelectorAll(".panel").forEach(panel => panel.classList.remove("active"));
+  $(`panel-${tab}`).classList.add("active");
+  const titles = {
+    settings: "إعدادات المطعم",
+    categories: "إدارة الأقسام",
+    products: "إدارة المنتجات",
+    raw: "البيانات الخام"
+  };
+  $("panel-title").textContent = titles[tab] || "لوحة التحكم";
+}
+
+function readSettingsForm(){
+  return {
+    restaurantName: $("s-restaurantName").value.trim(),
+    tagline: $("s-tagline").value.trim(),
+    address: $("s-address").value.trim(),
+    phone: $("s-phone").value.trim(),
+    whatsapp: $("s-whatsapp").value.trim(),
+    logo: $("s-logo").value.trim(),
+    deliveryFee: Number($("s-deliveryFee").value || 0)
+  };
+}
+
+function resetCategoryForm(){
+  $("c-id").value = "";
+  $("c-name").value = "";
+  $("c-title").value = "";
+  $("c-sort").value = "";
+}
+
+function resetProductForm(){
+  $("p-id").value = "";
+  $("p-category").value = (state.data.categories[0]?.id || "pizza");
+  $("p-name").value = "";
+  $("p-price").value = "";
+  $("p-description").value = "";
+  $("p-image").value = "";
+  $("p-sort").value = "0";
+  $("p-active").value = "true";
+}
+
+function writeLocalState(){
+  // This keeps the page usable even before Firebase is configured.
+  syncFormFromData();
+  setStatus("ok", "تم تحديث الواجهة محليًا. اربط Firebase ليصبح الحفظ فعليًا على القاعدة.");
+}
+
+async function loadFromFirebase(){
+  if(!firebaseConfig.enabled){
+    state.data = structuredClone(sampleData);
+    syncFormFromData();
+    setStatus("info", "Firebase غير مفعّل الآن. الصفحة تعمل على البيانات التجريبية.");
+    return;
+  }
+  try{
+    const {initializeApp} = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
+    const {getDatabase, ref, get, set, update, remove, child, push} = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js");
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    state.db = db;
+    state.refs = {ref, get, set, update, remove, child, push};
+    const snap = await get(ref(db, "/"));
+    const raw = snap.val() || {};
+    state.data = {
+      settings: { ...sampleData.settings, ...(raw.settings || {}) },
+      categories: raw.categories ? (Array.isArray(raw.categories) ? raw.categories : Object.entries(raw.categories).map(([id,v]) => ({id, ...v}))) : structuredClone(sampleData.categories),
+      products: raw.products ? (Array.isArray(raw.products) ? raw.products : Object.entries(raw.products).map(([id,v]) => ({id, ...v}))) : structuredClone(sampleData.products)
+    };
+    syncFormFromData();
+    setStatus("ok", "تم تحميل البيانات من Firebase بنجاح.");
+  }catch(err){
+    console.error(err);
+    state.data = structuredClone(sampleData);
+    syncFormFromData();
+    setStatus("err", "تعذر الاتصال بـ Firebase. يتم عرض البيانات التجريبية الآن.");
+  }
+}
+
+async function saveToFirebase(path, value){
+  if(!firebaseConfig.enabled || !state.db){
+    setStatus("info", "Firebase غير مفعّل. غيّر firebaseConfig.enabled إلى true ثم أدخل بيانات مشروعك.");
+    return false;
+  }
+  const {set, ref} = state.refs;
+  await set(ref(state.db, path), value);
+  return true;
+}
+
+async function deleteFromFirebase(path){
+  if(!firebaseConfig.enabled || !state.db){
+    setStatus("info", "Firebase غير مفعّل.");
+    return false;
+  }
+  const {remove, ref} = state.refs;
+  await remove(ref(state.db, path));
+  return true;
+}
+
+async function persistState(){
+  state.data.settings = readSettingsForm();
+  if (firebaseConfig.enabled && state.db){
+    const {set, ref} = state.refs;
+    await set(ref(state.db, "/settings"), state.data.settings);
+    await set(ref(state.db, "/categories"), state.data.categories);
+    await set(ref(state.db, "/products"), state.data.products);
+    setStatus("ok", "تم حفظ الإعدادات والأقسام والمنتجات في Firebase.");
+  } else {
+    writeLocalState();
+  }
+  renderAll();
+}
+
+async function addOrUpdateCategory(){
+  const id = $("c-id").value.trim();
+  const name = $("c-name").value.trim();
+  const title = $("c-title").value.trim();
+  const sort = Number($("c-sort").value || 0);
+
+  if(!id || !name){
+    setStatus("err", "معرّف القسم واسم الزر مطلوبان.");
+    return;
+  }
+  const payload = { id, name, title, sort };
+  const idx = state.data.categories.findIndex(c => c.id === id);
+  if(idx >= 0) state.data.categories[idx] = payload;
+  else state.data.categories.push(payload);
+
+  await persistState();
+  resetCategoryForm();
+  setStatus("ok", "تم حفظ القسم بنجاح.");
+}
+
+async function addOrUpdateProduct(){
+  let id = $("p-id").value.trim();
+  const category = $("p-category").value;
+  const name = $("p-name").value.trim();
+  const price = Number($("p-price").value || 0);
+  const description = $("p-description").value.trim();
+  const image = $("p-image").value.trim();
+  const sort = Number($("p-sort").value || 0);
+  const active = $("p-active").value === "true";
+
+  if(!category || !name){
+    setStatus("err", "القسم واسم المنتج مطلوبان.");
+    return;
+  }
+  if(!id){
+    id = `${category}-${Date.now()}`;
+    $("p-id").value = id;
+  }
+
+  const payload = { id, category, name, price, description, image, sort, active };
+  const idx = state.data.products.findIndex(p => p.id === id);
+  if(idx >= 0) state.data.products[idx] = payload;
+  else state.data.products.push(payload);
+
+  await persistState();
+  resetProductForm();
+  setStatus("ok", "تم حفظ المنتج بنجاح.");
+}
+
+function loadCategoryToForm(id){
+  const c = state.data.categories.find(x => x.id === id);
+  if(!c) return;
+  $("c-id").value = c.id || "";
+  $("c-name").value = c.name || "";
+  $("c-title").value = c.title || "";
+  $("c-sort").value = c.sort ?? 0;
+  setTab("categories");
+}
+
+function loadProductToForm(id){
+  const p = state.data.products.find(x => x.id === id);
+  if(!p) return;
+  $("p-id").value = p.id || "";
+  $("p-category").value = p.category || (state.data.categories[0]?.id || "pizza");
+  $("p-name").value = p.name || "";
+  $("p-price").value = p.price ?? 0;
+  $("p-description").value = p.description || "";
+  $("p-image").value = p.image || "";
+  $("p-sort").value = p.sort ?? 0;
+  $("p-active").value = p.active === false ? "false" : "true";
+  setTab("products");
+}
+
+async function deleteCategory(id){
+  if(!confirm(`حذف القسم "${id}"؟ سيتم أيضًا إزالة المنتجات التابعة له.`)) return;
+  state.data.categories = state.data.categories.filter(c => c.id !== id);
+  state.data.products = state.data.products.filter(p => p.category !== id);
+  await persistState();
+  setStatus("ok", "تم حذف القسم والمنتجات التابعة له.");
+}
+
+async function deleteProduct(id){
+  if(!confirm(`حذف المنتج "${id}"؟`)) return;
+  state.data.products = state.data.products.filter(p => p.id !== id);
+  await persistState();
+  setStatus("ok", "تم حذف المنتج.");
+}
+
+async function seedData(){
+  if(!confirm("تحميل البيانات التجريبية واستبدال ما هو موجود؟")) return;
+  state.data = structuredClone(sampleData);
+  await persistState();
+  syncFormFromData();
+  setStatus("ok", "تم تحميل البيانات التجريبية.");
+}
+
+async function clearDatabase(){
+  if(!confirm("مسح قاعدة البيانات بالكامل؟ سيُحذف settings و categories و products.")) return;
+  if(firebaseConfig.enabled && state.db){
+    await deleteFromFirebase("/settings");
+    await deleteFromFirebase("/categories");
+    await deleteFromFirebase("/products");
+  }
+  state.data = { settings: {}, categories: [], products: [] };
+  syncFormFromData();
+  renderAll();
+  setStatus("ok", "تم مسح البيانات.");
+}
+
+document.querySelectorAll(".tab").forEach(btn => btn.addEventListener("click", () => setTab(btn.dataset.tab)));
+
+$("btn-save").addEventListener("click", persistState);
+$("btn-refresh").addEventListener("click", loadFromFirebase);
+$("btn-seed").addEventListener("click", seedData);
+$("btn-clear").addEventListener("click", clearDatabase);
+
+$("btn-add-category").addEventListener("click", addOrUpdateCategory);
+$("btn-reset-category").addEventListener("click", resetCategoryForm);
+$("btn-add-product").addEventListener("click", addOrUpdateProduct);
+$("btn-reset-product").addEventListener("click", resetProductForm);
+
+document.addEventListener("click", (e) => {
+  const editCategory = e.target.closest("[data-edit-category]");
+  const deleteCategoryBtn = e.target.closest("[data-delete-category]");
+  const editProduct = e.target.closest("[data-edit-product]");
+  const deleteProductBtn = e.target.closest("[data-delete-product]");
+  if(editCategory) loadCategoryToForm(editCategory.dataset.editCategory);
+  if(deleteCategoryBtn) deleteCategory(deleteCategoryBtn.dataset.deleteCategory);
+  if(editProduct) loadProductToForm(editProduct.dataset.editProduct);
+  if(deleteProductBtn) deleteProduct(deleteProductBtn.dataset.deleteProduct);
+});
+
+$("s-restaurantName").addEventListener("input", ()=>{ state.data.settings.restaurantName = $("s-restaurantName").value; });
+$("s-tagline").addEventListener("input", ()=>{ state.data.settings.tagline = $("s-tagline").value; });
+$("s-address").addEventListener("input", ()=>{ state.data.settings.address = $("s-address").value; });
+$("s-phone").addEventListener("input", ()=>{ state.data.settings.phone = $("s-phone").value; });
+$("s-whatsapp").addEventListener("input", ()=>{ state.data.settings.whatsapp = $("s-whatsapp").value; });
+$("s-logo").addEventListener("input", ()=>{ state.data.settings.logo = $("s-logo").value; });
+$("s-deliveryFee").addEventListener("input", ()=>{ state.data.settings.deliveryFee = Number($("s-deliveryFee").value || 0); renderAll(); });
+
+resetCategoryForm();
+resetProductForm();
+loadFromFirebase();
+</script>
+</body>
+</html>
