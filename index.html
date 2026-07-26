@@ -710,4 +710,570 @@
         
         .restaurant-info .address {
             font-weight: 600;
-   
+            color: var(--primary-dark);
+        }
+        
+        .restaurant-info .phone {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: row;
+                text-align: right;
+            }
+            
+            .logo-container {
+                margin-left: 0.8rem;
+                width: 100px;
+                height: 100px;
+            }
+            
+            .restaurant-name h1 {
+                font-size: 2rem;
+            }
+            
+            .menu-items {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .item-image-container {
+                height: 100px;
+            }
+            
+            .cart-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 1.3rem;
+                bottom: 1.2rem;
+                left: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-content {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .restaurant-name h1 {
+                font-size: 1.6rem;
+            }
+            
+            .restaurant-name p {
+                font-size: 0.9rem;
+            }
+            
+            .logo-container {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .category-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+            
+            .menu-item {
+                border-radius: 10px;
+            }
+            
+            .item-image-container {
+                height: 90px;
+            }
+            
+            .item-name {
+                font-size: 0.85rem;
+            }
+            
+            .item-description {
+                font-size: 0.7rem;
+            }
+            
+            .item-price {
+                font-size: 0.85rem;
+            }
+            
+            .add-to-cart {
+                font-size: 0.75rem;
+                padding: 0.4rem;
+            }
+            
+            .restaurant-info {
+                padding: 1rem;
+            }
+            
+            .restaurant-info p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-content">
+            <div class="restaurant-name">
+                <h1>Tasty Fast Food</h1>
+                <p>ألذ الأطباق بأفضل الأسعار</p>
+            </div>
+            <div class="logo-container">
+                <img src="images/logo.png" alt="شعار Tasty Fast Food" class="logo">
+            </div>
+        </div>
+    </header>
+    
+    <!-- Categories Navigation -->
+    <div class="categories">
+        <button class="category-btn active" data-category="pizza">🍕 بيتزا</button>
+        <button class="category-btn" data-category="meals">🍔 وجبات</button>
+        <button class="category-btn" data-category="special">🌟 سبيشل</button>
+        <button class="category-btn" data-category="drinks">🥤 مشروبات و مقبلات</button>
+    </div>
+    
+    <!-- Pizza Menu Section -->
+    <div class="menu-container active" id="pizza-menu">
+        <h2 class="section-title">قائمة البيتزا</h2>
+        <div class="menu-items">
+            <!-- Pizza Items will be generated here -->
+        </div>
+    </div>
+    
+    <!-- Meals Menu Section -->
+    <div class="menu-container" id="meals-menu">
+        <h2 class="section-title">قائمة الوجبات</h2>
+        <div class="menu-items">
+            <!-- Meals Items will be generated here -->
+        </div>
+    </div>
+    
+    <!-- Special Menu Section -->
+    <div class="menu-container" id="special-menu">
+        <h2 class="section-title">قائمة السبيشل</h2>
+        <div class="menu-items">
+            <!-- Special Items will be generated here -->
+        </div>
+    </div>
+    
+    <!-- Drinks Menu Section -->
+    <div class="menu-container" id="drinks-menu">
+        <h2 class="section-title">المشروبات والمقبلات</h2>
+        <div class="menu-items">
+            <!-- Drinks Items will be generated here -->
+        </div>
+    </div>
+    
+    <!-- Restaurant Info -->
+    <div class="restaurant-info">
+        <p class="address">العنوان: كركوك - سوق الحصير</p>
+        <p class="phone">رقم الهاتف: 07701236363</p>
+    </div>
+    
+    <!-- Floating Cart Button -->
+    <button class="cart-btn">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count">0</span>
+    </button>
+    
+    <!-- Cart Sidebar -->
+    <div class="cart-container">
+        <div class="cart-header">
+            <div class="cart-title"><i class="fas fa-cart-plus"></i> سلة التسوق</div>
+            <button class="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be added here dynamically -->
+        </div>
+        <div class="cart-total">
+            <span>المجموع:</span>
+            <span class="total-price">0 دينار</span>
+        </div>
+        <div class="delivery-fee">
+            <span>رسوم التوصيل:</span>
+            <span class="delivery-price">1500 دينار</span>
+        </div>
+        <div class="total-with-delivery">
+            <span>المجموع الكلي:</span>
+            <span class="total-with-delivery-price">1500 دينار</span>
+        </div>
+        
+        <!-- Notes Section in Cart -->
+        <div class="cart-notes-container">
+            <label for="cart-notes" class="cart-notes-label"><i class="fas fa-edit"></i> ملاحظات خاصة:</label>
+            <textarea id="cart-notes" class="cart-notes-input" placeholder="اكتب هنا أي ملاحظات أو تعليمات خاصة بطلبك..."></textarea>
+        </div>
+        
+        <button class="checkout-btn"><i class="fas fa-paper-plane"></i> إتمام الطلب</button>
+    </div>
+    
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkout-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">معلومات التوصيل</div>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="customer-form">
+                <div class="form-group">
+                    <label for="customer-name" class="form-label">الاسم الكامل</label>
+                    <input type="text" id="customer-name" class="form-input" required placeholder="ادخل اسمك الكامل">
+                </div>
+                <div class="form-group">
+                    <label for="customer-address" class="form-label">عنوان التوصيل</label>
+                    <input type="text" id="customer-address" class="form-input" required placeholder="ادخل عنوانك بالتفصيل">
+                </div>
+                <div class="form-group">
+                    <label for="customer-phone" class="form-label">رقم الهاتف</label>
+                    <input type="tel" id="customer-phone" class="form-input" required placeholder="ادخل رقم هاتفك">
+                </div>
+                <button type="submit" class="submit-order"><i class="fas fa-check-circle"></i> تأكيد الطلب</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Menu Data with local images
+        let menuData = {
+            pizza: [
+                { name: "بيتزا دجاج", price: 5000, description: "بيتزا بالدجاج المشوي وجبنة موزاريلا", image: "images/pizza1.jpg" },
+                { name: "بيتزا لحم", price: 6000, description: "بيتزا باللحم المفروم الطازج", image: "images/pizza2.jpg" },
+                { name: "بيتزا مشكل", price: 6000, description: "بيتزا بالدجاج واللحم والفطر", image: "images/pizza3.jpg" },
+                { name: "بيتزا كص", price: 6000, description: "بيتزا بالصوص الخاص ولحم البقر", image: "images/pizza4.jpg" },
+                { name: "بيتزا خضروات", price: 4500, description: "بيتزا نباتية بالخضار الطازجة", image: "images/pizza5.jpg" },
+                { name: "بيتزا حار", price: 6000, description: "بيتزا بالصوص الحار والدجاج", image: "images/pizza6.jpg" },
+                { name: "بيتزا كالزون", price: 6500, description: "بيتزا محشوة بالجبنة واللحم", image: "images/pizza7.jpg" },
+                { name: "بيتزا محشي", price: 6000, description: "بيتزا محشوة بالدجاج او اللحم والجبنة", image: "images/pizza8.jpg" },
+                { name: "بيتزا مارجريتا", price: 4000, description: "بيتزا كلاسيكية بالجبنة", image: "images/pizza9.jpg" },
+                { name: "بيتزا تيستي", price: 7000, description: "بيتزا مميزة فصول أربعة ", image: "images/pizza10.jpg" },
+                { name: "بيتزا ستيك جكن", price: 7000, description: "بيتزا بشرائح ستيك الدجاج", image: "images/pizza11.jpg" },
+                { name: "بيتزا فنكر", price: 4500, description: "بيتزا بأصابع البطاطا المقرمشة", image: "images/pizza12.jpg" },
+                { name: "بيتزا صوصج", price: 5000, description: "بيتزا بالصوصج بالجبنة", image: "images/pizza13.jpg" }
+            ],
+            meals: [
+                { name: "برغر دجاج", price: 3500, description: "برغر دجاج مع الخضار والصوص", image: "images/burger1.jpg" },
+                { name: "برغر لحم", price: 4000, description: "برغر لحم بقري طازج", image: "images/burger2.jpg" },
+                { name: "دبل برغر", price: 6000, description: "برغر مزدوج باللحم والجبنة", image: "images/burger3.jpg" },
+                { name: "برغر مكسيكي", price: 5000, description: "برغر بالصوص المكسيكي الحار", image: "images/burger4.jpg" },
+                { name: "برغر زنجر", price: 5000, description: "برغر دجاج زنجر مقرمش", image: "images/burger5.jpg" },
+                { name: "كينغ برغر", price: 6000, description: "برغر كبير باللحم والخضار", image: "images/burger6.jpg" },
+                { name: "كص دجاج+فنكر", price: 3000, description: "وجبة دجاج مع أصابع البطاطا", image: "images/meal1.jpg" },
+                { name: "كص لحم +فنكر", price: 3500, description: "وجبة لحم مع أصابع البطاطا", image: "images/meal2.jpg" },
+                { name: "صاج لحم دبل", price: 5000, description: "وجبة لحم مزدوجة على الصاج", image: "images/meal3.jpg" },
+                { name: "صاج دجاج دبل", price: 4000, description: "وجبة دجاج مزدوجة على الصاج", image: "images/meal4.jpg" },
+                { name: "طبق كص لحم", price: 6500, description: "طبق لحم كامل مع الخضار", image: "images/meal5.jpg" },
+                { name: "طبق كص دجاج", price: 5500, description: "طبق دجاج كامل مع الخضار", image: "images/meal6.jpg" },
+                { name: "طبق كص مشكل", price: 6000, description: "طبق مشكل باللحم والدجاج", image: "images/meal7.jpg" },
+                { name: "سندويش راب", price: 5000, description: "سندويش راب بالخضار والصوص", image: "images/meal8.jpg" },
+                { name: "سندويش تيستي", price: 5000, description: "سندويش مميز بالصوص الخاص", image: "images/meal9.jpg" },
+                { name: "فيلادلفيا", price: 6000, description: "سندويش فيلادلفيا باللحم", image: "images/meal10.jpg" }
+            ],
+            special: [
+                { name: "تاكو", price: 6000, description: "تاكو مكسيكي باللحم والدجاج والخضار", image: "images/special1.jpg" },
+                { name: "طبق ستيك دجاج بالمشروم", price: 6000, description: "ستيك دجاج مع صلصة المشروم", image: "images/special2.jpg" },
+                { name: "طبق ستيك دجاج", price: 5000, description: "ستيك دجاج مشوي مع الخضار", image: "images/special3.jpg" },
+                { name: "3 قطع صدر دجاج مع فنكر", price: 4000, description: "3 قطع دجاج مع أصابع البطاطا", image: "images/special4.jpg" },
+                { name: "5 قطع صدر دجاج مع فنكر", price: 6000, description: "5 قطع دجاج مع أصابع البطاطا", image: "images/special5.jpg" },
+                { name: "ريزو كنتاكي", price: 5000, description: "أرز بالدجاج المقلي والخضار", image: "images/special6.jpg" },
+                { name: "ريزو كص دجاج", price: 5000, description: "أرز بالصوص الخاص والدجاج", image: "images/special7.jpg" },
+                { name: "ريزو كص لحم", price: 5000, description: "أرز بالصوص الخاص واللحم", image: "images/special8.jpg" },
+                { name: "باستا دجاج", price: 5000, description: "معكرونة بالدجاج والصوص الأبيض", image: "images/special9.jpg" },
+                { name: "باستا لحم", price: 5000, description: "معكرونة باللحم والصوص الأحمر", image: "images/special10.jpg" },
+                { name: "فنكر تيستي", price: 3500, description: "أصابع بطاطا مع اللحم والجبن مميزة بالتوابل", image: "images/special11.jpg" },
+                { name: "طبق فنكر", price: 2500, description: "طبق أصابع البطاطا المقرمشة", image: "images/special12.jpg" },
+                { name: "طبق وجز", price: 3000, description: "طبق بطاطا مشوية", image: "images/special13.jpg" },
+                { name: "حلقات بصل", price: 2000, description: "حلقات بصل مقرمشة", image: "images/special14.jpg" },
+                { name: "كلاص فنكر", price: 1500, description: "أصابع بطاطا مقرمشة", image: "images/special15.jpg" }
+            ],
+            drinks: [
+                { name: "بيبسي", price: 500, description: "مشروب غازي منعش", image: "images/drink1.jpg" },
+                { name: "شنينه", price: 500, description: "مشروب لبن و نعناع", image: "images/drink6.jpg" },
+                { name: "سفن", price: 500, description: "مشروب غازي خفيف", image: "images/drink3.jpg" },
+                { name: "ميرندا", price: 500, description: "مشروب غازي بنكهة البرتقال", image: "images/drink4.jpg" },
+                { name: "ماء", price: 250, description: "ماء معدني", image: "images/drink5.jpg" },
+                { name: "مقبلات صغير", price: 2000, description: "طبق مقبلات صغير الحجم", image: "images/appetizer1.jpg" },
+                { name: "مقبلات وسط", price: 3000, description: "طبق مقبلات متوسط الحجم", image: "images/appetizer2.jpg" },
+                { name: "مقبلات كبير", price: 5000, description: "طبق مقبلات كبير الحجم", image: "images/appetizer3.jpg" }
+            ]
+        };
+
+        // Generate Menu Items
+        function generateMenuItems() {
+            for (const category in menuData) {
+                const container = document.getElementById(`${category}-menu`).querySelector('.menu-items');
+                container.innerHTML = '';
+                
+                menuData[category].forEach(item => {
+                    const menuItem = document.createElement('div');
+                    menuItem.className = 'menu-item';
+                    
+                    menuItem.innerHTML = `
+                        <div class="item-image-container">
+                            <img src="${item.image}" alt="${item.name}" class="item-image" loading="lazy">
+                        </div>
+                        <div class="item-details">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-description">${item.description}</div>
+                            <div class="item-price">${item.price} دينار</div>
+                            <button class="add-to-cart" data-name="${item.name}" data-price="${item.price}">
+                                <i class="fas fa-cart-plus"></i> إضافة للسلة
+                            </button>
+                        </div>
+                    `;
+                    
+                    container.appendChild(menuItem);
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            generateMenuItems();
+            
+            // Category switching
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const menuContainers = document.querySelectorAll('.menu-container');
+            
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons and containers
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    menuContainers.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Show corresponding menu
+                    const category = this.getAttribute('data-category');
+                    document.getElementById(`${category}-menu`).classList.add('active');
+                });
+            });
+            
+            // Cart functionality
+            const cartBtn = document.querySelector('.cart-btn');
+            const cartContainer = document.querySelector('.cart-container');
+            const closeCartBtn = document.querySelector('.close-cart');
+            const cartItemsContainer = document.querySelector('.cart-items');
+            const cartCount = document.querySelector('.cart-count');
+            const totalPriceElement = document.querySelector('.total-price');
+            const totalWithDeliveryElement = document.querySelector('.total-with-delivery-price');
+            const checkoutBtn = document.querySelector('.checkout-btn');
+            const checkoutModal = document.getElementById('checkout-modal');
+            const closeModalBtn = document.querySelector('.close-modal');
+            const customerForm = document.getElementById('customer-form');
+            const cartNotesInput = document.getElementById('cart-notes');
+            
+            let cart = [];
+            let totalPrice = 0;
+            const deliveryFee = 1500;
+            
+            // Add to cart
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('add-to-cart') || e.target.closest('.add-to-cart')) {
+                    const btn = e.target.classList.contains('add-to-cart') ? e.target : e.target.closest('.add-to-cart');
+                    const name = btn.getAttribute('data-name');
+                    const price = parseInt(btn.getAttribute('data-price'));
+                    
+                    // Check if item already exists in cart
+                    const existingItem = cart.find(item => item.name === name);
+                    
+                    if (existingItem) {
+                        existingItem.quantity += 1;
+                    } else {
+                        cart.push({
+                            name,
+                            price,
+                            quantity: 1
+                        });
+                    }
+                    
+                    updateCart();
+                    
+                    // Add animation to cart button
+                    cartBtn.classList.add('pulse');
+                    setTimeout(() => {
+                        cartBtn.classList.remove('pulse');
+                    }, 300);
+                }
+            });
+            
+            // Update cart
+            function updateCart() {
+                // Clear cart items
+                cartItemsContainer.innerHTML = '';
+                
+                // Reset total price
+                totalPrice = 0;
+                
+                // Add items to cart
+                cart.forEach((item, index) => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'cart-item';
+                    
+                    itemElement.innerHTML = `
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price} دينار</div>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn decrease" data-index="${index}">-</button>
+                            <span class="quantity-value">${item.quantity}</span>
+                            <button class="quantity-btn increase" data-index="${index}">+</button>
+                        </div>
+                        <button class="remove-item" data-index="${index}"><i class="fas fa-trash"></i></button>
+                    `;
+                    
+                    cartItemsContainer.appendChild(itemElement);
+                    
+                    // Add to total price
+                    totalPrice += item.price * item.quantity;
+                });
+                
+                // Update cart count and total price
+                const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
+                cartCount.textContent = itemCount;
+                totalPriceElement.textContent = `${totalPrice} دينار`;
+                totalWithDeliveryElement.textContent = `${totalPrice + deliveryFee} دينار`;
+                
+                // Show/hide cart count
+                cartCount.style.display = itemCount > 0 ? 'flex' : 'none';
+                
+                // Add event listeners to quantity buttons
+                document.querySelectorAll('.decrease').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        if (cart[index].quantity > 1) {
+                            cart[index].quantity -= 1;
+                            updateCart();
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.increase').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        cart[index].quantity += 1;
+                        updateCart();
+                    });
+                });
+                
+                document.querySelectorAll('.remove-item').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        cart.splice(index, 1);
+                        updateCart();
+                    });
+                });
+            }
+            
+            // Show/hide cart
+            function showCart() {
+                cartContainer.classList.add('open');
+            }
+            
+            function hideCart() {
+                cartContainer.classList.remove('open');
+            }
+            
+            cartBtn.addEventListener('click', showCart);
+            closeCartBtn.addEventListener('click', hideCart);
+            
+            // Close cart when clicking outside
+            cartContainer.addEventListener('click', function(e) {
+                if (e.target === cartContainer) {
+                    hideCart();
+                }
+            });
+            
+            // Checkout
+            checkoutBtn.addEventListener('click', function() {
+                if (cart.length === 0) {
+                    alert('السلة فارغة، الرجاء إضافة عناصر أولاً');
+                    return;
+                }
+                
+                checkoutModal.classList.add('open');
+            });
+            
+            // Close modal
+            closeModalBtn.addEventListener('click', function() {
+                checkoutModal.classList.remove('open');
+            });
+            
+            // Close modal when clicking outside
+            checkoutModal.addEventListener('click', function(e) {
+                if (e.target === checkoutModal) {
+                    checkoutModal.classList.remove('open');
+                }
+            });
+            
+            // Submit order
+            customerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('customer-name').value;
+                const address = document.getElementById('customer-address').value;
+                const phone = document.getElementById('customer-phone').value;
+                const notes = cartNotesInput.value;
+                
+                // Prepare order message
+                let message = `🍔 *طلب جديد من Tasty Fast Food* 🍕\n\n`;
+                message += `👤 *الاسم:* ${name}\n`;
+                message += `📍 *العنوان:* ${address}\n`;
+                message += `📞 *رقم الهاتف:* ${phone}\n\n`;
+                message += `📋 *تفاصيل الطلب:*\n`;
+                
+                cart.forEach(item => {
+                    message += `- ${item.name} (${item.quantity} × ${item.price}) = ${item.quantity * item.price} دينار\n`;
+                });
+                
+                message += `\n💰 *المجموع:* ${totalPrice} دينار\n`;
+                message += `🚚 *رسوم التوصيل:* ${deliveryFee} دينار\n`;
+                message += `💵 *المجموع الكلي:* ${totalPrice + deliveryFee} دينار\n`;
+                
+                if (notes) {
+                    message += `\n📝 *ملاحظات:* ${notes}`;
+                }
+                
+                // Encode message for WhatsApp
+                const encodedMessage = encodeURIComponent(message);
+                
+                // Send to WhatsApp
+                window.open(`https://wa.me/9647701236363?text=${encodedMessage}`, '_blank');
+                
+                // Reset cart and close modal
+                cart = [];
+                updateCart();
+                hideCart();
+                checkoutModal.classList.remove('open');
+                customerForm.reset();
+                cartNotesInput.value = '';
+                
+                // Show success message
+                showSuccessMessage('تم إرسال طلبك بنجاح!', 'شكراً لاختيارك Tasty Fast Food');
+            });
+            
+            // Show success message
+            function showSuccessMessage(title, subtitle = '') {
+                const successMsg = document.createElement('div');
+                successMsg.className = 'success-message';
+                successMsg.innerHTML = `
+                    <div class="success-content">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>${title}</h3>
+                        ${subtitle ? `<p>${subtitle}</p>` : ''}
+                    </div>
+                `;
+                document.body.appendChild(successMsg);
+                
+                setTimeout(() => {
+                    successMsg.remove();
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
